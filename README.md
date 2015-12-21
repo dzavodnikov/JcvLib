@@ -14,10 +14,5 @@ VERSION 5.0.0 IN DEVELOPING YET!
 
 
 ### Documentation
- * [Install](https://github.com/dzavodnikov/JcvLib/wiki/Install).
- * [Quick Start](https://github.com/dzavodnikov/JcvLib/wiki/Quick-Start).
- * [Features](https://github.com/dzavodnikov/JcvLib/wiki/Features) -- Manual.
- * [Examples](https://github.com/dzavodnikov/JcvLib/tree/master/src/org/jcvlib/example).
  * [JavaDoc](http://dzavodnikov.github.io/JcvLib/javadoc/index.html) -- Reference.
- * [Google group](http://groups.google.com/group/jcvlib-users).
- * [For Developers](https://github.com/dzavodnikov/JcvLib/wiki/For-Developers).
+
