@@ -14,5 +14,5 @@ VERSION 5.0.0 IN DEVELOPING YET!
 
 
 ### Documentation
- * [JavaDoc](http://dzavodnikov.github.io/JcvLib/javadoc/index.html) -- Reference.
+ * [JavaDoc](https://dzavodnikov.github.io/JcvLib/javadoc/index.html) -- Reference.
 
