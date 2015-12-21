@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!--
+    If in Eclipse IDE you get an error:
+
+        Unable to find a javac; Perhaps JAVA_HOME does not point to the JDK...
+
+    you should go to:
+
+        'Window' -> 'Preferences' -> 'Java' -> 'Installed JRE'
+
+    and define path to you JDK.
+-->
+<!--
+    If in Eclipse IDE you get an error:
+
+        Specified VM install not found...
+
+    you should go to:
+
+        '<WORKSPACE>/.metadata/.plugins/org.eclipse.debug.core/.launches/'
+
+    and remove file:
+
+        '<PROJECT_NAME> build.xml.launch'
+
+    or just remove all '*.launch' files.
+-->
+<!--
+    If in Eclipse IDE you get an error:
+
+        Error: Could not find or load main class...
+
+    Just execute:
+
+        'Project' -> 'Clean...'
+
+    and select your project.
+-->
+<project name="JcvLib (Java Computer Vision Library)" default="build" basedir=".">
+    <property name="program.name"       value="JcvLib" />
+    <property name="program.ver.major"  value="5" />
+    <property name="program.ver.minor"  value="0" />
+    <property name="program.ver.patch"  value="0" />
+
+    <property name="program.ver"        value="${program.ver.major}.${program.ver.minor}.${program.ver.patch}" />
+    <property name="program"            value="${program.name}-${program.ver}" />
+
+    <property name="license.file"       value="LICENSE.txt" />
+    <property name="notice.file"        value="NOTICE.txt" />
+
+    <property name="bin.dir"            value="bin" />
+    <property name="src.dir"            value="src/main" />
+    <property name="doc.dir"            value="doc" />
+    <property name="javadoc.dir"        value="javadoc" />
+    <property name="lib.dir"            value="lib" />
+    <property name="res.dir"              value="resources" />
+    <property name="build.dir"          value="build" />
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar" />
+    </path>
+
+    <target name="clean">
+        <delete dir="${bin.dir}" />
+        <delete dir="${build.dir}" />
+        <delete dir="${javadoc.dir}" />
+        <delete>
+            <fileset dir="${basedir}" includes="*.zip" />
+        </delete>
+    </target>
+
+    <target name="mkdir" depends="clean">
+        <mkdir dir="${bin.dir}" />
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${javadoc.dir}" />
+    </target>
+
+    <target name="compile" depends="mkdir">
+        <javac 
+            srcdir="${src.dir}" 
+            destdir="${bin.dir}" 
+            includeAntRuntime="false" 
+            encoding="UTF-8">
+
+            <classpath refid="classpath" />
+        </javac>
+    </target>
+
+    <target name="test" depends="compile" description="Run unit-tests.">
+        <junit printsummary="yes" haltonfailure="yes" showoutput="yes">
+            <classpath>
+                <pathelement path="${bin.dir}" />
+            </classpath>
+            <classpath refid="classpath" />
+
+            <batchtest fork="yes">
+                <fileset dir="${src.dir}">
+                    <include name="**/*Test.java" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="javadoc" description="Generate JavaDocs.">
+        <javadoc 
+            sourcepath="${src.dir}" 
+            destdir="${javadoc.dir}" 
+            encoding="UTF-8" 
+            docencoding="UTF-8" 
+            charset="UTF-8"
+            access="public" 
+            notree="true">
+
+            <fileset dir="${src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+
+            <classpath refid="classpath" />
+        </javadoc>
+    </target>
+
+    <target name="build" depends="test, javadoc" description="Build JAR-file.">
+        <jar destfile="${build.dir}/${program}-bin.jar" basedir="${bin.dir}" />
+        <jar destfile="${build.dir}/${program}-src.jar" basedir="${src.dir}" />
+
+        <copy todir="${build.dir}/${lib.dir}">
+            <fileset dir="${lib.dir}" />
+        </copy>
+
+        <copy todir="${build.dir}/${doc.dir}/javadoc">
+            <fileset dir="${javadoc.dir}" />
+        </copy>
+
+        <copy todir="${build.dir}/${res.dir}">
+            <fileset dir="${res.dir}" />
+        </copy>
+
+        <copy file="${license.file}" todir="${build.dir}" />
+        <copy file="${notice.file}"  todir="${build.dir}" />
+    </target>
+
+    <target name="create-zip-distr" depends="build" description="Create distrib as ZIP-file.">
+        <zip destfile="${basedir}/${program}.zip" basedir="${build.dir}" />
+    </target>
+</project>
