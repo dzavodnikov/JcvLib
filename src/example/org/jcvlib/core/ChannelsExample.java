@@ -33,7 +33,7 @@ import org.jcvlib.io.ImageRW;
  * <a href="http://en.wikipedia.org/wiki/Alpha_compositing">Alpha</a>) channels.
  * </p>
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class ChannelsExample {
 

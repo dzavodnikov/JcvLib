@@ -35,7 +35,7 @@ import junit.framework.TestSuite;
 /**
  * Test main image class {@link Image}.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class ImageTest extends TestSuite {
 

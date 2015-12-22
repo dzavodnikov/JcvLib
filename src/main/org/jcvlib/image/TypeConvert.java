@@ -27,7 +27,7 @@ import org.jcvlib.core.JCV;
 /**
  * Contains methods to convert images from one type to another.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class TypeConvert {
 

@@ -29,7 +29,7 @@ import org.jcvlib.core.Point;
 /**
  * Detect objects on given image.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class ObjectDetect {
 

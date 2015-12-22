@@ -28,7 +28,7 @@ import org.junit.Test;
 /**
  * Test class for points {@link Point}.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class PointTest {
 

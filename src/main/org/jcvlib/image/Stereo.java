@@ -28,7 +28,7 @@ import org.jcvlib.parallel.PixelsLoop;
 /**
  * This class contains algorithms for <a href="http://en.wikipedia.org/wiki/Computer_stereo_vision">stereo vision</a>.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class Stereo {
 

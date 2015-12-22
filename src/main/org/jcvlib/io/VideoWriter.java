@@ -25,7 +25,7 @@ import org.jcvlib.core.Image;
 /**
  * Interface for writing images to video stream of different sources (video file, network and etc.).
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public interface VideoWriter {
 

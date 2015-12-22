@@ -26,7 +26,7 @@ import org.junit.Test;
 /**
  * Test main image classes {@link Interpolation}.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class InterpolationTest {
 

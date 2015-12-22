@@ -63,7 +63,7 @@ import com.xuggle.xuggler.Utils;
  * </pre></code>
  * </p>
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 /*
  * See:

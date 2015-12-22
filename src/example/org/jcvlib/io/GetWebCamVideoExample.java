@@ -27,7 +27,7 @@ import org.jcvlib.gui.Window;
 /**
  * This is example show how to read images from web-camera.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class GetWebCamVideoExample {
 

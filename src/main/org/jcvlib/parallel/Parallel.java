@@ -52,7 +52,7 @@ import org.jparfor.JParFor;
  * </pre></code>
  * </p>
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class Parallel {
 

@@ -31,7 +31,7 @@ import org.jcvlib.io.ImageRW;
 /**
  * This is example show how to use geometry transformations.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class GeometryExample {
 

@@ -29,7 +29,7 @@ import org.jcvlib.core.JCV;
 /**
  * Internal class for display image.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 class ImageComponent extends JComponent {
 

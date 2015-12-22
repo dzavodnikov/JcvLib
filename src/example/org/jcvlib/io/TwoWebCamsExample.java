@@ -27,7 +27,7 @@ import org.jcvlib.gui.Window;
 /**
  * This is example show how to read images from 2 web-cameras for stereoscopic applications.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class TwoWebCamsExample {
 

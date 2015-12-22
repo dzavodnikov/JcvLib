@@ -25,7 +25,7 @@ import javax.swing.JLabel;
 /**
  * Internal class for status bar on image window.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 class StatusBar extends JLabel {
 

@@ -34,7 +34,7 @@ import org.jcvlib.io.ImageRW;
  * We use <a href="http://www.zennaro.net/projects/compvis/gp/gp.htm">Gaussian pyramid</a> for our algorithms.
  * </p>
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class PyramidsExample {
 

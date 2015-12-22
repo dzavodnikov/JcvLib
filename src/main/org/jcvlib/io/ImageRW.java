@@ -84,7 +84,7 @@ import com.sixlegs.png.PngImage;
  * </ol>
  * </p>
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class ImageRW {
 

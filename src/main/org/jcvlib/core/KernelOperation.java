@@ -21,7 +21,7 @@ package org.jcvlib.core;
 /**
  * Interface for implement linear and nonlinear operations.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public interface KernelOperation {
 

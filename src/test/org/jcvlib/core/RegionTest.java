@@ -26,7 +26,7 @@ import org.junit.Test;
 /**
  * Test class for points {@link Region}.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class RegionTest {
 

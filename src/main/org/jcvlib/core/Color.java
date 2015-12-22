@@ -23,7 +23,7 @@ import java.text.MessageFormat;
 /**
  * This class contains all color values of some pixel.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class Color {
 

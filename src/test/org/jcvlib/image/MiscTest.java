@@ -34,7 +34,7 @@ import Jama.Matrix;
 /**
  * Test {@link Misc}.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class MiscTest {
 

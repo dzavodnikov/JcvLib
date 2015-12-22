@@ -36,7 +36,7 @@ import org.jcvlib.io.WebCamReader;
 /**
  * This is example show how to use motion detector.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class MotionDetectorExample {
 

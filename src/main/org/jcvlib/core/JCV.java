@@ -25,7 +25,7 @@ import Jama.Matrix;
 /**
  * Contains common useful constants and methods.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class JCV {
 

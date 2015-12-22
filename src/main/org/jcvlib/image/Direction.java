@@ -27,7 +27,7 @@ import org.jcvlib.core.Size;
 /**
  * Contains direction types.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public enum Direction {
     /**

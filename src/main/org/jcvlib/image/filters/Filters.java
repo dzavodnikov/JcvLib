@@ -33,7 +33,7 @@ import Jama.Matrix;
 /**
  * Contains base filters.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class Filters {
 

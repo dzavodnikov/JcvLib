@@ -22,7 +22,7 @@ package org.jcvlib.core;
  * Contain <code>[height, width]</code> size of image, rectangle or something else. This is <strong>immutable</strong>
  * object.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class Size {
 

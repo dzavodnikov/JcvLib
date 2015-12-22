@@ -26,7 +26,7 @@ import org.jcvlib.core.Image;
 /**
  * This is example show how to write video into the file.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class WriteVideoExample {
 

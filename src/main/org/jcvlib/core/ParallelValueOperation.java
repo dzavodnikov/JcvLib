@@ -21,7 +21,7 @@ package org.jcvlib.core;
 /**
  * Interface for execute code in many workers for independent values (pixels and channels).
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public interface ParallelValueOperation {
 

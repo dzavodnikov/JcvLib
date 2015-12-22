@@ -34,7 +34,7 @@ import Jama.Matrix;
 /**
  * This is a base class for geometry transformations.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class Geometry {
 

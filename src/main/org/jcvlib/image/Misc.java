@@ -38,7 +38,7 @@ import Jama.Matrix;
 /**
  * Contains miscellaneous image processing methods.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class Misc {
 

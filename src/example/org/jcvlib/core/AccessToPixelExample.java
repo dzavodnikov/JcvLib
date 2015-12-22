@@ -18,13 +18,12 @@
  */
 package org.jcvlib.core;
 
-import org.jcvlib.core.Image;
 import org.jcvlib.gui.Window;
 
 /**
  * This is example show how to get and set pixels values on images.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class AccessToPixelExample {
 
@@ -50,7 +49,7 @@ public class AccessToPixelExample {
         }
 
         // Get values into image.
-        System.out.println("Brightness of first  sqaure: " + image.get( 10,  10, 0));
+        System.out.println("Brightness of first  sqaure: " + image.get(10, 10, 0));
         System.out.println("Brightness of second sqaure: " + image.get(110, 110, 0));
         System.out.println("Brightness of third  sqaure: " + image.get(210, 210, 0));
 

@@ -21,7 +21,7 @@ package org.jcvlib.image;
 /**
  * Contains flood fill range types.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public enum FloodFillRange {
     /**

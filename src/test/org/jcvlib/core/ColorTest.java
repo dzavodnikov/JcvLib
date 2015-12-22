@@ -28,7 +28,7 @@ import org.junit.Test;
 /**
  * Test class for colors {@link Color}.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class ColorTest {
 

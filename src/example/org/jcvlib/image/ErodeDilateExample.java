@@ -32,7 +32,7 @@ import org.jcvlib.io.ImageRW;
  * This is example show how to use <a href="http://en.wikipedia.org/wiki/Mathematical_morphology">morphology
  * operations</a>.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class ErodeDilateExample {
 

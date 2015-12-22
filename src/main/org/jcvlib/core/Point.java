@@ -21,7 +21,7 @@ package org.jcvlib.core;
 /**
  * Contain <code>(x, y)</code> position on image. This is <strong>immutable</strong> object.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class Point {
 

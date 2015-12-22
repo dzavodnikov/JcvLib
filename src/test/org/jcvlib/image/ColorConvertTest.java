@@ -30,7 +30,7 @@ import org.junit.Test;
 /**
  * Test {@link ColorConvert} to convert color schemas.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class ColorConvertTest {
 

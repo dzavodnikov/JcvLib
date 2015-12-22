@@ -64,11 +64,11 @@ import com.xuggle.xuggler.Utils;
  * </pre></code>
  * </p>
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 /*
  * Based on examples from:
- * * https://github.com/xuggle/xuggle-xuggler/blob/master/src/com/xuggle/xuggler/demos/DisplayWebcamVideo.java
+ *      https://github.com/xuggle/xuggle-xuggler/blob/master/src/com/xuggle/xuggler/demos/DisplayWebcamVideo.java
  */
 public class WebCamReader implements VideoReader, Runnable {
 

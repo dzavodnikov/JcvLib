@@ -33,7 +33,7 @@ import org.jcvlib.io.ImageRW;
  * <strong>Attention! Extremely slow method! Use small images (resize big images) or another methods!</strong>
  * </p>
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class ObjectDetectionExample {
 

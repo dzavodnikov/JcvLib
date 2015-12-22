@@ -27,7 +27,7 @@ import org.jcvlib.parallel.PixelsLoop;
 /**
  * Contains methods to convert images from one color scheme to another.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class ColorConvert {
 

@@ -30,7 +30,7 @@ import Jama.Matrix;
 /**
  * Test class for points {@link JCV}.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class JCVTest {
 

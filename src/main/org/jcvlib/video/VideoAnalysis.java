@@ -29,7 +29,7 @@ import org.jcvlib.parallel.PixelsLoop;
  * This class contains methods for <a href="http://en.wikipedia.org/wiki/Motion_analysis">Motion analysis</a> and
  * <a href="http://en.wikipedia.org/wiki/Video_tracking">Video tracking</a>.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class VideoAnalysis {
 

@@ -30,7 +30,7 @@ import Jama.Matrix;
 /**
  * Main class for all images that used into the JcvLib.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class Image {
 

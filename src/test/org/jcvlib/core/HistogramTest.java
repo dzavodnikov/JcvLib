@@ -26,7 +26,7 @@ import org.junit.Test;
 /**
  * Test {@link Histogram} .
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class HistogramTest {
 

@@ -31,7 +31,7 @@ import org.jcvlib.io.ImageRW;
 /**
  * This is example show how to using function to <a href="http://en.wikipedia.org/wiki/Flood_fill">fill</a> some region.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class FloodFillExample {
 

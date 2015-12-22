@@ -21,7 +21,7 @@ package org.jcvlib.core;
 /**
  * Contains interpolation methods.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public enum Interpolation {
     /**

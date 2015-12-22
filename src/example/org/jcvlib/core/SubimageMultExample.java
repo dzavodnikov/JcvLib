@@ -37,7 +37,7 @@ import org.jcvlib.io.ImageRW;
  * defined sub-image.
  * </p>
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class SubimageMultExample {
 

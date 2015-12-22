@@ -27,7 +27,7 @@ import org.jcvlib.gui.Window;
 /**
  * This is example show how to read and show video from file.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class ReadVideoExample {
 

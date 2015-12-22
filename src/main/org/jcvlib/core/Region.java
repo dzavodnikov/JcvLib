@@ -21,7 +21,7 @@ package org.jcvlib.core;
 /**
  * Region is a structure that contains some characteristics of image region.
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 public class Region {
 

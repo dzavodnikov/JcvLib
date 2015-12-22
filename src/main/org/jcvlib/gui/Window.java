@@ -68,11 +68,11 @@ import org.jcvlib.io.ImageRW;
  * </pre></code>
  * </p>
  *
- * @author Dmitriy Zavodnikov (d.zavodnikov@gmail.com)
+ * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
 /*
  * See:
- * * http://introcs.cs.princeton.edu/java/stdlib/Picture.java.html
+ *      http://introcs.cs.princeton.edu/java/stdlib/Picture.java.html
  */
 public final class Window {
 
