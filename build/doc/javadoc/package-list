@@ -1,8 +1,0 @@
-org.jcvlib.core
-org.jcvlib.gui
-org.jcvlib.image
-org.jcvlib.image.filters
-org.jcvlib.image.geometry
-org.jcvlib.io
-org.jcvlib.parallel
-org.jcvlib.video
