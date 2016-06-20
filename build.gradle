@@ -1,0 +1,51 @@
+// See:
+//      https://docs.gradle.org/current/userguide/plugins.html
+//      https://plugins.gradle.org/
+plugins {
+    // See:
+    //      https://github.com/ajoberstar/gradle-git/
+    id 'org.ajoberstar.github-pages' version '1.4.2'
+}
+
+// See:
+//      https://docs.gradle.org/current/userguide/java_plugin.html
+apply plugin: 'java'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// See:
+//      https://docs.gradle.org/current/userguide/eclipse_plugin.html
+apply plugin: 'eclipse'
+eclipse.classpath {
+    // See:
+    //      https://stackoverflow.com/questions/10156847/
+    downloadSources = true
+    downloadJavadoc = true
+}
+
+// See:
+//      https://docs.gradle.org/current/userguide/artifact_dependencies_tutorial.html
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://jitpack.io/' }
+    maven { url 'https://raw.github.com/olivierayache/xuggle-xuggler/repos/' }
+}
+dependencies {
+    compile     group: 'com.github.dzavodnikov',    name: 'JParFor',        version: '1.1.29'
+    compile     group: 'gov.nist.math',             name: 'jama',           version: '1.0.3'
+    compile     group: 'com.github.kerner1000',     name: 'javapng',        version: '2.1.2'
+    compile     group: 'org.slf4j',                 name: 'slf4j-api',      version: '1.7.21'
+    compile     group: 'org.slf4j',                 name: 'slf4j-simple',   version: '1.7.21'
+    compile     group: 'xuggle',                    name: 'xuggle-xuggler', version: '5.5'
+    testCompile group: 'junit',                     name: 'junit',          version: '4.12'
+}
+
+// See:
+//      https://github.com/ajoberstar/gradle-git/wiki/org.ajoberstar.github-pages/
+githubPages {
+    repoUri = 'https://github.com/dzavodnikov/JcvLib/'
+    pages {
+        from javadoc
+    }
+}
