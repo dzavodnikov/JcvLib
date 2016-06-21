@@ -1,0 +1,30 @@
+// See:
+//      https://docs.gradle.org/current/userguide/java_plugin.html
+apply plugin: 'java'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+test {
+     maxHeapSize = '512m' // To be compatible with Travis-CI infrastructure.
+}
+
+// See:
+//      https://docs.gradle.org/current/userguide/eclipse_plugin.html
+apply plugin: 'eclipse'
+eclipse.classpath {
+    // See:
+    //      https://stackoverflow.com/questions/10156847/
+    downloadSources = true
+    downloadJavadoc = true
+}
+
+// See:
+//      https://docs.gradle.org/current/userguide/artifact_dependencies_tutorial.html
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url 'https://raw.github.com/olivierayache/xuggle-xuggler/repos/' }
+    maven { url 'https://jitpack.io/' } // Should be the last.
+}
+dependencies {
+    compile 'com.github.dzavodnikov:JcvLib:4.5.0'
+}

@@ -1,0 +1,3 @@
+JcvLib (Java computer vision) Library (http://jcvlib.org/).
+Copyright 2012-2016 JcvLib Team.
+Distributed under Apache License 2.0.
