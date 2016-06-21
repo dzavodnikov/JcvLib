@@ -17,3 +17,60 @@ Requirements
 Documentation
 =============
 [JavaDocs](https://dzavodnikov.github.io/JcvLib/)
+
+
+Examples
+========
+[Examples](https://github.com/dzavodnikov/JcvLib/tree/examples/)
+
+
+Use
+===
+Gradle
+------
+    ...
+	allprojects {
+	    ...
+		repositories {
+			...
+			maven { url 'https://raw.github.com/olivierayache/xuggle-xuggler/repos/' }
+			maven { url 'https://jitpack.io/' }
+		}
+		...
+	}
+	...
+    dependencies {
+        ...
+        compile 'com.github.dzavodnikov:JcvLib:4.5.0'
+        ...
+    }
+    ...
+
+Maven
+-----
+    <project>
+        ...
+	    <repositories>
+	        ...
+	        <repository>
+		        <id>Xuggle-Xuggler</id>
+		        <url>https://raw.github.com/olivierayache/xuggle-xuggler/repos/</url>
+		    </repository>
+		    <repository>
+		        <id>jitpack.io</id>
+		        <url>https://jitpack.io/</url>
+		    </repository>
+	    </repositories>
+        ...
+        <dependencies>
+            ...
+	        <dependency>
+	            <groupId>com.github.dzavodnikov</groupId>
+	            <artifactId>JcvLib</artifactId>
+	            <version>4.5.0</version>
+	        </dependency>
+	        ...
+	    <dependencies>
+	    ...
+	</project>
+
