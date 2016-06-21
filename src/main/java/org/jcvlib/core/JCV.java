@@ -29,17 +29,6 @@ import Jama.Matrix;
  */
 public class JCV {
 
-    public static final String LIB_NAME         = "JcvLib";
-
-    public static final int    LIB_VER_MAJOR    = 5;
-
-    public static final int    LIB_VER_MINOR    = 1;
-
-    public static final int    LIB_VER_PATCH    = 1;
-
-    public static final String LIB_VER          = Integer.toString(LIB_VER_MAJOR) + "."
-            + Integer.toString(LIB_VER_MINOR) + "." + Integer.toString(LIB_VER_PATCH);
-
     /**
      * <code>10<sup>-13</sup></code>.
      */
@@ -97,7 +86,6 @@ public class JCV {
 
     /**
      * Get constant that identify current <strong>JVM</strong> architecture.
-     *
      * <p>
      * It means, that on 64-bit architecture can be installed 32-bit JVM. In this case 32-bit constant will be returned.
      * It will be correct because we can run only 32-bit native code on 32-bit JCV.
@@ -139,32 +127,24 @@ public class JCV {
     }
 
     /**
-     * Correct compare 2 float-point numbers (with default {@link JCV#PRECISION} precision).
-     *
-     * <code><pre>
+     * Correct compare 2 float-point numbers (with default {@link JCV#PRECISION} precision). <code><pre>
      * if num1 == num2
      *      return true
      * otherwise
      *      return false
-     * </pre></code>
-     * 
-     * Useful for compare values of 2 float-point colors.
+     * </pre></code> Useful for compare values of 2 float-point colors.
      */
     public static boolean equalValues(final double num1, final double num2) {
         return JCV.equalValues(num1, num2, JCV.PRECISION);
     }
 
     /**
-     * Correct compare 2 float-point numbers with defined precision.
-     *
-     * <code><pre>
+     * Correct compare 2 float-point numbers with defined precision. <code><pre>
      * if num1 == num2
      *      return True
      * otherwise
      *      return False
-     * </pre></code>
-     * 
-     * Useful for compare values of 2 float-point colors.
+     * </pre></code> Useful for compare values of 2 float-point colors.
      */
     public static boolean equalValues(final double num1, final double num2, final double precision) {
         if (Math.abs(num1 - num2) <= precision) {
@@ -176,7 +156,6 @@ public class JCV {
 
     /**
      * Round value to nearest integer.
-     *
      * <p>
      * For example:
      * <ul>
@@ -200,7 +179,6 @@ public class JCV {
 
     /**
      * Round value to greater integer.
-     *
      * <p>
      * For example:
      * <ul>
@@ -218,7 +196,6 @@ public class JCV {
 
     /**
      * Round value to less integer.
-     *
      * <p>
      * For example:
      * <ul>
@@ -236,7 +213,6 @@ public class JCV {
 
     /**
      * Return center of element with current image.
-     *
      * <p>
      * For example if we have size <code>[3 x 2]</code> this method return point <code>(1, 0)</code> (<strong>not
      * <code>(1, 1)</code>!</strong>). This method round down to odd size and then found a center!
