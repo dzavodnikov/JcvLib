@@ -16,12 +16,8 @@ Requirements
 
 Documentation
 =============
-[JavaDocs](https://dzavodnikov.github.io/JcvLib/)
-
-
-Examples
-========
-[Examples](https://github.com/dzavodnikov/JcvLib/tree/examples/)
+ * [JavaDocs](https://dzavodnikov.github.io/JcvLib/)
+ * [Examples](https://github.com/dzavodnikov/JcvLib/tree/examples/)
 
 
 Use
