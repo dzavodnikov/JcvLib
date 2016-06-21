@@ -3,11 +3,16 @@ language: java
 jdk:
   - oraclejdk8
 
-install:
-  - gradle check --debug
+env:
+  global:
+    JAVA_OPTS=-Xmx512m
+
+# To get information about filed unit-tests.
+#install:
+#  - gradle check --debug
 
 notifications:
   email:
     recipients:
-      - d.zavodnikov@gmail.com
+      - D.Zavodnikov@GMail.com
 

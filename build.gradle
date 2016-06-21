@@ -12,6 +12,9 @@ plugins {
 apply plugin: 'java'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+test {
+     maxHeapSize = '512m' // To be compatible with Travis-CI infrastructure.
+}
 
 // See:
 //      https://docs.gradle.org/current/userguide/eclipse_plugin.html
