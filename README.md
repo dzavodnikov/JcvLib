@@ -17,5 +17,3 @@ Requirements
 Documentation
 =============
 [JavaDocs](https://dzavodnikov.github.io/JcvLib/)
-
-
