@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -44,11 +44,9 @@ public class Misc {
 
     /**
      * Flood fill algorithm for fill some region.
-     *
      * <p>
      * This region is detected by start position and distance between color of start point and neighbors of this point.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -145,7 +143,6 @@ public class Misc {
 
     /**
      * Calculate summed area table.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -199,7 +196,6 @@ public class Misc {
 
     /**
      * Upsamples image.
-     *
      * <p>
      * This algorithm blur image first (with kernel <code>[5 x 5]</code>) and duplicate each row and each column then.
      * Used into {@link #buildPyramidGauss(Image, Size)}.
@@ -238,7 +234,6 @@ public class Misc {
 
     /**
      * Downsamples image.
-     *
      * <p>
      * This algorithm blur image first (with kernel <code>[5 x 5]</code>) and remove each odd row and column then. Used
      * into {@link #buildPyramidLaplace(Image, Size)}.
@@ -279,7 +274,6 @@ public class Misc {
 
     /**
      * Create the Gaussian pyramid for an image.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -326,7 +320,6 @@ public class Misc {
 
     /**
      * Create the Laplacian pyramid for an image.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -365,11 +358,9 @@ public class Misc {
 
     /**
      * Put one image to another (using Alpha channel).
-     *
      * <p>
      * The images must have the same channels size. The last channel uses as Alpha channel.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -451,12 +442,10 @@ public class Misc {
 
     /**
      * This method <strong>sum</strong> 2 given images. Analog <strong>union</strong> for binary images and sets.
-     *
      * <p>
      * If value of color will be more than <code>{@link Color#MAX_VALUE}</code> this color value set
      * <code>{@link Color#MAX_VALUE}</code>.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -519,12 +508,10 @@ public class Misc {
 
     /**
      * First image <strong>minus</strong> second image. Analog <strong>complement</strong> for sets.
-     *
      * <p>
      * If value of color will be less than <code>{@link Color#MIN_VALUE}</code> this color value set
      * <code>{@link Color#MIN_VALUE}</code>.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -559,7 +546,6 @@ public class Misc {
 
     /**
      * Return arithmetic mean of colors in current image.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>

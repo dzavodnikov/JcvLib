@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,7 +22,6 @@ import org.jcvlib.core.Color;
 
 /**
  * Contains threshold methods.
- *
  * <p>
  * <h6>Links:</h6>
  * <ol>
@@ -35,9 +34,7 @@ import org.jcvlib.core.Color;
  */
 public enum Threshold {
     /**
-     * Binary threshold.
-     * 
-     * <code><pre>
+     * Binary threshold. <code><pre>
      * if src(x, y) <= threshold
      *      src(x, y) := 0
      * else
@@ -57,9 +54,7 @@ public enum Threshold {
     },
 
     /**
-     * Binary inverted threshold.
-     * 
-     * <code><pre>
+     * Binary inverted threshold. <code><pre>
      * if src(x, y) <= threshold
      *      src(x, y) := maxVal
      * else
@@ -79,9 +74,7 @@ public enum Threshold {
     },
 
     /**
-     * Truncated threshold.
-     *
-     * <code><pre>
+     * Truncated threshold. <code><pre>
      * if src(x, y) <= threshold
      *      // Do nothing.
      * else
@@ -101,9 +94,7 @@ public enum Threshold {
     },
 
     /**
-     * Threshold to zero.
-     * 
-     * <code><pre>
+     * Threshold to zero. <code><pre>
      * if src(x, y) <= threshold
      *      src(x, y) := 0
      * else
@@ -123,9 +114,7 @@ public enum Threshold {
     },
 
     /**
-     * Threshold to zero inverted.
-     * 
-     * <code><pre>
+     * Threshold to zero inverted. <code><pre>
      * if src(x, y) <= threshold
      *      // Do nothing.
      * else

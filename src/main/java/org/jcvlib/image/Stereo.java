@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -100,7 +100,6 @@ public class Stereo {
 
     /**
      * Create map of distance base on 2 images.
-     *
      * <p>
      * Uses 10 % (percent) of image width by default window size.
      * </p>

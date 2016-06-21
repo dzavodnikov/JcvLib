@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,9 +34,7 @@ import Jama.Matrix;
  */
 public enum Reflection {
     /**
-     * Horizontal reflection.
-     * 
-     * <code><pre>
+     * Horizontal reflection. <code><pre>
      * +-------+     +-------+
      * | 1 2 3 |     | 3 2 1 |
      * | 4 5 6 | --> | 6 5 4 |
@@ -48,14 +46,12 @@ public enum Reflection {
 
         @Override
         protected Matrix getMatrix(final Size imageSize) {
-            return new Matrix(new double[][]{ { -1.0, 0.0, imageSize.getWidth() - 1 }, { 0.0, 1.0, 0.0 } });
+            return new Matrix(new double[][] { { -1.0, 0.0, imageSize.getWidth() - 1 }, { 0.0, 1.0, 0.0 } });
         }
     },
 
     /**
-     * Vertical reflection.
-     * 
-     * <code><pre>
+     * Vertical reflection. <code><pre>
      * +-------+     +-------+
      * | 1 2 3 |     | 7 8 9 |
      * | 4 5 6 | --> | 4 5 6 |
@@ -67,14 +63,12 @@ public enum Reflection {
 
         @Override
         protected Matrix getMatrix(final Size imageSize) {
-            return new Matrix(new double[][]{ { 1.0, 0.0, 0.0 }, { 0.0, -1.0, imageSize.getHeight() - 1 } });
+            return new Matrix(new double[][] { { 1.0, 0.0, 0.0 }, { 0.0, -1.0, imageSize.getHeight() - 1 } });
         }
     },
 
     /**
-     * Diagonal reflection.
-     * 
-     * <code><pre>
+     * Diagonal reflection. <code><pre>
      * +-------+     +-------+
      * | 1 2 3 |     | 9 8 7 |
      * | 4 5 6 | --> | 6 5 4 |
@@ -86,7 +80,7 @@ public enum Reflection {
 
         @Override
         protected Matrix getMatrix(final Size imageSize) {
-            return new Matrix(new double[][]{ { -1.0, 0.0, imageSize.getWidth() - 1 },
+            return new Matrix(new double[][] { { -1.0, 0.0, imageSize.getWidth() - 1 },
                     { 0.0, -1.0, imageSize.getHeight() - 1 } });
         }
     };

@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,7 +28,6 @@ import org.jcvlib.image.Misc;
 
 /**
  * Image morphology methods.
- *
  * <p>
  * <h6>Links:</h6>
  * <ol>
@@ -41,7 +40,6 @@ import org.jcvlib.image.Misc;
 public enum Morphology {
     /**
      * Dilation.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -59,23 +57,23 @@ public enum Morphology {
                     JCV.calculateCenter(kernelSize.getWidth(), kernelSize.getHeight()), 1, extrapolation,
                     new KernelOperation() {
 
-                @Override
-                public void execute(final Image aperture, final Color max) {
-                    // Initialize.
-                    max.fill(Color.MIN_VALUE);
+                        @Override
+                        public void execute(final Image aperture, final Color max) {
+                            // Initialize.
+                            max.fill(Color.MIN_VALUE);
 
-                    // Find maximum.
-                    for (int x = 0; x < aperture.getWidth(); ++x) {
-                        for (int y = 0; y < aperture.getHeight(); ++y) {
-                            for (int channel = 0; channel < aperture.getNumOfChannels(); ++channel) {
-                                if (max.get(channel) < aperture.get(x, y, channel)) {
-                                    max.set(channel, aperture.get(x, y, channel));
+                            // Find maximum.
+                            for (int x = 0; x < aperture.getWidth(); ++x) {
+                                for (int y = 0; y < aperture.getHeight(); ++y) {
+                                    for (int channel = 0; channel < aperture.getNumOfChannels(); ++channel) {
+                                        if (max.get(channel) < aperture.get(x, y, channel)) {
+                                            max.set(channel, aperture.get(x, y, channel));
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                }
-            });
+                    });
 
             return result;
         }
@@ -83,7 +81,6 @@ public enum Morphology {
 
     /**
      * Erosion.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -101,23 +98,23 @@ public enum Morphology {
                     JCV.calculateCenter(kernelSize.getWidth(), kernelSize.getHeight()), 1, extrapolation,
                     new KernelOperation() {
 
-                @Override
-                public void execute(final Image aperture, final Color min) {
-                    // Initialize.
-                    min.fill(Color.MAX_VALUE);
+                        @Override
+                        public void execute(final Image aperture, final Color min) {
+                            // Initialize.
+                            min.fill(Color.MAX_VALUE);
 
-                    // Find minimum.
-                    for (int x = 0; x < aperture.getWidth(); ++x) {
-                        for (int y = 0; y < aperture.getHeight(); ++y) {
-                            for (int channel = 0; channel < aperture.getNumOfChannels(); ++channel) {
-                                if (min.get(channel) > aperture.get(x, y, channel)) {
-                                    min.set(channel, aperture.get(x, y, channel));
+                            // Find minimum.
+                            for (int x = 0; x < aperture.getWidth(); ++x) {
+                                for (int y = 0; y < aperture.getHeight(); ++y) {
+                                    for (int channel = 0; channel < aperture.getNumOfChannels(); ++channel) {
+                                        if (min.get(channel) > aperture.get(x, y, channel)) {
+                                            min.set(channel, aperture.get(x, y, channel));
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
-                }
-            });
+                    });
 
             return result;
         }
@@ -125,11 +122,9 @@ public enum Morphology {
 
     /**
      * Opening.
-     *
      * <p>
      * <code>open(image, kernel) = dilate(erode(image, kernel), kernel)</code>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -147,11 +142,9 @@ public enum Morphology {
 
     /**
      * Closing.
-     *
      * <p>
      * <code>close(image, kernel) = erode(dilate(image, kernel), kernel)</code>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -169,11 +162,9 @@ public enum Morphology {
 
     /**
      * Morphological gradient.
-     *
      * <p>
      * <code>morphologyGradient(image, kernel) = dilate(image, kernel) - erode(image, kernel)</code>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -192,11 +183,9 @@ public enum Morphology {
 
     /**
      * White top-hat.
-     *
      * <p>
      * <code>white_top_hat(image, kernel) = image - open(image, kernel)</code>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -214,11 +203,9 @@ public enum Morphology {
 
     /**
      * Black top-hat.
-     *
      * <p>
      * <code>black_top_hat(image, kernel) = close(image, kernel) - image</code>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>

@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -45,7 +45,7 @@ public class ColorTest {
         assertEquals(vlaue, color1.get(1), JCV.PRECISION);
         assertEquals(vlaue, color1.get(2), JCV.PRECISION);
 
-        final int[] c = new int[]{ 32, 64, 128 };
+        final int[] c = new int[] { 32, 64, 128 };
         final Color color2 = new Color(c);
         assertEquals(c[0], color2.get(0), JCV.PRECISION);
         assertEquals(c[1], color2.get(1), JCV.PRECISION);
@@ -75,7 +75,7 @@ public class ColorTest {
 
         // Incorrect source value.
         try {
-            new Color(new int[]{});
+            new Color(new int[] {});
             fail("Not thrown IllegalArgumentException!");
         } catch (IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
@@ -87,7 +87,7 @@ public class ColorTest {
      */
     @Test
     public void testToString() {
-        final Color color = new Color(new int[]{ 10, 20, 30 });
+        final Color color = new Color(new int[] { 10, 20, 30 });
 
         System.out.println("Printing example:");
         System.out.println(color.toString());
@@ -171,10 +171,10 @@ public class ColorTest {
      */
     @Test
     public void testEuclidDist() {
-        assertEquals(1.0, (new Color(new int[]{ 5, 5 })).euclidDist(new Color(new int[]{ 4, 6 })), JCV.PRECISION);
+        assertEquals(1.0, (new Color(new int[] { 5, 5 })).euclidDist(new Color(new int[] { 4, 6 })), JCV.PRECISION);
 
-        final Color min = new Color(new int[]{ Color.MIN_VALUE, Color.MIN_VALUE });
-        final Color max = new Color(new int[]{ Color.MAX_VALUE, Color.MAX_VALUE });
+        final Color min = new Color(new int[] { Color.MIN_VALUE, Color.MIN_VALUE });
+        final Color max = new Color(new int[] { Color.MAX_VALUE, Color.MAX_VALUE });
         assertEquals(Color.MAX_VALUE, min.euclidDist(max), JCV.PRECISION);
     }
 
@@ -184,7 +184,7 @@ public class ColorTest {
     @Test
     public void testEuclidDistException() {
         try {
-            (new Color(new int[]{ 1, 1 })).euclidDist(new Color(new int[]{ 4, 6, 8 }));
+            (new Color(new int[] { 1, 1 })).euclidDist(new Color(new int[] { 4, 6, 8 }));
             fail("Not thrown IllegalArgumentException!");
         } catch (IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");

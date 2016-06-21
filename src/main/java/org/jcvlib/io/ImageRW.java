@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,16 +32,12 @@ import com.sixlegs.png.PngImage;
 
 /**
  * Class for Input/Output images.
- *
  * <p>
  * <strong>Remember, that to reading/writing images you should specified file extension to define file format for
  * saving!</strong>
  * </p>
- *
  * <p>
- * Example of usage:
- * 
- * <code><pre>
+ * Example of usage: <code><pre>
  * ...
  * // Read image.
  * Image image = ImageRW.read("resources" + File.separatorChar + "Lenna.bmp");
@@ -49,11 +45,7 @@ import com.sixlegs.png.PngImage;
  * // Write image. File format detected by file extension.
  * ImageRW.write(image, "resources" + File.separatorChar + "Lenna.bmp");
  * ...
- * </pre></code>
- * 
- * or
- * 
- * <code><pre>
+ * </pre></code> or <code><pre>
  * ...
  * // Read image.
  * Image image = ImageRW.read(new File("resources" + File.separatorChar + "Lenna.bmp"));
@@ -63,7 +55,6 @@ import com.sixlegs.png.PngImage;
  * ...
  * </pre></code>
  * </p>
- *
  * <p>
  * Supported file formats:
  * <ul>
@@ -72,7 +63,6 @@ import com.sixlegs.png.PngImage;
  * <li>BMP (BitMaP)</li>
  * </ul>
  * </p>
- *
  * <p>
  * <h6>Links:</h6>
  * <ol>
@@ -90,7 +80,6 @@ public class ImageRW {
 
     /**
      * Write image from disk.
-     *
      * <p>
      * Supported file formats:
      * <ul>
@@ -99,7 +88,6 @@ public class ImageRW {
      * <li>BMP (BitMaP)</li>
      * </ul>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -142,7 +130,6 @@ public class ImageRW {
 
     /**
      * Write image from disk.
-     *
      * <p>
      * Supported file formats:
      * <ul>
@@ -151,7 +138,6 @@ public class ImageRW {
      * <li>BMP (BitMaP)</li>
      * </ul>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -177,7 +163,6 @@ public class ImageRW {
 
     /**
      * Write current image into file. Type of image detected by file extension.
-     *
      * <p>
      * Supported file formats:
      * <ul>
@@ -186,7 +171,6 @@ public class ImageRW {
      * <li>BMP (BitMaP)</li>
      * </ul>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -221,7 +205,6 @@ public class ImageRW {
 
     /**
      * Write current image into file. Type of image detected by file extension.
-     *
      * <p>
      * Supported file formats:
      * <ul>
@@ -230,7 +213,6 @@ public class ImageRW {
      * <li>BMP (BitMaP)</li>
      * </ul>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>

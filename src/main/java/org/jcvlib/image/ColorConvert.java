@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,7 +34,6 @@ public class ColorConvert {
     /**
      * Convert image from RGB color scheme (this color scheme include Red, Green and Blue channels) to Grayscale color
      * scheme (this color scheme include only Gray color channel).
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -82,7 +81,6 @@ public class ColorConvert {
     /**
      * Convert image from Grayscale color scheme (this color scheme include only Gray color channel) to RGB color scheme
      * (this color scheme include Red, Green and Blue channels).
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -123,13 +121,11 @@ public class ColorConvert {
     /**
      * Convert image from RGB color scheme (this color scheme include Red, Green and Blue channels) to HSL (same as
      * HLS/HSI) color scheme (this color scheme include Hue, Saturation and Lightness/Intensity channels).
-     *
      * <p>
      * Hue change values from interval <code>[0.0, 360.0]</code> of degrees, but translated to interval
      * <code>[0.0, 255.0]</code>. Saturation and Lightness change values from interval <code>[0.0, 1.0]</code>, but
      * translated to interval <code>[0.0, 255.0]</code> too.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -224,13 +220,11 @@ public class ColorConvert {
     /**
      * Convert image from HSL (same as HLS/HSI) color scheme (this color scheme include Hue, Saturation and
      * Lightness/Intensity channels) to RGB color scheme (this color scheme include Red, Green and Blue channels).
-     *
      * <p>
      * Hue change values from interval <code>[0.0, 360.0]</code> of degrees, but translated to interval
      * <code>[0.0, 255.0]</code>. Saturation and Lightness change values from interval <code>[0.0, 1.0]</code>, but
      * translated to interval <code>[0.0, 255.0]</code> too.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -316,13 +310,11 @@ public class ColorConvert {
     /**
      * Convert image from RGB color scheme (this color scheme include Red, Green and Blue channels) to HSV (same as HSB)
      * color scheme (this color scheme include Hue, Saturation, Value (Brightness) or Intensity channel).
-     *
      * <p>
      * Hue change values from interval <code>[0.0, 360.0]</code> of degrees, but translated to interval
      * <code>[0.0, 255.0]</code>. Saturation and Value change values from interval <code>[0.0, 1.0]</code>, but
      * translated to interval <code>[0.0, 255.0]</code> too.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -406,13 +398,11 @@ public class ColorConvert {
     /**
      * Convert image from HSV (same as HSB) color scheme (this color scheme include Hue, Saturation, Value (Brightness)
      * channel) to RGB color scheme (this color scheme include Red, Green and Blue channels).
-     *
      * <p>
      * Hue change values from interval <code>[0.0, 360.0]</code> of degrees, but translated to interval
      * <code>[0.0, 255.0]</code>. Saturation and Value change values from interval <code>[0.0, 1.0]</code>, but
      * translated to interval <code>[0.0, 255.0]</code> too.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>

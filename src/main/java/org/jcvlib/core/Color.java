@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -140,7 +140,6 @@ public class Color {
     /**
      * Calculate normalize (all values between {@link Color#MIN_VALUE} and {@link Color#MAX_VALUE}) Euclidean distance
      * between 2 colors.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -173,7 +172,6 @@ public class Color {
 
     /**
      * Return <code>true</code> if current color equivalent to object from parameter and <code>false</code> otherwise.
-     *
      * <p>
      * Uses {@link JCV#PRECISION} by default.
      * </p>
@@ -211,7 +209,6 @@ public class Color {
 
     /**
      * Return copy of current color.
-     *
      * <p>
      * It will be a <strong>REAL COPY</strong> of current color!
      * </p>
@@ -248,7 +245,6 @@ public class Color {
 
     /**
      * Convert <code>int</code> to <code>unsigned byte</code>.
-     *
      * <p>
      * If value less <code>0</code> or great than <code>255</code> it will be truncated to corresponded correct value.
      * For example value <code>-1</code> will be replaced to <code>0</code>, value <code>256</code> will be replaced to

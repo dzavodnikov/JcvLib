@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -38,15 +38,11 @@ import com.xuggle.xuggler.Utils;
 
 /**
  * This class allow read video from disk.
- *
  * <p>
  * Video is a stream of images. Because of that we should have a object that will be save state to correct reading.
  * </p>
- *
  * <p>
- * Example of usage:
- * 
- * <code><pre>
+ * Example of usage: <code><pre>
  * ...
  * // String filePath = ...
  * VideoFileReader video = new VideoFileReader(filePath);
@@ -153,8 +149,8 @@ public class VideoFileReader implements VideoReader, Runnable {
      */
     @Override
     public void open() throws IOException {
-        final int maxWaitTime = 10000;  // In milliseconds (10^{-3} seconds).
-        final int waitStep = 10;        // In milliseconds (10^{-3} seconds).
+        final int maxWaitTime = 10000; // In milliseconds (10^{-3} seconds).
+        final int waitStep = 10; // In milliseconds (10^{-3} seconds).
         int timeCounter;
 
         // Reopened if needed.

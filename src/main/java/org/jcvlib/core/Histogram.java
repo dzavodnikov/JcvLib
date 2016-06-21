@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +23,6 @@ import org.jcvlib.parallel.PixelsLoop;
 
 /**
  * This class contains methods for manipulate image histograms.
- *
  * <p>
  * <h6>Links:</h6>
  * <ol>
@@ -37,11 +36,9 @@ public class Histogram {
 
     /**
      * Correlation comparison.
-     *
      * <p>
      * Return values in interval <code>[-1.0, 1.0]</code>
      * </p>
-     *
      * <p>
      * Examples:
      * <ul>
@@ -50,7 +47,6 @@ public class Histogram {
      * <li>Total mismatch -- <code>-1.0</code></li>
      * </ul>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -63,11 +59,9 @@ public class Histogram {
 
     /**
      * Chi-Square comparison.
-     *
      * <p>
      * Return values in interval <code>[0.0, 1.0]</code>
      * </p>
-     *
      * <p>
      * Examples:
      * <ul>
@@ -76,7 +70,6 @@ public class Histogram {
      * <li>Total mismatch -- <code>1.0</code></li>
      * </ul>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -89,11 +82,9 @@ public class Histogram {
 
     /**
      * Intersection comparison.
-     *
      * <p>
      * Return values in interval <code>[0.0, 1.0]</code>.
      * </p>
-     *
      * <p>
      * Examples:
      * <ul>
@@ -102,11 +93,9 @@ public class Histogram {
      * <li>Total mismatch -- <code>0.0</code></li>
      * </ul>
      * </p>
-     * 
      * <code><pre>
      * d(H<sub>1</sub>, H<sub>2</sub>) = Sum<sub>i</sub>( Min(H<sub>1</sub>(i), H<sub>2</sub>(i)) )
      * </pre></code>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -119,11 +108,9 @@ public class Histogram {
 
     /**
      * Bhattacharyya comparison.
-     *
      * <p>
      * Return values in interval <code>[0.0, 1.0]</code>
      * </p>
-     *
      * <p>
      * Examples:
      * <ul>
@@ -132,7 +119,6 @@ public class Histogram {
      * <li>Total mismatch -- <code>1.0</code></li>
      * </ul>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -248,7 +234,6 @@ public class Histogram {
 
     /**
      * Return variance of current histogram.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -272,7 +257,6 @@ public class Histogram {
 
     /**
      * Compare current histogram.
-     *
      * <p>
      * <strong>Histograms must have the same size!</strong>
      * </p>
@@ -356,9 +340,7 @@ public class Histogram {
     }
 
     /**
-     * Threshold to zero.
-     * 
-     * <code><pre>
+     * Threshold to zero. <code><pre>
      * if hist(i) <= threshold
      *      hist(i) := 0
      * else

@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -40,17 +40,13 @@ public class Geometry {
 
     /**
      * Wrap perspective transformation matrix to image.
-     *
      * <p>
-     * Apply perspective transformation represented as a matrix:
-     *
-     * <code><pre>
+     * Apply perspective transformation represented as a matrix: <code><pre>
      * | t<sub>i</sub> * x'<sub>i</sub> |   | p<sub>11</sub>  p<sub>12</sub>  p<sub>13</sub> |   | x<sub>i</sub> |
      * | t<sub>i</sub> * y'<sub>i</sub> | = | p<sub>21</sub>  p<sub>22</sub>  p<sub>23</sub> | * | y<sub>i</sub> |
      * | t<sub>i</sub>       |   | p<sub>31</sub>  p<sub>32</sub>  p<sub>33</sub> |   | 1  |
      * </pre></code>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -113,7 +109,6 @@ public class Geometry {
 
     /**
      * Calculate perspective transformation matrix from 4 pairs of the corresponding points.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -170,17 +165,13 @@ public class Geometry {
 
     /**
      * Wrap affine transformation matrix to image.
-     *
      * <p>
-     * Apply perspective transformation represented as a matrix:
-     *
-     * <code><pre>
+     * Apply perspective transformation represented as a matrix: <code><pre>
      * | x'<sub>i</sub>|   | a<sub>11</sub>  a<sub>12</sub>  a<sub>13</sub> |   | x<sub>i</sub> |
      * | y'<sub>i</sub>| = | a<sub>21</sub>  a<sub>22</sub>  a<sub>23</sub> | * | y<sub>i</sub> |
      *                            | 1  |
      * </pre></code>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -219,14 +210,13 @@ public class Geometry {
         // Create perspective matrix from affine matrix.
         final Matrix P = new Matrix(3, 3);
         P.setMatrix(0, 1, 0, 2, A);
-        P.setMatrix(2, 2, 0, 2, new Matrix(new double[][]{ { 0.0, 0.0, 1.0 } }));
+        P.setMatrix(2, 2, 0, 2, new Matrix(new double[][] { { 0.0, 0.0, 1.0 } }));
 
         return Geometry.wrapPerspectiveTransform(image, P, newSize, interpolation, fillColor);
     }
 
     /**
      * Calculate affine transformation matrix from 3 pairs of the corresponding points.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -282,7 +272,6 @@ public class Geometry {
 
     /**
      * Reflect image according to selected type.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -348,7 +337,6 @@ public class Geometry {
 
     /**
      * Scale image.
-     *
      * <p>
      * Use <code>Image.INTERPOLATION_BILINEAR</code> and {@link Color#MIN_VALUE} as default.
      * </p>
@@ -391,14 +379,13 @@ public class Geometry {
         final double scaleX = (double) newSize.getWidth() / (double) image.getWidth();
         final double scaleY = (double) newSize.getHeight() / (double) image.getHeight();
 
-        final Matrix A = new Matrix(new double[][]{ { scaleX, 0.0, 0.0 }, { 0.0, scaleY, 0.0 } });
+        final Matrix A = new Matrix(new double[][] { { scaleX, 0.0, 0.0 }, { 0.0, scaleY, 0.0 } });
 
         return Geometry.wrapAffineTransform(image, A, newSize, interpolation, fillColor);
     }
 
     /**
      * Resize image.
-     *
      * <p>
      * Use <code>Image.INTERPOLATION_BILINEAR</code> and {@link Color#MIN_VALUE} as default.
      * </p>
@@ -532,7 +519,6 @@ public class Geometry {
 
     /**
      * Rotate image on some degree.
-     *
      * <p>
      * Use center of image as center of rotation, <code>Image.INTERPOLATION_BILINEAR</code> and {@link Color#MIN_VALUE}
      * as default.

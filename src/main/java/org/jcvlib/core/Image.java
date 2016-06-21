@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -252,7 +252,6 @@ public class Image {
 
     /**
      * Set integer value in interval <code>[0, 255]</code> to selected channel from selected pixel.
-     *
      * <p>
      * If value less minimal or great than maximal allowed value it will be truncated to corresponded correct value. For
      * example value <code>-1</code> will be replaced to <code>0</code>, value <code>256</code> will be replaced to
@@ -425,13 +424,10 @@ public class Image {
 
     /**
      * Nonlinear filter.
-     *
      * <p>
      * For each pixel on this image apply given operator. This operator get kernel values and put result into current
      * pixel. For example, we have kernel size <code>[4 x 4]</code> and anchor <code>(1, 1)</code> for each pixel on
-     * image we select a field:
-     *
-     * <code><pre>
+     * image we select a field: <code><pre>
      *     0 1 2 3
      *   +---------+
      * 0 | o o o o |
@@ -439,15 +435,11 @@ public class Image {
      * 2 | o o o o |
      * 3 | o o o o |
      *   +---------+
-     * </pre></code>
-     *
-     * And put this values into operator. Result of this operator set to current pixel.
+     * </pre></code> And put this values into operator. Result of this operator set to current pixel.
      * </p>
-     *
      * <p>
      * Some filters need kernel with only odd sizes and anchor only in the center (for example, Gaussian blur).
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -527,7 +519,6 @@ public class Image {
 
     /**
      * This method <strong>multiply</strong> current image on given number.
-     *
      * <p>
      * If value of color will be more than <code>{@link Color#MAX_VALUE}</code> this color value set
      * <code>{@link Color#MAX_VALUE}</code>. If value of color will be less than <code>{@link Color#MIN_VALUE}</code>
@@ -557,7 +548,6 @@ public class Image {
 
     /**
      * Convolve current image with given matrix.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -596,7 +586,6 @@ public class Image {
 
     /**
      * Create <strong>empty</strong> image with size, number of channels and source type as in given image.
-     *
      * <p>
      * <strong>Values from given image will be not copied!</strong>
      * </p>
@@ -664,7 +653,6 @@ public class Image {
 
     /**
      * Select from multichannel image from current image.
-     *
      * <p>
      * Returned image will be have <strong>same size</strong> but this new image contains only <code>sizeLayer</code>
      * channels that got from <code>startChannel</code> to <code>startChannel + sizeLayer</code>. It is <strong>NOT
@@ -695,7 +683,6 @@ public class Image {
     /**
      * Select single channel image based on channel with number <code>channelNumber</code> from current multichannel
      * image.
-     *
      * <p>
      * This is analog of <code>split</code> function from other computer vision libraries. You can get access to
      * channels as an elements of a list. It is <strong>NOT COPY</strong> current image -- this is <strong>SAME</strong>
@@ -708,7 +695,6 @@ public class Image {
 
     /**
      * Return <code>true</code> if current image equivalent to object from parameter and <code>false</code> otherwise.
-     *
      * <p>
      * Uses {@link JCV#PRECISION} by default.
      * </p>

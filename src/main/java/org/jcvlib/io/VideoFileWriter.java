@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2012-2015 JcvLib Team
+ * Copyright (c) 2012-2016 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,15 +39,11 @@ import com.xuggle.xuggler.video.IConverter;
 
 /**
  * This class allow write video to disk.
- *
  * <p>
  * Video is a stream of images. Because of that we should have a object that will be save state to correct writing.
  * </p>
- *
  * <p>
- * Example of usage:
- * 
- * <code><pre>
+ * Example of usage: <code><pre>
  * ...
  * // String filePath = ...
  * // Size sizeOfVideo = ...
@@ -238,7 +234,6 @@ public class VideoFileWriter implements VideoWriter {
      *            Image to be converted.
      * @param targetType
      *            BufferedImage type.
-     *
      * @return BufferedImage of the specified target type.
      */
     private BufferedImage convertToType(final BufferedImage sourceImage, final int targetType) {
