@@ -29,8 +29,14 @@ Gradle
 	    ...
 		repositories {
 			...
-			maven { url 'https://raw.github.com/olivierayache/xuggle-xuggler/repos/' }
-			maven { url 'https://jitpack.io/' }
+			maven {
+                name    'Actual Xuggler repo'
+                url     'https://raw.github.com/olivierayache/xuggle-xuggler/repos/'
+            }
+            maven {
+                name    'JitPack'
+                url     'https://jitpack.io/' 
+            }
 		}
 		...
 	}
@@ -49,11 +55,11 @@ Maven
 	    <repositories>
 	        ...
 	        <repository>
-		        <id>Xuggle-Xuggler</id>
+		        <id>Actual Xuggler repo</id>
 		        <url>https://raw.github.com/olivierayache/xuggle-xuggler/repos/</url>
 		    </repository>
 		    <repository>
-		        <id>jitpack.io</id>
+		        <id>JitPack</id>
 		        <url>https://jitpack.io/</url>
 		    </repository>
 	    </repositories>
