@@ -28,11 +28,18 @@ eclipse.classpath {
 
 // See:
 //      https://docs.gradle.org/current/userguide/artifact_dependencies_tutorial.html
+//      https://docs.gradle.org/current/userguide/dependency_management.html
 repositories {
     mavenCentral()
     jcenter()
-    maven { url 'https://raw.github.com/olivierayache/xuggle-xuggler/repos/' }
-    maven { url 'https://jitpack.io/' } // Should be the last.
+    maven {
+        name    'Actual Xuggler repo'
+        url     'https://raw.github.com/olivierayache/xuggle-xuggler/repos/'
+    }
+    maven {
+        name    'JitPack'
+        url     'https://jitpack.io/' 
+    } // Should be the last.
 }
 dependencies {
     compile     'com.github.dzavodnikov:JParFor:1.1.29'
