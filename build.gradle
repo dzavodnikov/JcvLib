@@ -1,34 +1,34 @@
-// See:
-//      https://docs.gradle.org/current/userguide/plugins.html
-//      https://plugins.gradle.org/
 plugins {
     // See:
     //      https://github.com/ajoberstar/gradle-git/
     id 'org.ajoberstar.github-pages' version '1.4.2'
 }
 
-// See:
-//      https://docs.gradle.org/current/userguide/java_plugin.html
 apply plugin: 'java'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+
+tasks.withType(JavaCompile) {
+    // See: 
+    //      https://stackoverflow.com/questions/21028438/
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    // See: 
+    //      https://mrhaki.blogspot.ru/2012/06/gradle-goodness-set-java-compiler.html
+    options.encoding = 'UTF-8'
+}
+
 test {
      maxHeapSize = '512m' // To be compatible with Travis-CI infrastructure.
 }
 
-// See:
-//      https://docs.gradle.org/current/userguide/eclipse_plugin.html
 apply plugin: 'eclipse'
+
+// See: 
+//      https://stackoverflow.com/questions/10156847/
 eclipse.classpath {
-    // See:
-    //      https://stackoverflow.com/questions/10156847/
     downloadSources = true
     downloadJavadoc = true
 }
 
-// See:
-//      https://docs.gradle.org/current/userguide/artifact_dependencies_tutorial.html
-//      https://docs.gradle.org/current/userguide/dependency_management.html
 repositories {
     mavenCentral()
     jcenter()
@@ -39,8 +39,9 @@ repositories {
     maven {
         name    'JitPack'
         url     'https://jitpack.io/' 
-    } // Should be the last.
+    }
 }
+
 dependencies {
     compile     'com.github.dzavodnikov:JParFor:1.1.29'
     compile     'gov.nist.math:jama:1.0.3'
