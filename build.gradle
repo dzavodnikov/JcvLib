@@ -43,13 +43,13 @@ repositories {
 }
 
 dependencies {
-    compile     'com.github.dzavodnikov:JParFor:1.1.29'
-    compile     'gov.nist.math:jama:1.0.3'
-    compile     'com.github.kerner1000:javapng:2.1.2'
-    compile     'org.slf4j:slf4j-api:1.7.21'
-    compile     'org.slf4j:slf4j-simple:1.7.21'
-    compile     'xuggle:xuggle-xuggler:5.5'
-    testCompile 'junit:junit:4.12'
+    compile     'com.github.dzavodnikov:JParFor:1.+'
+    compile     'gov.nist.math:jama:1.+'
+    compile     'com.github.kerner1000:javapng:2.+'
+    compile     'org.slf4j:slf4j-api:1.+'
+    compile     'org.slf4j:slf4j-simple:1.+'
+    compile     'xuggle:xuggle-xuggler:5.+'
+    testCompile 'junit:junit:4.+'
 }
 
 // See:
