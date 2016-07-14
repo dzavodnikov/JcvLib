@@ -37,5 +37,5 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.dzavodnikov:JcvLib:4.5.0'
+    compile 'com.github.dzavodnikov:JcvLib:4.+'
 }
