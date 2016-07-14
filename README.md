@@ -43,7 +43,7 @@ Gradle
 	...
     dependencies {
         ...
-        compile 'com.github.dzavodnikov:JcvLib:4.5.0'
+        compile 'com.github.dzavodnikov:JcvLib:4.+'
         ...
     }
     ...
@@ -69,7 +69,7 @@ Maven
 	        <dependency>
 	            <groupId>com.github.dzavodnikov</groupId>
 	            <artifactId>JcvLib</artifactId>
-	            <version>4.5.0</version>
+	            <version>[4.0.0, 5.0.0)</version>
 	        </dependency>
 	        ...
 	    <dependencies>

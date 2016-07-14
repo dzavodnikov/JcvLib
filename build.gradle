@@ -1,7 +1,7 @@
 plugins {
     // See:
     //      https://github.com/ajoberstar/gradle-git/
-    id 'org.ajoberstar.github-pages' version '1.4.2'
+    id 'org.ajoberstar.github-pages' version '1.+'
 }
 
 apply plugin: 'java'
