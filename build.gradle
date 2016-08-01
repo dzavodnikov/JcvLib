@@ -16,6 +16,12 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+tasks.withType(Javadoc) {
+    // See:
+    //      http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
 test {
      maxHeapSize = '512m' // To be compatible with Travis-CI infrastructure.
 }
@@ -55,7 +61,6 @@ dependencies {
 // See:
 //      https://github.com/ajoberstar/gradle-git/wiki/org.ajoberstar.github-pages/
 githubPages {
-    repoUri = 'https://github.com/dzavodnikov/JcvLib/'
     pages {
         from javadoc
     }
