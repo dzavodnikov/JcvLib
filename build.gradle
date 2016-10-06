@@ -1,7 +1,7 @@
 plugins {
     // See:
     //      https://github.com/ajoberstar/gradle-git/
-    id 'org.ajoberstar.github-pages' version '1.5.0' // Not support '+' symbol.
+    id 'org.ajoberstar.github-pages' version '1.5.0' // Not support '+' symbol!
 }
 
 apply plugin: 'java'
@@ -26,15 +26,6 @@ test {
      maxHeapSize = '512m' // To be compatible with Travis-CI infrastructure.
 }
 
-apply plugin: 'eclipse'
-
-// See: 
-//      https://stackoverflow.com/questions/10156847/
-eclipse.classpath {
-    downloadSources = true
-    downloadJavadoc = true
-}
-
 repositories {
     mavenCentral()
     jcenter()
@@ -54,7 +45,7 @@ dependencies {
     compile     'com.github.kerner1000:javapng:2.+'
     compile     'org.slf4j:slf4j-api:1.+'
     compile     'org.slf4j:slf4j-simple:1.+'
-    compile     'xuggle:xuggle-xuggler:5.5' // Not support '+' symbol.
+    compile     'xuggle:xuggle-xuggler:5.5' // Not support '+' symbol!
     testCompile 'junit:junit:4.+'
 }
 
@@ -64,4 +55,13 @@ githubPages {
     pages {
         from javadoc
     }
+}
+
+apply plugin: 'eclipse'
+
+// See: 
+//      https://stackoverflow.com/questions/10156847/
+eclipse.classpath {
+    downloadSources = true
+    downloadJavadoc = true
 }
