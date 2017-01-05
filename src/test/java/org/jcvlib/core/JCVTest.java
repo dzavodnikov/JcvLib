@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,7 @@
  */
 package org.jcvlib.core;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import Jama.Matrix;
@@ -55,21 +51,21 @@ public class JCVTest {
 
         // Linux.
         System.setProperty(key, valueLinux);
-        assertEquals(JCV.OS_LINUX, JCV.getOS());
-        assertTrue(JCV.isLinux());
-        assertFalse(JCV.isWindows());
+        Assert.assertEquals(JCV.OS_LINUX, JCV.getOS());
+        Assert.assertTrue(JCV.isLinux());
+        Assert.assertFalse(JCV.isWindows());
 
         // Windows.
         System.setProperty(key, valueWindows);
-        assertEquals(JCV.OS_WINDOWS, JCV.getOS());
-        assertFalse(JCV.isLinux());
-        assertTrue(JCV.isWindows());
+        Assert.assertEquals(JCV.OS_WINDOWS, JCV.getOS());
+        Assert.assertFalse(JCV.isLinux());
+        Assert.assertTrue(JCV.isWindows());
 
         // MacOS.
         System.setProperty(key, valueMac);
-        assertEquals(JCV.OS_UNSUPPORTED, JCV.getOS());
-        assertFalse(JCV.isLinux());
-        assertFalse(JCV.isWindows());
+        Assert.assertEquals(JCV.OS_UNSUPPORTED, JCV.getOS());
+        Assert.assertFalse(JCV.isLinux());
+        Assert.assertFalse(JCV.isWindows());
 
         // Restore original value.
         System.setProperty(key, value);
@@ -93,20 +89,20 @@ public class JCVTest {
         // x32.
         // 1.
         System.setProperty(key, value32_1);
-        assertEquals(JCV.ARCH_32, JCV.getArch());
+        Assert.assertEquals(JCV.ARCH_32, JCV.getArch());
         // 2.
         System.setProperty(key, value32_2);
-        assertEquals(JCV.ARCH_32, JCV.getArch());
+        Assert.assertEquals(JCV.ARCH_32, JCV.getArch());
 
         // x64.
         System.setProperty(key, value64);
-        assertEquals(JCV.ARCH_64, JCV.getArch());
+        Assert.assertEquals(JCV.ARCH_64, JCV.getArch());
 
         // ARM.
         System.setProperty(key, valueARM);
-        assertEquals(JCV.ARCH_UNSUPPORTED, JCV.getArch());
-        assertFalse(JCV.isLinux());
-        assertFalse(JCV.isWindows());
+        Assert.assertEquals(JCV.ARCH_UNSUPPORTED, JCV.getArch());
+        Assert.assertFalse(JCV.isLinux());
+        Assert.assertFalse(JCV.isWindows());
 
         // Restore original value.
         System.setProperty(key, value);
@@ -117,8 +113,8 @@ public class JCVTest {
      */
     @Test
     public void testEqualValues() {
-        assertTrue(JCV.equalValues(JCV.PRECISION, JCV.PRECISION));
-        assertFalse(JCV.equalValues(JCV.PRECISION * 10, JCV.PRECISION));
+        Assert.assertTrue(JCV.equalValues(JCV.PRECISION, JCV.PRECISION));
+        Assert.assertFalse(JCV.equalValues(JCV.PRECISION * 10, JCV.PRECISION));
     }
 
     /**
@@ -126,18 +122,18 @@ public class JCVTest {
      */
     @Test
     public void testRound() {
-        assertEquals(1, JCV.round(1.0));
-        assertEquals(1, JCV.round(1.1));
-        assertEquals(2, JCV.round(1.5));
-        assertEquals(2, JCV.round(1.9));
-        assertEquals(2, JCV.round(2.0));
+        Assert.assertEquals(1, JCV.round(1.0));
+        Assert.assertEquals(1, JCV.round(1.1));
+        Assert.assertEquals(2, JCV.round(1.5));
+        Assert.assertEquals(2, JCV.round(1.9));
+        Assert.assertEquals(2, JCV.round(2.0));
 
-        assertEquals(0, JCV.round(Color.MIN_VALUE));
-        assertEquals(255, JCV.round(Color.MAX_VALUE));
+        Assert.assertEquals(0, JCV.round(Color.MIN_VALUE));
+        Assert.assertEquals(255, JCV.round(Color.MAX_VALUE));
 
-        assertEquals(Integer.MIN_VALUE, JCV.round(Double.NEGATIVE_INFINITY));
-        assertEquals(0, JCV.round(Double.NaN));
-        assertEquals(Integer.MAX_VALUE, JCV.round(Double.POSITIVE_INFINITY));
+        Assert.assertEquals(Integer.MIN_VALUE, JCV.round(Double.NEGATIVE_INFINITY));
+        Assert.assertEquals(0, JCV.round(Double.NaN));
+        Assert.assertEquals(Integer.MAX_VALUE, JCV.round(Double.POSITIVE_INFINITY));
     }
 
     /**
@@ -145,18 +141,18 @@ public class JCVTest {
      */
     @Test
     public void testRoundUp() {
-        assertEquals(1, JCV.roundUp(1.0));
-        assertEquals(2, JCV.roundUp(1.1));
-        assertEquals(2, JCV.roundUp(1.5));
-        assertEquals(2, JCV.roundUp(1.9));
-        assertEquals(2, JCV.roundUp(2.0));
+        Assert.assertEquals(1, JCV.roundUp(1.0));
+        Assert.assertEquals(2, JCV.roundUp(1.1));
+        Assert.assertEquals(2, JCV.roundUp(1.5));
+        Assert.assertEquals(2, JCV.roundUp(1.9));
+        Assert.assertEquals(2, JCV.roundUp(2.0));
 
-        assertEquals(0, JCV.roundUp(Color.MIN_VALUE));
-        assertEquals(255, JCV.roundUp(Color.MAX_VALUE));
+        Assert.assertEquals(0, JCV.roundUp(Color.MIN_VALUE));
+        Assert.assertEquals(255, JCV.roundUp(Color.MAX_VALUE));
 
-        assertEquals(Integer.MIN_VALUE, JCV.roundUp(Double.NEGATIVE_INFINITY));
-        assertEquals(0, JCV.roundUp(Double.NaN));
-        assertEquals(Integer.MAX_VALUE, JCV.roundUp(Double.POSITIVE_INFINITY));
+        Assert.assertEquals(Integer.MIN_VALUE, JCV.roundUp(Double.NEGATIVE_INFINITY));
+        Assert.assertEquals(0, JCV.roundUp(Double.NaN));
+        Assert.assertEquals(Integer.MAX_VALUE, JCV.roundUp(Double.POSITIVE_INFINITY));
     }
 
     /**
@@ -164,18 +160,18 @@ public class JCVTest {
      */
     @Test
     public void testRoundDown() {
-        assertEquals(1, JCV.roundDown(1.0));
-        assertEquals(1, JCV.roundDown(1.1));
-        assertEquals(1, JCV.roundDown(1.5));
-        assertEquals(1, JCV.roundDown(1.9));
-        assertEquals(2, JCV.roundDown(2.0));
+        Assert.assertEquals(1, JCV.roundDown(1.0));
+        Assert.assertEquals(1, JCV.roundDown(1.1));
+        Assert.assertEquals(1, JCV.roundDown(1.5));
+        Assert.assertEquals(1, JCV.roundDown(1.9));
+        Assert.assertEquals(2, JCV.roundDown(2.0));
 
-        assertEquals(0, JCV.roundDown(Color.MIN_VALUE));
-        assertEquals(255, JCV.roundDown(Color.MAX_VALUE));
+        Assert.assertEquals(0, JCV.roundDown(Color.MIN_VALUE));
+        Assert.assertEquals(255, JCV.roundDown(Color.MAX_VALUE));
 
-        assertEquals(Integer.MIN_VALUE, JCV.roundDown(Double.NEGATIVE_INFINITY));
-        assertEquals(0, JCV.roundDown(Double.NaN));
-        assertEquals(Integer.MAX_VALUE, JCV.roundDown(Double.POSITIVE_INFINITY));
+        Assert.assertEquals(Integer.MIN_VALUE, JCV.roundDown(Double.NEGATIVE_INFINITY));
+        Assert.assertEquals(0, JCV.roundDown(Double.NaN));
+        Assert.assertEquals(Integer.MAX_VALUE, JCV.roundDown(Double.POSITIVE_INFINITY));
     }
 
     /**
@@ -183,10 +179,10 @@ public class JCVTest {
      */
     @Test
     public void testGetCenter() {
-        assertTrue(JCV.calculateCenter(1, 1).equals(new Point(0, 0)));
-        assertTrue(JCV.calculateCenter(2, 2).equals(new Point(0, 0)));
-        assertTrue(JCV.calculateCenter(3, 3).equals(new Point(1, 1)));
-        assertTrue(JCV.calculateCenter(3, 2).equals(new Point(1, 0)));
+        Assert.assertTrue(JCV.calculateCenter(1, 1).equals(new Point(0, 0)));
+        Assert.assertTrue(JCV.calculateCenter(2, 2).equals(new Point(0, 0)));
+        Assert.assertTrue(JCV.calculateCenter(3, 3).equals(new Point(1, 1)));
+        Assert.assertTrue(JCV.calculateCenter(3, 2).equals(new Point(1, 0)));
     }
 
     /**
@@ -199,8 +195,8 @@ public class JCVTest {
         // Incorrect source object.
         try {
             JCV.verifyIsNotNull(null);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -219,15 +215,15 @@ public class JCVTest {
 
         try {
             JCV.verifyIsSameSize(image1, image3);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         try {
             JCV.verifyIsSameSize(image1, image4);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -246,15 +242,15 @@ public class JCVTest {
 
         try {
             JCV.verifyIsSameChannels(image1, image3);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         try {
             JCV.verifyIsSameChannels(image1, image4);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -268,15 +264,15 @@ public class JCVTest {
 
         try {
             JCV.verifyNumOfChannels(new Image(100, 100, 4), 5);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         try {
             JCV.verifyNumOfChannels(new Image(100, 100, 4), -5);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -295,15 +291,15 @@ public class JCVTest {
 
         try {
             JCV.verifyIsSameSize(matrix1, matrix3);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         try {
             JCV.verifyIsSameSize(matrix1, matrix4);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -320,8 +316,8 @@ public class JCVTest {
         // Incorrect value.
         try {
             JCV.verifyOddSize(2);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }

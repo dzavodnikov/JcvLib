@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -179,7 +179,7 @@ public class Histogram {
         this.blob = (1.0 + Color.MAX_VALUE) / this.size;
 
         // Initialize histogram.
-        this.histogram = new double[this.calcLength()];
+        this.histogram = new double[calcLength()];
         for (int i = 0; i < this.histogram.length; ++i) {
             this.histogram[i] = 0.0;
         }
@@ -187,10 +187,10 @@ public class Histogram {
         // Calculate.
         for (int x = 0; x < image.getWidth(); ++x) {
             for (int y = 0; y < image.getHeight(); ++y) {
-                this.histogram[this.calcPos(image, x, y)] += 1.0;
+                this.histogram[calcPos(image, x, y)] += 1.0;
             }
         }
-        this.normalize();
+        normalize();
     }
 
     /**
@@ -217,7 +217,7 @@ public class Histogram {
     /**
      * Return value of selected histogram bin.
      */
-    public double get(int bin) {
+    public double get(final int bin) {
         return this.histogram[bin];
     }
 
@@ -242,10 +242,10 @@ public class Histogram {
      * </p>
      */
     public double calculateVariance() {
-        final double average = 1.0 / this.getLength();
+        final double average = 1.0 / getLength();
         double sum = 0.0;
-        for (int i = 0; i < this.getLength(); ++i) {
-            sum += Math.pow(this.get(i) - average, 2);
+        for (int i = 0; i < getLength(); ++i) {
+            sum += Math.pow(get(i) - average, 2);
         }
         return sum;
     }
@@ -271,8 +271,8 @@ public class Histogram {
          * Verify parameters.
          */
         JCV.verifyIsNotNull(hist);
-        if (this.getLength() != hist.getLength()) {
-            throw new IllegalArgumentException("Length of current histogram (= " + Integer.toString(this.getLength())
+        if (getLength() != hist.getLength()) {
+            throw new IllegalArgumentException("Length of current histogram (= " + Integer.toString(getLength())
                     + ") and length of given histogram (= " + Integer.toString(hist.getLength())
                     + ") is not the same!");
         }
@@ -280,18 +280,18 @@ public class Histogram {
         /*
          * Perform operation.
          */
-        final double average = 1.0 / this.getLength();
+        final double average = 1.0 / getLength();
         double result = 0.0;
         double num = 0.0;
         double denSq = 0.0;
         switch (compareType) {
             case Histogram.HISTOGRAM_COMPARE_CORREL:
                 // Calculate numerator and denominator.
-                for (int i = 0; i < this.getLength(); ++i) {
-                    num += (this.get(i) - average) * (hist.get(i) - average);
+                for (int i = 0; i < getLength(); ++i) {
+                    num += (get(i) - average) * (hist.get(i) - average);
                 }
 
-                denSq = Math.sqrt(this.calculateVariance() * hist.calculateVariance());
+                denSq = Math.sqrt(calculateVariance() * hist.calculateVariance());
                 if (!JCV.equalValues(denSq, 0.0, JCV.PRECISION) && !Double.isNaN(denSq)) {
                     result = num / denSq;
                 }
@@ -299,27 +299,27 @@ public class Histogram {
                 break;
 
             case Histogram.HISTOGRAM_COMPARE_CHISQR:
-                for (int i = 0; i < this.getLength(); ++i) {
-                    if (this.get(i) > 0) {
-                        double diff = this.get(i) - hist.get(i);
-                        result += (diff * diff) / this.get(i);
+                for (int i = 0; i < getLength(); ++i) {
+                    if (get(i) > 0) {
+                        final double diff = get(i) - hist.get(i);
+                        result += diff * diff / get(i);
                     }
                 }
 
                 break;
 
             case Histogram.HISTOGRAM_COMPARE_INTERSECT:
-                for (int i = 0; i < this.getLength(); ++i) {
-                    result += Math.min(this.get(i), hist.get(i));
+                for (int i = 0; i < getLength(); ++i) {
+                    result += Math.min(get(i), hist.get(i));
                 }
 
                 break;
 
             case Histogram.HISTOGRAM_COMPARE_BHATTACHARYYA:
-                denSq = average * this.getLength();
+                denSq = average * getLength();
 
-                for (int i = 0; i < this.getLength(); ++i) {
-                    num += Math.sqrt(this.get(i) * hist.get(i));
+                for (int i = 0; i < getLength(); ++i) {
+                    num += Math.sqrt(get(i) * hist.get(i));
                 }
 
                 final double diff = 1.0 - num / denSq;
@@ -359,12 +359,12 @@ public class Histogram {
         /*
          * Perform operation.
          */
-        for (int i = 0; i < this.getLength(); ++i) {
-            if (this.get(i) < threshold) {
+        for (int i = 0; i < getLength(); ++i) {
+            if (get(i) < threshold) {
                 this.histogram[i] = 0.0;
             }
         }
-        this.normalize();
+        normalize();
     }
 
     public Image selectPixels(final Image image) {
@@ -382,7 +382,7 @@ public class Histogram {
             @Override
             public void execute(final int x, final int y, final int worker) {
                 final int val;
-                if (histogram[calcPos(image, x, y)] > 0.0) {
+                if (Histogram.this.histogram[calcPos(image, x, y)] > 0.0) {
                     // TODO
                     val = Color.MAX_VALUE;
                 } else {

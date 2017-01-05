@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,6 @@ import Jama.Matrix;
 
 /**
  * Smoothing methods.
- *
  * <p>
  * <h6>Links:</h6>
  * <ol>
@@ -48,7 +47,6 @@ import Jama.Matrix;
 public enum Blur {
     /**
      * Box blur.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -77,7 +75,6 @@ public enum Blur {
 
     /**
      * Gaussian blur.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -96,7 +93,6 @@ public enum Blur {
 
     /**
      * Median filter.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -145,7 +141,6 @@ public enum Blur {
 
     /**
      * Kuwahara blur.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -157,7 +152,6 @@ public enum Blur {
 
         /**
          * Calculate variance of sub-rectangle of kernel.
-         *
          * <p>
          * Used into {@link #kuwaharaBlur(Image, Size, int)}.
          * </p>
@@ -189,46 +183,46 @@ public enum Blur {
                 image.noneLinearFilter(result, kernelSize.getWidth(), kernelSize.getHeight(), kernelCenter, 1,
                         extrapolation, new KernelOperation() {
 
-                    @Override
-                    public void execute(final Image aperture, final Color result) {
-                        final Image[] windows = new Image[4];
+                            @Override
+                            public void execute(final Image aperture, final Color result) {
+                                final Image[] windows = new Image[4];
 
-                        final Color[] mean = new Color[windows.length];
-                        final double[][] variance = new double[windows.length][aperture.getNumOfChannels()];
+                                final Color[] mean = new Color[windows.length];
+                                final double[][] variance = new double[windows.length][aperture.getNumOfChannels()];
 
-                        final Size windowSize = new Size(kernelCenter.getX(), kernelCenter.getY());
+                                final Size windowSize = new Size(kernelCenter.getX(), kernelCenter.getY());
 
-                        // Create sub-images.
-                        windows[0] = aperture.makeSubImage(0, 0, windowSize.getWidth(), windowSize.getHeight());
-                        windows[1] = aperture.makeSubImage(kernelCenter.getX() + 1, 0, windowSize.getWidth(),
-                                windowSize.getHeight());
-                        windows[2] = aperture.makeSubImage(0, kernelCenter.getY() + 1, windowSize.getWidth(),
-                                windowSize.getHeight());
-                        windows[3] = aperture.makeSubImage(kernelCenter.getX() + 1, kernelCenter.getY() + 1,
-                                windowSize.getWidth(), windowSize.getHeight());
+                                // Create sub-images.
+                                windows[0] = aperture.makeSubImage(0, 0, windowSize.getWidth(), windowSize.getHeight());
+                                windows[1] = aperture.makeSubImage(kernelCenter.getX() + 1, 0, windowSize.getWidth(),
+                                        windowSize.getHeight());
+                                windows[2] = aperture.makeSubImage(0, kernelCenter.getY() + 1, windowSize.getWidth(),
+                                        windowSize.getHeight());
+                                windows[3] = aperture.makeSubImage(kernelCenter.getX() + 1, kernelCenter.getY() + 1,
+                                        windowSize.getWidth(), windowSize.getHeight());
 
-                        // Calculate average and variance.
-                        for (int i = 0; i < windows.length; ++i) {
-                            mean[i] = Misc.calculateMean(windows[i]);
-                            variance[i] = variance(windows[i], mean[i]);
-                        }
+                                // Calculate average and variance.
+                                for (int i = 0; i < windows.length; ++i) {
+                                    mean[i] = Misc.calculateMean(windows[i]);
+                                    variance[i] = variance(windows[i], mean[i]);
+                                }
 
-                        // Found min of variance.
-                        for (int channel = 0; channel < aperture.getNumOfChannels(); ++channel) {
-                            int minPos = 0;
-                            double minVal = variance[minPos][channel];
-                            for (int i = 1; i < 4; ++i) {
-                                if (variance[i][channel] < minVal) {
-                                    minVal = variance[i][channel];
-                                    minPos = i;
+                                // Found min of variance.
+                                for (int channel = 0; channel < aperture.getNumOfChannels(); ++channel) {
+                                    int minPos = 0;
+                                    double minVal = variance[minPos][channel];
+                                    for (int i = 1; i < 4; ++i) {
+                                        if (variance[i][channel] < minVal) {
+                                            minVal = variance[i][channel];
+                                            minPos = i;
+                                        }
+                                    }
+
+                                    // Different values for different channels.
+                                    result.set(channel, mean[minPos].get(channel));
                                 }
                             }
-
-                            // Different values for different channels.
-                            result.set(channel, mean[minPos].get(channel));
-                        }
-                    }
-                });
+                        });
 
                 return result;
             } else {

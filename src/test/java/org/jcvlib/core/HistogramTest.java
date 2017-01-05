@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,7 @@
  */
 package org.jcvlib.core;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,15 +30,15 @@ import org.junit.Test;
 public class HistogramTest {
 
     // Model.
-    private Histogram model;
+    private Histogram    model;
 
     // Half-match.
-    private Histogram hMatch;
+    private Histogram    hMatch;
 
     // Mismatch.
-    private Histogram mMatch;
+    private Histogram    mMatch;
 
-    private double    BHATTACHARYYA_PRECISION = 0.01;
+    private final double BHATTACHARYYA_PRECISION = 0.01;
 
     /**
      * Executes before creating instance of the class.
@@ -64,12 +63,12 @@ public class HistogramTest {
         this.mMatch = new Histogram(image, 2);
     }
 
-    private void checkNorm(Histogram hist) {
+    private void checkNorm(final Histogram hist) {
         double sum = 0.0;
         for (int i = 0; i < hist.getLength(); ++i) {
             sum += hist.get(i);
         }
-        assertEquals(1.0, sum, JCV.PRECISION);
+        Assert.assertEquals(1.0, sum, JCV.PRECISION);
     }
 
     /**
@@ -90,24 +89,24 @@ public class HistogramTest {
         final Histogram histCh3 = new Histogram(imageCh3);
 
         // Check size.
-        assertEquals(256, histCh1.getLength());
-        assertEquals(256 * 256 * 256, histCh3.getLength());
+        Assert.assertEquals(256, histCh1.getLength());
+        Assert.assertEquals(256 * 256 * 256, histCh3.getLength());
 
         // Check normalize.
-        this.checkNorm(histCh1);
-        this.checkNorm(histCh3);
+        checkNorm(histCh1);
+        checkNorm(histCh3);
 
         // Check values.
         // Single-channel.
         for (int i = 0; i < histCh1.getLength() - 1; ++i) {
-            assertEquals(0.0, histCh1.get(i), JCV.PRECISION);
+            Assert.assertEquals(0.0, histCh1.get(i), JCV.PRECISION);
         }
-        assertEquals(1.0, histCh1.get(histCh1.getLength() - 1), JCV.PRECISION);
+        Assert.assertEquals(1.0, histCh1.get(histCh1.getLength() - 1), JCV.PRECISION);
         // Multichannel.
         for (int i = 0; i < histCh3.getLength() - 1; ++i) {
-            assertEquals(0.0, histCh3.get(i), JCV.PRECISION);
+            Assert.assertEquals(0.0, histCh3.get(i), JCV.PRECISION);
         }
-        assertEquals(1.0, histCh3.get(histCh3.getLength() - 1), JCV.PRECISION);
+        Assert.assertEquals(1.0, histCh3.get(histCh3.getLength() - 1), JCV.PRECISION);
     }
 
     /**
@@ -122,9 +121,9 @@ public class HistogramTest {
         //        final Hist H2 = new Hist(new double[]{ 3.1, 3.6, 3.8, 4.0, 4.1 }, 1, 1);
         //        assertEquals(13.9 / 15.24336, H1.compare(H2, Hist.HISTOGRAM_COMPARE_CORREL), 0.0001);
 
-        assertEquals(1.0, this.model.compare(this.model, Histogram.HISTOGRAM_COMPARE_CORREL), JCV.PRECISION);
-        assertEquals(0.0, this.model.compare(this.hMatch, Histogram.HISTOGRAM_COMPARE_CORREL), JCV.PRECISION);
-        assertEquals(-1.0, this.model.compare(this.mMatch, Histogram.HISTOGRAM_COMPARE_CORREL), JCV.PRECISION);
+        Assert.assertEquals(1.0, this.model.compare(this.model, Histogram.HISTOGRAM_COMPARE_CORREL), JCV.PRECISION);
+        Assert.assertEquals(0.0, this.model.compare(this.hMatch, Histogram.HISTOGRAM_COMPARE_CORREL), JCV.PRECISION);
+        Assert.assertEquals(-1.0, this.model.compare(this.mMatch, Histogram.HISTOGRAM_COMPARE_CORREL), JCV.PRECISION);
     }
 
     /**
@@ -139,9 +138,9 @@ public class HistogramTest {
         //        final Hist H2 = new Hist(new double[]{  4.0,  6.0, 14.0, 10.0, 16.0 }, 1, 1);
         //        assertEquals(10.4, H1.compare(H2, Hist.HISTOGRAM_COMPARE_CHISQR), JCV.PRECISION_MAX);
 
-        assertEquals(0.00, this.model.compare(this.model, Histogram.HISTOGRAM_COMPARE_CHISQR), JCV.PRECISION);
-        assertEquals(0.25, this.model.compare(this.hMatch, Histogram.HISTOGRAM_COMPARE_CHISQR), JCV.PRECISION);
-        assertEquals(1.00, this.model.compare(this.mMatch, Histogram.HISTOGRAM_COMPARE_CHISQR), JCV.PRECISION);
+        Assert.assertEquals(0.00, this.model.compare(this.model, Histogram.HISTOGRAM_COMPARE_CHISQR), JCV.PRECISION);
+        Assert.assertEquals(0.25, this.model.compare(this.hMatch, Histogram.HISTOGRAM_COMPARE_CHISQR), JCV.PRECISION);
+        Assert.assertEquals(1.00, this.model.compare(this.mMatch, Histogram.HISTOGRAM_COMPARE_CHISQR), JCV.PRECISION);
     }
 
     /**
@@ -149,9 +148,9 @@ public class HistogramTest {
      */
     @Test
     public void testIntersect() {
-        assertEquals(1.0, this.model.compare(this.model, Histogram.HISTOGRAM_COMPARE_INTERSECT), JCV.PRECISION);
-        assertEquals(0.5, this.model.compare(this.hMatch, Histogram.HISTOGRAM_COMPARE_INTERSECT), JCV.PRECISION);
-        assertEquals(0.0, this.model.compare(this.mMatch, Histogram.HISTOGRAM_COMPARE_INTERSECT), JCV.PRECISION);
+        Assert.assertEquals(1.0, this.model.compare(this.model, Histogram.HISTOGRAM_COMPARE_INTERSECT), JCV.PRECISION);
+        Assert.assertEquals(0.5, this.model.compare(this.hMatch, Histogram.HISTOGRAM_COMPARE_INTERSECT), JCV.PRECISION);
+        Assert.assertEquals(0.0, this.model.compare(this.mMatch, Histogram.HISTOGRAM_COMPARE_INTERSECT), JCV.PRECISION);
     }
 
     /**
@@ -159,9 +158,11 @@ public class HistogramTest {
      */
     @Test
     public void testBhattacharyya() {
-        assertEquals(0.00, this.model.compare(this.model, Histogram.HISTOGRAM_COMPARE_BHATTACHARYYA), JCV.PRECISION);
-        assertEquals(0.55, this.model.compare(this.hMatch, Histogram.HISTOGRAM_COMPARE_BHATTACHARYYA),
-                BHATTACHARYYA_PRECISION);
-        assertEquals(1.00, this.model.compare(this.mMatch, Histogram.HISTOGRAM_COMPARE_BHATTACHARYYA), JCV.PRECISION);
+        Assert.assertEquals(0.00, this.model.compare(this.model, Histogram.HISTOGRAM_COMPARE_BHATTACHARYYA),
+                JCV.PRECISION);
+        Assert.assertEquals(0.55, this.model.compare(this.hMatch, Histogram.HISTOGRAM_COMPARE_BHATTACHARYYA),
+                this.BHATTACHARYYA_PRECISION);
+        Assert.assertEquals(1.00, this.model.compare(this.mMatch, Histogram.HISTOGRAM_COMPARE_BHATTACHARYYA),
+                JCV.PRECISION);
     }
 }

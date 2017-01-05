@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,13 @@
  */
 package org.jcvlib.image;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 import org.jcvlib.core.Color;
 import org.jcvlib.core.Extrapolation;
 import org.jcvlib.core.Image;
 import org.jcvlib.core.ImageTest;
 import org.jcvlib.core.JCV;
 import org.jcvlib.image.filters.Filters;
+import org.junit.Assert;
 import org.junit.Test;
 
 import Jama.Matrix;
@@ -67,11 +65,11 @@ public class FilterTest {
          * Kernel.
          */
         //@formatter:off
-        final Matrix kernel = new Matrix(new double[][]{ 
-            {  0,  0,  0,  0,  0 }, 
-            {  0, 10,  0,  0,  0 }, 
+        final Matrix kernel = new Matrix(new double[][]{
             {  0,  0,  0,  0,  0 },
-            {  0,  0,  0,  0,  0 }, 
+            {  0, 10,  0,  0,  0 },
+            {  0,  0,  0,  0,  0 },
+            {  0,  0,  0,  0,  0 },
             {  0,  0,  0,  0,  0 }
         });
         //@formatter:on
@@ -96,9 +94,9 @@ public class FilterTest {
         for (int y = 0; y < image.getHeight(); ++y) {
             for (int x = 0; x < image.getWidth(); ++x) {
                 if (x < 2 && y < 2) {
-                    assertEquals(8, result.get(x, y, 0));
+                    Assert.assertEquals(8, result.get(x, y, 0));
                 } else {
-                    assertEquals(3, result.get(x, y, 0));
+                    Assert.assertEquals(3, result.get(x, y, 0));
                 }
             }
         }
@@ -113,19 +111,19 @@ public class FilterTest {
          * Use values from: http://www.embege.com/gauss/
          */
         //@formatter:off
-        final double[] kernelTest = new double[]{ 
-                0.054_488_684_549_644_33, 
+        final double[] kernelTest = new double[]{
+                0.054_488_684_549_644_33,
                 0.244_201_342_003_233_46,
-                0.402_619_946_894_244_35, 
-                0.244_201_342_003_233_46, 
+                0.402_619_946_894_244_35,
+                0.244_201_342_003_233_46,
                 0.054_488_684_549_644_33
             };
         //@formatter:on
 
         final Matrix kernel = Filters.getGaussianKernel(5, 1.0);
 
-        assertEquals(kernelTest.length, kernel.getRowDimension());
-        assertEquals(1, kernel.getColumnDimension());
+        Assert.assertEquals(kernelTest.length, kernel.getRowDimension());
+        Assert.assertEquals(1, kernel.getColumnDimension());
 
         double sumTest = 0.0;
         double sum = 0.0;
@@ -133,12 +131,12 @@ public class FilterTest {
             sumTest += kernelTest[i];
             sum += kernel.get(i, 0);
         }
-        assertEquals(1.0, sumTest, JCV.PRECISION);
-        assertEquals(1.0, sum, JCV.PRECISION);
+        Assert.assertEquals(1.0, sumTest, JCV.PRECISION);
+        Assert.assertEquals(1.0, sum, JCV.PRECISION);
 
         // Check values.
         for (int i = 0; i < kernelTest.length; ++i) {
-            assertEquals(kernelTest[i], kernel.get(i, 0), JCV.PRECISION);
+            Assert.assertEquals(kernelTest[i], kernel.get(i, 0), JCV.PRECISION);
         }
     }
 
@@ -150,16 +148,16 @@ public class FilterTest {
         // Incorrect kernel size (more than 0).
         try {
             Filters.getGaussianKernel(0, 1.0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect kernel size (should be odd: 1, 3, 5, ...).
         try {
             Filters.getGaussianKernel(2, 1.0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -172,13 +170,13 @@ public class FilterTest {
         final double sigma1 = 1.5;
         final int kernelSize1 = 9;
 
-        assertEquals(kernelSize1, Filters.getKernelSize(sigma1));
-        assertEquals(sigma1, Filters.getSigma(kernelSize1), JCV.PRECISION);
+        Assert.assertEquals(kernelSize1, Filters.getKernelSize(sigma1));
+        Assert.assertEquals(sigma1, Filters.getSigma(kernelSize1), JCV.PRECISION);
 
         final double sigma2 = 1.0;
         final int kernelSize2 = 6;
 
-        assertEquals(kernelSize2 + 1, Filters.getKernelSize(sigma2), JCV.PRECISION);
-        assertEquals(sigma2, Filters.getSigma(kernelSize2), JCV.PRECISION);
+        Assert.assertEquals(kernelSize2 + 1, Filters.getKernelSize(sigma2), JCV.PRECISION);
+        Assert.assertEquals(sigma2, Filters.getSigma(kernelSize2), JCV.PRECISION);
     }
 }

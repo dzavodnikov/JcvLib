@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,7 @@
  */
 package org.jcvlib.core;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -42,16 +38,16 @@ public class SizeTest {
         // Incorrect Height.
         try {
             new Size(0, 1);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect Width.
         try {
             new Size(1, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -74,8 +70,8 @@ public class SizeTest {
     public void testWidthHeight() {
         final Size size = new Size(1, 2);
 
-        assertEquals(1, size.getWidth());
-        assertEquals(2, size.getHeight());
+        Assert.assertEquals(1, size.getWidth());
+        Assert.assertEquals(2, size.getHeight());
     }
 
     /**
@@ -83,7 +79,7 @@ public class SizeTest {
      */
     @Test
     public void testCalculateN() {
-        assertEquals(6, (new Size(3, 2)).calculateN());
+        Assert.assertEquals(6, new Size(3, 2).calculateN());
     }
 
     /**
@@ -92,16 +88,16 @@ public class SizeTest {
     @Test
     public void testLessOrEquals() {
         final Size size1 = new Size(6, 7);
-        assertTrue(size1.lessOrEqualsThan(size1));
+        Assert.assertTrue(size1.lessOrEqualsThan(size1));
 
         final Size size2 = new Size(5, 5);
-        assertTrue(size2.lessOrEqualsThan(size1));
+        Assert.assertTrue(size2.lessOrEqualsThan(size1));
 
         final Size size3 = new Size(6, 8);
-        assertFalse(size3.lessOrEqualsThan(size1));
+        Assert.assertFalse(size3.lessOrEqualsThan(size1));
 
         final Size size4 = new Size(7, 7);
-        assertFalse(size4.lessOrEqualsThan(size1));
+        Assert.assertFalse(size4.lessOrEqualsThan(size1));
     }
 
     /**
@@ -111,9 +107,9 @@ public class SizeTest {
     public void testLessOrEqualsException() {
         // Incorrect source object.
         try {
-            (new Size(3, 2)).lessOrEqualsThan(null);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            new Size(3, 2).lessOrEqualsThan(null);
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -124,15 +120,15 @@ public class SizeTest {
     @Test
     public void testEquals() {
         final Size size1 = new Size(1, 2);
-        assertTrue(size1.equals(size1));
-        assertTrue(size1.equals(new Size(1, 2)));
-        assertFalse(size1.equals(null));
-        assertFalse(size1.equals(0));
+        Assert.assertTrue(size1.equals(size1));
+        Assert.assertTrue(size1.equals(new Size(1, 2)));
+        Assert.assertFalse(size1.equals(null));
+        Assert.assertFalse(size1.equals(0));
 
         final Size size2 = new Size(2, 2);
-        assertFalse(size1.equals(size2));
+        Assert.assertFalse(size1.equals(size2));
 
         final Size size3 = new Size(1, 3);
-        assertFalse(size1.equals(size3));
+        Assert.assertFalse(size1.equals(size3));
     }
 }

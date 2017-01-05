@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,13 +37,13 @@ public class Point {
      * Create new point.
      */
     public Point(final int x, final int y) {
-        if (x < MIN_X_POSITION) {
+        if (x < Point.MIN_X_POSITION) {
             throw new IllegalArgumentException(
-                    "Value of 'x' (= " + x + ") must be more or equals than " + MIN_X_POSITION + " !");
+                    "Value of 'x' (= " + x + ") must be more or equals than " + Point.MIN_X_POSITION + " !");
         }
-        if (y < MIN_Y_POSITION) {
+        if (y < Point.MIN_Y_POSITION) {
             throw new IllegalArgumentException("Value of 'y' (= " + Integer.toString(y)
-                    + ") must be more or equals than " + Integer.toString(MIN_Y_POSITION) + " !");
+                    + ") must be more or equals than " + Integer.toString(Point.MIN_Y_POSITION) + " !");
         }
 
         this.x = x;

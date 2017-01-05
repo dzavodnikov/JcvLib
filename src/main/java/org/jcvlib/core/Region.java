@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -151,7 +151,7 @@ public class Region {
             this.ellipseMaxAxisLength = Math.sqrt(8.0 * (b + c));
             this.ellipseMinAxisLength = Math.sqrt(8.0 * (b - c));
             if (this.secondOrderRowMoment > this.secondOrderColumnMoment) {
-                this.ellipseMaxAxisOrientation = 1.0 / Math.tan((-2.0 * this.secondOrderMixedMoment) / (a + c));
+                this.ellipseMaxAxisOrientation = 1.0 / Math.tan(-2.0 * this.secondOrderMixedMoment / (a + c));
             } else {
                 this.ellipseMaxAxisOrientation = 1.0
                         / Math.tan(Math.sqrt(b + c) / (-2.0 * this.secondOrderMixedMoment));

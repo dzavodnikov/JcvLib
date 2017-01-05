@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,6 @@
  */
 package org.jcvlib.image;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.List;
 
 import org.jcvlib.core.Color;
@@ -27,6 +25,7 @@ import org.jcvlib.core.Image;
 import org.jcvlib.core.ImageTest;
 import org.jcvlib.core.Point;
 import org.jcvlib.core.Region;
+import org.junit.Assert;
 import org.junit.Test;
 
 import Jama.Matrix;
@@ -77,7 +76,7 @@ public class MiscTest {
                 FloodFillRange.FIXED);
         ImageTest.printImage(result1, "After:");
         final Region region1 = new Region(result1, fillColor1);
-        assertEquals(5, region1.getAreaSize());
+        Assert.assertEquals(5, region1.getAreaSize());
 
         /*
          * Test 2.
@@ -86,7 +85,7 @@ public class MiscTest {
         final Image result2 = Misc.floodFill(image.makeCopy(), new Point(0, 0), 3.0, fillColor2, Direction.TYPE_8,
                 FloodFillRange.FIXED);
         final Region region2 = new Region(result2, fillColor2);
-        assertEquals(7, region2.getAreaSize());
+        Assert.assertEquals(7, region2.getAreaSize());
 
         /*
          * Test 3.
@@ -95,7 +94,7 @@ public class MiscTest {
         final Image result3 = Misc.floodFill(image.makeCopy(), new Point(0, 0), 1.0, fillColor3, Direction.TYPE_4,
                 FloodFillRange.NEIGHBOR);
         final Region region3 = new Region(result3, fillColor3);
-        assertEquals(5, region3.getAreaSize());
+        Assert.assertEquals(5, region3.getAreaSize());
 
         /*
          * Test 4.
@@ -104,7 +103,7 @@ public class MiscTest {
         final Image result4 = Misc.floodFill(image.makeCopy(), new Point(0, 0), 1.0, fillColor4, Direction.TYPE_8,
                 FloodFillRange.NEIGHBOR);
         final Region region4 = new Region(result4, fillColor4);
-        assertEquals(7, region4.getAreaSize());
+        Assert.assertEquals(7, region4.getAreaSize());
     }
 
     /**
@@ -148,39 +147,39 @@ public class MiscTest {
         final Image imageTwo = Misc.buildPyramidUp(image);
 
         //@formatter:off
-        assertEquals( 8, imageTwo.getWidth());
-        assertEquals( 8, imageTwo.getHeight());
-        assertEquals( 1, imageTwo.getNumOfChannels());
+        Assert.assertEquals( 8, imageTwo.getWidth());
+        Assert.assertEquals( 8, imageTwo.getHeight());
+        Assert.assertEquals( 1, imageTwo.getNumOfChannels());
 
         // Horizontal.
-        assertEquals( 0, imageTwo.get(0, 0, 0));
-        assertEquals( 0, imageTwo.get(1, 0, 0));
-        assertEquals( 1, imageTwo.get(2, 0, 0));
-        assertEquals( 1, imageTwo.get(3, 0, 0));
-        assertEquals( 2, imageTwo.get(4, 0, 0));
-        assertEquals( 2, imageTwo.get(5, 0, 0));
-        assertEquals( 3, imageTwo.get(6, 0, 0));
-        assertEquals( 3, imageTwo.get(7, 0, 0));
+        Assert.assertEquals( 0, imageTwo.get(0, 0, 0));
+        Assert.assertEquals( 0, imageTwo.get(1, 0, 0));
+        Assert.assertEquals( 1, imageTwo.get(2, 0, 0));
+        Assert.assertEquals( 1, imageTwo.get(3, 0, 0));
+        Assert.assertEquals( 2, imageTwo.get(4, 0, 0));
+        Assert.assertEquals( 2, imageTwo.get(5, 0, 0));
+        Assert.assertEquals( 3, imageTwo.get(6, 0, 0));
+        Assert.assertEquals( 3, imageTwo.get(7, 0, 0));
 
         // Vertical.
-        assertEquals( 0, imageTwo.get(0, 0, 0));
-        assertEquals( 0, imageTwo.get(0, 1, 0));
-        assertEquals( 4, imageTwo.get(0, 2, 0));
-        assertEquals( 4, imageTwo.get(0, 3, 0));
-        assertEquals( 8, imageTwo.get(0, 4, 0));
-        assertEquals( 8, imageTwo.get(0, 5, 0));
-        assertEquals(12, imageTwo.get(0, 6, 0));
-        assertEquals(12, imageTwo.get(0, 7, 0));
+        Assert.assertEquals( 0, imageTwo.get(0, 0, 0));
+        Assert.assertEquals( 0, imageTwo.get(0, 1, 0));
+        Assert.assertEquals( 4, imageTwo.get(0, 2, 0));
+        Assert.assertEquals( 4, imageTwo.get(0, 3, 0));
+        Assert.assertEquals( 8, imageTwo.get(0, 4, 0));
+        Assert.assertEquals( 8, imageTwo.get(0, 5, 0));
+        Assert.assertEquals(12, imageTwo.get(0, 6, 0));
+        Assert.assertEquals(12, imageTwo.get(0, 7, 0));
 
         // Diagonal.
-        assertEquals( 0, imageTwo.get(0, 0, 0));
-        assertEquals( 0, imageTwo.get(1, 1, 0));
-        assertEquals( 5, imageTwo.get(2, 2, 0));
-        assertEquals( 5, imageTwo.get(3, 3, 0));
-        assertEquals(10, imageTwo.get(4, 4, 0));
-        assertEquals(10, imageTwo.get(5, 5, 0));
-        assertEquals(15, imageTwo.get(6, 6, 0));
-        assertEquals(15, imageTwo.get(7, 7, 0));
+        Assert.assertEquals( 0, imageTwo.get(0, 0, 0));
+        Assert.assertEquals( 0, imageTwo.get(1, 1, 0));
+        Assert.assertEquals( 5, imageTwo.get(2, 2, 0));
+        Assert.assertEquals( 5, imageTwo.get(3, 3, 0));
+        Assert.assertEquals(10, imageTwo.get(4, 4, 0));
+        Assert.assertEquals(10, imageTwo.get(5, 5, 0));
+        Assert.assertEquals(15, imageTwo.get(6, 6, 0));
+        Assert.assertEquals(15, imageTwo.get(7, 7, 0));
         //@formatter:on
 
         /*
@@ -202,14 +201,14 @@ public class MiscTest {
         final Image imageHalf = Misc.buildPyramidDown(image);
 
         //@formatter:off
-        assertEquals( 2, imageHalf.getWidth());
-        assertEquals( 2, imageHalf.getHeight());
-        assertEquals( 1, imageHalf.getNumOfChannels());
+        Assert.assertEquals( 2, imageHalf.getWidth());
+        Assert.assertEquals( 2, imageHalf.getHeight());
+        Assert.assertEquals( 1, imageHalf.getNumOfChannels());
 
-        assertEquals( 1, imageHalf.get(0, 0, 0));
-        assertEquals( 3, imageHalf.get(1, 0, 0));
-        assertEquals( 8, imageHalf.get(0, 1, 0));
-        assertEquals(10, imageHalf.get(1, 1, 0));
+        Assert.assertEquals( 1, imageHalf.get(0, 0, 0));
+        Assert.assertEquals( 3, imageHalf.get(1, 0, 0));
+        Assert.assertEquals( 8, imageHalf.get(0, 1, 0));
+        Assert.assertEquals(10, imageHalf.get(1, 1, 0));
         //@formatter:on
     }
 
@@ -227,7 +226,7 @@ public class MiscTest {
         for (int channel = 0; channel < sumAreas.size(); ++channel) {
             for (int x = 0; x < image.getWidth(); ++x) {
                 for (int y = 0; y < image.getHeight(); ++y) {
-                    assertEquals((x + 1) * (y + 1) * Color.MAX_VALUE, sumAreas.get(channel).get(y, x), 1.0);
+                    Assert.assertEquals((x + 1) * (y + 1) * Color.MAX_VALUE, sumAreas.get(channel).get(y, x), 1.0);
                 }
             }
         }

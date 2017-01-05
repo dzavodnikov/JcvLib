@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,6 @@
  */
 package org.jcvlib.io;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -29,6 +25,7 @@ import org.jcvlib.core.Color;
 import org.jcvlib.core.Histogram;
 import org.jcvlib.core.Image;
 import org.jcvlib.image.ColorConvert;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -43,9 +40,9 @@ public class ImageRwTest {
      */
     @Test
     public void testBMP() {
-        final Image image = init(1500, 1200, 3);
-        writeAndReadTest(image, "BMP");
-        writeAndReadHistogramTest(image, "BMP");
+        final Image image = ImageRwTest.init(1500, 1200, 3);
+        ImageRwTest.writeAndReadTest(image, "BMP");
+        ImageRwTest.writeAndReadHistogramTest(image, "BMP");
     }
 
     /**
@@ -53,8 +50,8 @@ public class ImageRwTest {
      */
     @Test
     public void testJPG() {
-        final Image image = init(1500, 1200, 3);
-        writeAndReadHistogramTest(image, "JPG");
+        final Image image = ImageRwTest.init(1500, 1200, 3);
+        ImageRwTest.writeAndReadHistogramTest(image, "JPG");
     }
 
     /**
@@ -62,9 +59,9 @@ public class ImageRwTest {
      */
     @Test
     public void testPNG() {
-        final Image image = init(1500, 1200, 4);
-        writeAndReadTest(image, "PNG");
-        writeAndReadHistogramTest(image, "PNG");
+        final Image image = ImageRwTest.init(1500, 1200, 4);
+        ImageRwTest.writeAndReadTest(image, "PNG");
+        ImageRwTest.writeAndReadHistogramTest(image, "PNG");
     }
 
     /**
@@ -102,12 +99,12 @@ public class ImageRwTest {
             ImageRW.write(image, imagePath);
             final Image newImage = ImageRW.read(imagePath);
 
-            assertTrue(image.equals(newImage));
+            Assert.assertTrue(image.equals(newImage));
 
             // Remove temp file.
-            (new File(imagePath)).delete();
-        } catch (IOException e) {
-            fail(e.getMessage());
+            new File(imagePath).delete();
+        } catch (final IOException e) {
+            Assert.fail(e.getMessage());
         }
     }
 
@@ -129,15 +126,16 @@ public class ImageRwTest {
             final Image newImageBW = ColorConvert.fromRGBtoGray(newImage.makeLayer(0, 3));
             final Histogram newImageBWHist = new Histogram(newImageBW);
 
-            assertEquals(1.0, imageBWHist.compare(newImageBWHist, Histogram.HISTOGRAM_COMPARE_CORREL), 0.1);
-            assertEquals(0.0, imageBWHist.compare(newImageBWHist, Histogram.HISTOGRAM_COMPARE_CHISQR), 0.1);
-            assertEquals(1.0, imageBWHist.compare(newImageBWHist, Histogram.HISTOGRAM_COMPARE_INTERSECT), 0.5);
-            assertEquals(0.0, imageBWHist.compare(newImageBWHist, Histogram.HISTOGRAM_COMPARE_BHATTACHARYYA), 0.5);
+            Assert.assertEquals(1.0, imageBWHist.compare(newImageBWHist, Histogram.HISTOGRAM_COMPARE_CORREL), 0.1);
+            Assert.assertEquals(0.0, imageBWHist.compare(newImageBWHist, Histogram.HISTOGRAM_COMPARE_CHISQR), 0.1);
+            Assert.assertEquals(1.0, imageBWHist.compare(newImageBWHist, Histogram.HISTOGRAM_COMPARE_INTERSECT), 0.5);
+            Assert.assertEquals(0.0, imageBWHist.compare(newImageBWHist, Histogram.HISTOGRAM_COMPARE_BHATTACHARYYA),
+                    0.5);
 
             // Remove temp file.
-            (new File(imagePath)).delete();
-        } catch (IOException e) {
-            fail(e.getMessage());
+            new File(imagePath).delete();
+        } catch (final IOException e) {
+            Assert.fail(e.getMessage());
         }
     }
 }

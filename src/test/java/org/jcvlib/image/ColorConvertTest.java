@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,10 @@
  */
 package org.jcvlib.image;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.jcvlib.core.Color;
 import org.jcvlib.core.Image;
 import org.jcvlib.core.JCV;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,10 +56,10 @@ public class ColorConvertTest {
 
         // Initialize image.
         int value = JCV.round(Color.MIN_VALUE);
-        for (int x = 0; x < imageRGB.getWidth(); ++x) {
-            for (int y = 0; y < imageRGB.getHeight(); ++y) {
-                for (int channel = 0; channel < imageRGB.getNumOfChannels(); ++channel) {
-                    imageRGB.set(x, y, channel, value);
+        for (int x = 0; x < this.imageRGB.getWidth(); ++x) {
+            for (int y = 0; y < this.imageRGB.getHeight(); ++y) {
+                for (int channel = 0; channel < this.imageRGB.getNumOfChannels(); ++channel) {
+                    this.imageRGB.set(x, y, channel, value);
 
                     ++value;
                     if (value > Color.MAX_VALUE) {
@@ -78,11 +76,11 @@ public class ColorConvertTest {
     @Test
     public void testRGBtoGrayToRGB() {
         final Image imgGray = ColorConvert.fromRGBtoGray(this.imageRGB);
-        assertFalse(imgGray.equals(this.imageRGB));
+        Assert.assertFalse(imgGray.equals(this.imageRGB));
 
         final Image imgRGB = ColorConvert.fromGrayToRGB(imgGray);
         for (int channel = 0; channel < imgRGB.getNumOfChannels(); ++channel) {
-            assertTrue(imgRGB.makeChannel(channel).equals(imgGray));
+            Assert.assertTrue(imgRGB.makeChannel(channel).equals(imgGray));
         }
     }
 
@@ -92,10 +90,10 @@ public class ColorConvertTest {
     @Test
     public void testRGBtoHSLtoRGB() {
         final Image imgHLS = ColorConvert.fromRGBtoHSL(this.imageRGB);
-        assertFalse(imgHLS.equals(this.imageRGB));
+        Assert.assertFalse(imgHLS.equals(this.imageRGB));
 
         final Image imgRGB = ColorConvert.fromHSLtoRGB(imgHLS);
-        assertTrue(imgRGB.equals(this.imageRGB));
+        Assert.assertTrue(imgRGB.equals(this.imageRGB));
     }
 
     /**
@@ -104,9 +102,9 @@ public class ColorConvertTest {
     @Test
     public void testRGBtoHSVtoRGB() {
         final Image imgHSV = ColorConvert.fromRGBtoHSV(this.imageRGB);
-        assertFalse(imgHSV.equals(this.imageRGB));
+        Assert.assertFalse(imgHSV.equals(this.imageRGB));
 
         final Image imgRGB = ColorConvert.fromHSVtoRGB(imgHSV);
-        assertTrue(imgRGB.equals(this.imageRGB));
+        Assert.assertTrue(imgRGB.equals(this.imageRGB));
     }
 }

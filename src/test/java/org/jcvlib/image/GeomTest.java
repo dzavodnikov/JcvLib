@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,10 +18,6 @@
  */
 package org.jcvlib.image;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +26,7 @@ import org.jcvlib.core.Image;
 import org.jcvlib.core.Point;
 import org.jcvlib.image.geometry.Geometry;
 import org.jcvlib.image.geometry.Reflection;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -72,16 +69,16 @@ public class GeomTest {
     public void testMirroringHorizontal() {
         final Image mirror = Geometry.reflect(this.image, Reflection.HORIZONTAL);
 
-        assertTrue(this.image.getSize().equals(mirror.getSize()));
+        Assert.assertTrue(this.image.getSize().equals(mirror.getSize()));
 
         // Check values.
         for (int x = 0; x < mirror.getWidth(); ++x) {
             for (int y = 0; y < mirror.getHeight(); ++y) {
                 for (int channel = 0; channel < this.image.getNumOfChannels(); ++channel) {
-                    int answer = this.image.get(mirror.getWidth() - x - 1, y, channel);
-                    int result = mirror.get(x, y, channel);
+                    final int answer = this.image.get(mirror.getWidth() - x - 1, y, channel);
+                    final int result = mirror.get(x, y, channel);
 
-                    assertEquals(answer, result);
+                    Assert.assertEquals(answer, result);
                 }
             }
         }
@@ -94,7 +91,7 @@ public class GeomTest {
     public void testMirroringVertical() {
         final Image mirror = Geometry.reflect(this.image, Reflection.VERTICAL);
 
-        assertTrue(this.image.getSize().equals(mirror.getSize()));
+        Assert.assertTrue(this.image.getSize().equals(mirror.getSize()));
 
         // Check values.
         for (int x = 0; x < mirror.getWidth(); ++x) {
@@ -103,7 +100,7 @@ public class GeomTest {
                     final int answer = this.image.get(x, mirror.getHeight() - y - 1, channel);
                     final int result = mirror.get(x, y, channel);
 
-                    assertEquals(answer, result);
+                    Assert.assertEquals(answer, result);
                 }
             }
         }
@@ -116,7 +113,7 @@ public class GeomTest {
     public void testMirroringDiagonal() {
         final Image mirror = Geometry.reflect(this.image, Reflection.DIAGONAL);
 
-        assertTrue(this.image.getSize().equals(mirror.getSize()));
+        Assert.assertTrue(this.image.getSize().equals(mirror.getSize()));
 
         // Check values.
         for (int x = 0; x < mirror.getWidth(); ++x) {
@@ -125,7 +122,7 @@ public class GeomTest {
                     final int answer = this.image.get(mirror.getWidth() - x - 1, mirror.getHeight() - y - 1, channel);
                     final int result = mirror.get(x, y, channel);
 
-                    assertEquals(answer, result);
+                    Assert.assertEquals(answer, result);
                 }
             }
         }
@@ -136,7 +133,7 @@ public class GeomTest {
      */
     @Test
     public void testGetPerspectiveTransformException() {
-        final List<Point> pointsIncorrect = new LinkedList<Point>();
+        final List<Point> pointsIncorrect = new LinkedList<>();
         //@formatter:off
         pointsIncorrect.add(new Point(  0,   0));
         pointsIncorrect.add(new Point( 10,  10));
@@ -144,7 +141,7 @@ public class GeomTest {
         pointsIncorrect.add(new Point( 67, 207));
         //@formatter:on
 
-        final List<Point> pointsCorrect = new LinkedList<Point>();
+        final List<Point> pointsCorrect = new LinkedList<>();
         //@formatter:off
         pointsCorrect.add(new Point( 49,  83));
         pointsCorrect.add(new Point(210,  66));
@@ -154,8 +151,8 @@ public class GeomTest {
 
         try {
             Geometry.getPerspectiveTransfrom(pointsIncorrect, pointsCorrect);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }

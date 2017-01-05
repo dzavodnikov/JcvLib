@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,7 @@
  */
 package org.jcvlib.core;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -65,33 +64,33 @@ public class ExtrapolationTest {
     @Test
     public void testZero() {
         // A
-        assertEquals(0, this.image.get(-1, -1, 0, Extrapolation.ZERO));
-        assertEquals(0, this.image.get(-2, -2, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(-1, -1, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(-2, -2, 0, Extrapolation.ZERO));
         // B
-        assertEquals(0, this.image.get(5, -1, 0, Extrapolation.ZERO));
-        assertEquals(0, this.image.get(6, -2, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(5, -1, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(6, -2, 0, Extrapolation.ZERO));
         // C
-        assertEquals(0, this.image.get(5, 3, 0, Extrapolation.ZERO));
-        assertEquals(0, this.image.get(6, 4, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(5, 3, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(6, 4, 0, Extrapolation.ZERO));
         // D
-        assertEquals(0, this.image.get(-1, 3, 0, Extrapolation.ZERO));
-        assertEquals(0, this.image.get(-2, 4, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(-1, 3, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(-2, 4, 0, Extrapolation.ZERO));
 
         // A-B
-        assertEquals(0, this.image.get(2, -1, 0, Extrapolation.ZERO));
-        assertEquals(0, this.image.get(2, -2, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(2, -1, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(2, -2, 0, Extrapolation.ZERO));
         // B-C
-        assertEquals(0, this.image.get(5, 1, 0, Extrapolation.ZERO));
-        assertEquals(0, this.image.get(6, 1, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(5, 1, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(6, 1, 0, Extrapolation.ZERO));
         // C-D
-        assertEquals(0, this.image.get(2, 3, 0, Extrapolation.ZERO));
-        assertEquals(0, this.image.get(2, 4, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(2, 3, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(2, 4, 0, Extrapolation.ZERO));
         // D-A
-        assertEquals(0, this.image.get(-1, 1, 0, Extrapolation.ZERO));
-        assertEquals(0, this.image.get(-2, 1, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(-1, 1, 0, Extrapolation.ZERO));
+        Assert.assertEquals(0, this.image.get(-2, 1, 0, Extrapolation.ZERO));
 
         // Center
-        assertEquals(8, this.image.get(2, 1, 0, Extrapolation.ZERO));
+        Assert.assertEquals(8, this.image.get(2, 1, 0, Extrapolation.ZERO));
     }
 
     /**
@@ -100,33 +99,33 @@ public class ExtrapolationTest {
     @Test
     public void testReplicate() {
         // A
-        assertEquals(1, this.image.get(-1, -1, 0, Extrapolation.REPLICATE));
-        assertEquals(1, this.image.get(-2, -2, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(1, this.image.get(-1, -1, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(1, this.image.get(-2, -2, 0, Extrapolation.REPLICATE));
         // B
-        assertEquals(5, this.image.get(5, -1, 0, Extrapolation.REPLICATE));
-        assertEquals(5, this.image.get(6, -2, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(5, this.image.get(5, -1, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(5, this.image.get(6, -2, 0, Extrapolation.REPLICATE));
         // C
-        assertEquals(15, this.image.get(5, 3, 0, Extrapolation.REPLICATE));
-        assertEquals(15, this.image.get(6, 4, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(15, this.image.get(5, 3, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(15, this.image.get(6, 4, 0, Extrapolation.REPLICATE));
         // D
-        assertEquals(11, this.image.get(-1, 3, 0, Extrapolation.REPLICATE));
-        assertEquals(11, this.image.get(-2, 4, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(11, this.image.get(-1, 3, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(11, this.image.get(-2, 4, 0, Extrapolation.REPLICATE));
 
         // A-B
-        assertEquals(3, this.image.get(2, -1, 0, Extrapolation.REPLICATE));
-        assertEquals(3, this.image.get(2, -2, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(3, this.image.get(2, -1, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(3, this.image.get(2, -2, 0, Extrapolation.REPLICATE));
         // B-C
-        assertEquals(10, this.image.get(5, 1, 0, Extrapolation.REPLICATE));
-        assertEquals(10, this.image.get(6, 1, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(10, this.image.get(5, 1, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(10, this.image.get(6, 1, 0, Extrapolation.REPLICATE));
         // C-D
-        assertEquals(13, this.image.get(2, 3, 0, Extrapolation.REPLICATE));
-        assertEquals(13, this.image.get(2, 4, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(13, this.image.get(2, 3, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(13, this.image.get(2, 4, 0, Extrapolation.REPLICATE));
         // D-A
-        assertEquals(6, this.image.get(-1, 1, 0, Extrapolation.REPLICATE));
-        assertEquals(6, this.image.get(-2, 1, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(6, this.image.get(-1, 1, 0, Extrapolation.REPLICATE));
+        Assert.assertEquals(6, this.image.get(-2, 1, 0, Extrapolation.REPLICATE));
 
         // Center
-        assertEquals(8, this.image.get(2, 1, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(8, this.image.get(2, 1, 0, Extrapolation.REFLECT));
     }
 
     /**
@@ -135,33 +134,33 @@ public class ExtrapolationTest {
     @Test
     public void testReflect() {
         // A
-        assertEquals(1, this.image.get(-1, -1, 0, Extrapolation.REFLECT));
-        assertEquals(7, this.image.get(-2, -2, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(1, this.image.get(-1, -1, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(7, this.image.get(-2, -2, 0, Extrapolation.REFLECT));
         // B
-        assertEquals(5, this.image.get(5, -1, 0, Extrapolation.REFLECT));
-        assertEquals(9, this.image.get(6, -2, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(5, this.image.get(5, -1, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(9, this.image.get(6, -2, 0, Extrapolation.REFLECT));
         // C
-        assertEquals(15, this.image.get(5, 3, 0, Extrapolation.REFLECT));
-        assertEquals(9, this.image.get(6, 4, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(15, this.image.get(5, 3, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(9, this.image.get(6, 4, 0, Extrapolation.REFLECT));
         // D
-        assertEquals(11, this.image.get(-1, 3, 0, Extrapolation.REFLECT));
-        assertEquals(7, this.image.get(-2, 4, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(11, this.image.get(-1, 3, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(7, this.image.get(-2, 4, 0, Extrapolation.REFLECT));
 
         // A-B
-        assertEquals(3, this.image.get(2, -1, 0, Extrapolation.REFLECT));
-        assertEquals(8, this.image.get(2, -2, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(3, this.image.get(2, -1, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(8, this.image.get(2, -2, 0, Extrapolation.REFLECT));
         // B-C
-        assertEquals(10, this.image.get(5, 1, 0, Extrapolation.REFLECT));
-        assertEquals(9, this.image.get(6, 1, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(10, this.image.get(5, 1, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(9, this.image.get(6, 1, 0, Extrapolation.REFLECT));
         // C-D
-        assertEquals(13, this.image.get(2, 3, 0, Extrapolation.REFLECT));
-        assertEquals(8, this.image.get(2, 4, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(13, this.image.get(2, 3, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(8, this.image.get(2, 4, 0, Extrapolation.REFLECT));
         // D-A
-        assertEquals(6, this.image.get(-1, 1, 0, Extrapolation.REFLECT));
-        assertEquals(7, this.image.get(-2, 1, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(6, this.image.get(-1, 1, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(7, this.image.get(-2, 1, 0, Extrapolation.REFLECT));
 
         // Center
-        assertEquals(8, this.image.get(2, 1, 0, Extrapolation.REFLECT));
+        Assert.assertEquals(8, this.image.get(2, 1, 0, Extrapolation.REFLECT));
     }
 
     /**
@@ -170,32 +169,32 @@ public class ExtrapolationTest {
     @Test
     public void testWrap() {
         // A
-        assertEquals(15, this.image.get(-1, -1, 0, Extrapolation.WRAP));
-        assertEquals(9, this.image.get(-2, -2, 0, Extrapolation.WRAP));
+        Assert.assertEquals(15, this.image.get(-1, -1, 0, Extrapolation.WRAP));
+        Assert.assertEquals(9, this.image.get(-2, -2, 0, Extrapolation.WRAP));
         // B
-        assertEquals(11, this.image.get(5, -1, 0, Extrapolation.WRAP));
-        assertEquals(7, this.image.get(6, -2, 0, Extrapolation.WRAP));
+        Assert.assertEquals(11, this.image.get(5, -1, 0, Extrapolation.WRAP));
+        Assert.assertEquals(7, this.image.get(6, -2, 0, Extrapolation.WRAP));
         // C
-        assertEquals(1, this.image.get(5, 3, 0, Extrapolation.WRAP));
-        assertEquals(7, this.image.get(6, 4, 0, Extrapolation.WRAP));
+        Assert.assertEquals(1, this.image.get(5, 3, 0, Extrapolation.WRAP));
+        Assert.assertEquals(7, this.image.get(6, 4, 0, Extrapolation.WRAP));
         // D
-        assertEquals(5, this.image.get(-1, 3, 0, Extrapolation.WRAP));
-        assertEquals(9, this.image.get(-2, 4, 0, Extrapolation.WRAP));
+        Assert.assertEquals(5, this.image.get(-1, 3, 0, Extrapolation.WRAP));
+        Assert.assertEquals(9, this.image.get(-2, 4, 0, Extrapolation.WRAP));
 
         // A-B
-        assertEquals(13, this.image.get(2, -1, 0, Extrapolation.WRAP));
-        assertEquals(8, this.image.get(2, -2, 0, Extrapolation.WRAP));
+        Assert.assertEquals(13, this.image.get(2, -1, 0, Extrapolation.WRAP));
+        Assert.assertEquals(8, this.image.get(2, -2, 0, Extrapolation.WRAP));
         // B-C
-        assertEquals(6, this.image.get(5, 1, 0, Extrapolation.WRAP));
-        assertEquals(7, this.image.get(6, 1, 0, Extrapolation.WRAP));
+        Assert.assertEquals(6, this.image.get(5, 1, 0, Extrapolation.WRAP));
+        Assert.assertEquals(7, this.image.get(6, 1, 0, Extrapolation.WRAP));
         // C-D
-        assertEquals(3, this.image.get(2, 3, 0, Extrapolation.WRAP));
-        assertEquals(8, this.image.get(2, 4, 0, Extrapolation.WRAP));
+        Assert.assertEquals(3, this.image.get(2, 3, 0, Extrapolation.WRAP));
+        Assert.assertEquals(8, this.image.get(2, 4, 0, Extrapolation.WRAP));
         // D-A
-        assertEquals(10, this.image.get(-1, 1, 0, Extrapolation.WRAP));
-        assertEquals(9, this.image.get(-2, 1, 0, Extrapolation.WRAP));
+        Assert.assertEquals(10, this.image.get(-1, 1, 0, Extrapolation.WRAP));
+        Assert.assertEquals(9, this.image.get(-2, 1, 0, Extrapolation.WRAP));
 
         // Center
-        assertEquals(8, this.image.get(2, 1, 0, Extrapolation.WRAP));
+        Assert.assertEquals(8, this.image.get(2, 1, 0, Extrapolation.WRAP));
     }
 }

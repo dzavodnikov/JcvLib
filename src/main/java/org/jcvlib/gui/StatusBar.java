@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,6 +44,6 @@ class StatusBar extends JLabel {
      *            New message into the status bar.
      */
     public void setMessage(final String message) {
-        this.setText(message);
+        setText(message);
     }
 }

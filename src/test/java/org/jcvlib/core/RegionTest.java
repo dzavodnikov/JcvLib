@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,7 @@
  */
 package org.jcvlib.core;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -42,24 +40,24 @@ public class RegionTest {
         // No one color values.
         try {
             new Region(new Image(10, 10, 1), new Color(1, Color.MAX_VALUE));
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect image.
         try {
             new Region(null, new Color(1, Color.MIN_VALUE));
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect color.
         try {
             new Region(new Image(10, 10, 1), null);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -90,20 +88,20 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MIN_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getSize().calculateN(), region.getAreaSize());
+        Assert.assertEquals(image.getSize().calculateN(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
-        assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 
     /**
@@ -132,20 +130,20 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MIN_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getSize().calculateN(), region.getAreaSize());
+        Assert.assertEquals(image.getSize().calculateN(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
-        assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 
     /**
@@ -174,20 +172,20 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MIN_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getSize().calculateN(), region.getAreaSize());
+        Assert.assertEquals(image.getSize().calculateN(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
-        assertEquals(Math.PI / 2.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(Math.PI / 2.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 
     /**
@@ -216,20 +214,20 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MIN_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getSize().calculateN(), region.getAreaSize());
+        Assert.assertEquals(image.getSize().calculateN(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
-        assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 
     /**
@@ -258,20 +256,20 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MIN_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getSize().calculateN(), region.getAreaSize());
+        Assert.assertEquals(image.getSize().calculateN(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
-        assertEquals(Math.PI / 2.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(Math.PI / 2.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 
     /**
@@ -300,20 +298,20 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MIN_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getSize().calculateN(), region.getAreaSize());
+        Assert.assertEquals(image.getSize().calculateN(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
-        assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 
     /**
@@ -342,20 +340,20 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MIN_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getSize().calculateN(), region.getAreaSize());
+        Assert.assertEquals(image.getSize().calculateN(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
-        assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 
     /**
@@ -384,20 +382,20 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MIN_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getSize().calculateN(), region.getAreaSize());
+        Assert.assertEquals(image.getSize().calculateN(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
-        assertEquals(Math.PI / 2.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(Math.PI / 2.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 
     /**
@@ -426,20 +424,20 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MIN_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getSize().calculateN(), region.getAreaSize());
+        Assert.assertEquals(image.getSize().calculateN(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
-        assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(0.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 
     /**
@@ -468,20 +466,20 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MIN_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getSize().calculateN(), region.getAreaSize());
+        Assert.assertEquals(image.getSize().calculateN(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
-        assertEquals(Math.PI / 2.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(Math.PI / 2.0, region.getEllipseMaxAxisOrientation(), JCV.PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 
     /**
@@ -513,20 +511,20 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MAX_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getWidth(), region.getAreaSize());
+        Assert.assertEquals(image.getWidth(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
         //assertEquals(0.75 * Math.PI, region.getEllipseMaxAxisOrientation(), JCV.PRECISION); // TODO
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 
     /**
@@ -558,19 +556,19 @@ public class RegionTest {
         final Region region = new Region(image, new Color(1, Color.MAX_VALUE));
         System.out.println(region.toString());
 
-        assertEquals(image.getWidth(), region.getAreaSize());
+        Assert.assertEquals(image.getWidth(), region.getAreaSize());
 
         final Point imageCenter = JCV.calculateCenter(image.getWidth(), image.getHeight());
-        assertEquals(imageCenter.getX(), region.getCentroid().getX());
-        assertEquals(imageCenter.getY(), region.getCentroid().getY());
+        Assert.assertEquals(imageCenter.getX(), region.getCentroid().getX());
+        Assert.assertEquals(imageCenter.getY(), region.getCentroid().getY());
 
-        assertEquals(0, region.getRegionX());
-        assertEquals(0, region.getRegionY());
-        assertEquals(image.getSize().getWidth(), region.getRegionWidth());
-        assertEquals(image.getSize().getHeight(), region.getRegionHeight());
+        Assert.assertEquals(0, region.getRegionX());
+        Assert.assertEquals(0, region.getRegionY());
+        Assert.assertEquals(image.getSize().getWidth(), region.getRegionWidth());
+        Assert.assertEquals(image.getSize().getHeight(), region.getRegionHeight());
 
         //assertEquals(0.25 * Math.PI, region.getEllipseMaxAxisOrientation(), JCV.PRECISION); // TODO
-        assertEquals(max, region.getEllipseMaxAxisLength(), PRECISION);
-        assertEquals(min, region.getEllipseMinAxisLength(), PRECISION);
+        Assert.assertEquals(max, region.getEllipseMaxAxisLength(), RegionTest.PRECISION);
+        Assert.assertEquals(min, region.getEllipseMinAxisLength(), RegionTest.PRECISION);
     }
 }

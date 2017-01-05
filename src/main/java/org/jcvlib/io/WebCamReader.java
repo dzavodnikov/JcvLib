@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -97,7 +97,7 @@ public class WebCamReader implements VideoReader, Runnable {
     /**
      * Define number of device.
      */
-    private int           numWebCam;
+    private final int     numWebCam;
 
     /**
      * Variable to show that device is opened.
@@ -112,12 +112,12 @@ public class WebCamReader implements VideoReader, Runnable {
     /**
      * FPS (Frame Per Second).
      */
-    private int           FPS;
+    private final int     FPS;
 
     /**
      * Size of getting frame from web-camera.
      */
-    private Size          size;
+    private final Size    size;
 
     /**
      * Common image buffer.
@@ -187,7 +187,7 @@ public class WebCamReader implements VideoReader, Runnable {
 
     private void checkErrors() throws IOException {
         if (this.errorMessage != null) {
-            this.close();
+            close();
             throw new IOException(this.errorMessage);
         }
     }
@@ -211,7 +211,7 @@ public class WebCamReader implements VideoReader, Runnable {
                 // Wait closed camera.
                 try {
                     Thread.sleep(waitStep);
-                } catch (InterruptedException e) {
+                } catch (final InterruptedException e) {
                     generateError(e.getMessage());
                 }
 
@@ -236,19 +236,19 @@ public class WebCamReader implements VideoReader, Runnable {
                 // Wait other thread.
                 try {
                     Thread.sleep(waitStep);
-                } catch (InterruptedException e) {
+                } catch (final InterruptedException e) {
                     generateError(e.getMessage());
                 }
 
                 // Calculate waiting time.
                 timeCounter += waitStep;
             }
-        } catch (RuntimeException e) {
+        } catch (final RuntimeException e) {
             generateError(e.getMessage());
         }
 
         // Generate an error!
-        if (this.bufImg == null && this.isOpen()) {
+        if (this.bufImg == null && isOpen()) {
             generateError("Can not open camera!");
         }
     }
@@ -433,7 +433,7 @@ public class WebCamReader implements VideoReader, Runnable {
                     }
                 }
             }
-        } catch (RuntimeException e) {
+        } catch (final RuntimeException e) {
             this.errorMessage = e.getMessage();
         }
 

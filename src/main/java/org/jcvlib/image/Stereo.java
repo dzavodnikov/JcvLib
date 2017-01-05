@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,7 +83,7 @@ public class Stereo {
                         final Color rightColor = new Color(right.getNumOfChannels());
                         right.get(rx, ry, rightColor);
 
-                        double distColor = leftColor.euclidDist(rightColor);
+                        final double distColor = leftColor.euclidDist(rightColor);
                         if (distColor < minColor) {
                             minColor = distColor;
                             minDist = Math.sqrt((rx - x) * (rx - x) + (ry - y) * (ry - y));

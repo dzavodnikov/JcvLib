@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -113,7 +113,7 @@ public class Color {
     public int get(final int channel) {
         try {
             return this.color[channel];
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (final ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException(MessageFormat
                     .format("Value of \"channel\" (= {0}) must in interval 0..{1}!", channel, getNumOfChannels() - 1));
         }
@@ -131,7 +131,7 @@ public class Color {
         }
         try {
             this.color[channel] = value;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (final ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException(String.format("Value of \"channel\" (= %s) must in interval 0..%s!",
                     channel, getNumOfChannels() - 1));
         }
@@ -252,11 +252,11 @@ public class Color {
      * </p>
      */
     public static byte IntToUByte(int value) {
-        if (value < MIN_VALUE) {
-            value = MIN_VALUE;
+        if (value < Color.MIN_VALUE) {
+            value = Color.MIN_VALUE;
         }
-        if (value > MAX_VALUE) {
-            value = MAX_VALUE;
+        if (value > Color.MAX_VALUE) {
+            value = Color.MAX_VALUE;
         }
 
         return (byte) value;

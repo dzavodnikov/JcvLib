@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,20 +54,20 @@ public class Parallel {
      */
     public static final int MIN_SIZE_DEFAULT = 160 * 120;
 
-    private static int      currentMinSize   = MIN_SIZE_DEFAULT;
+    private static int      currentMinSize   = Parallel.MIN_SIZE_DEFAULT;
 
     /**
      * Return minimal size for parallelization.
      */
     public static int getMinSize() {
-        return currentMinSize;
+        return Parallel.currentMinSize;
     }
 
     /**
      * Set min size for parallelization.
      */
     public static void setMinSize(final int minSize) {
-        currentMinSize = minSize;
+        Parallel.currentMinSize = minSize;
     }
 
     /**

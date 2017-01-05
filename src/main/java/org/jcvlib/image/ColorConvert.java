@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -161,12 +161,12 @@ public class ColorConvert {
                 final double B = image.get(x, y, 2);
 
                 // Convert.
-                double M = Math.max(R, Math.max(G, B));
-                double m = Math.min(R, Math.min(G, B));
-                double d = M - m;
+                final double M = Math.max(R, Math.max(G, B));
+                final double m = Math.min(R, Math.min(G, B));
+                final double d = M - m;
 
                 // Compute value Lightness.
-                double L = (M + m) / 2.0;
+                final double L = (M + m) / 2.0;
 
                 // Compute value Saturation.
                 double S;
@@ -180,7 +180,7 @@ public class ColorConvert {
                         t = Color.MAX_VALUE - L;
                     }
 
-                    S = (d * Color.MAX_VALUE) / (2.0 * t);
+                    S = d * Color.MAX_VALUE / (2.0 * t);
                 }
 
                 // Compute value Hue.
@@ -253,12 +253,12 @@ public class ColorConvert {
             @Override
             public void execute(final int x, final int y, final int worker) {
                 // Initialization.
-                double H = image.get(x, y, 0);
+                final double H = image.get(x, y, 0);
                 double S = image.get(x, y, 1);
-                double L = image.get(x, y, 2);
+                final double L = image.get(x, y, 2);
 
                 // Convert.
-                final double h = (6.0 * (H / Color.MAX_VALUE)) % 6.0;
+                final double h = 6.0 * (H / Color.MAX_VALUE) % 6.0;
                 final int c1 = (int) h;
                 final double c2 = h - c1;
 
@@ -383,7 +383,7 @@ public class ColorConvert {
                 S *= Color.MAX_VALUE;
 
                 // Compute value Value (Brightness).
-                double V = M;
+                final double V = M;
 
                 // Save result.
                 result.set(x, y, 0, JCV.round(H));
@@ -436,13 +436,13 @@ public class ColorConvert {
                 final double V = image.get(x, y, 2);
 
                 // Convert.
-                final double h = ((6.0 * H) / Color.MAX_VALUE) % 6.0;
+                final double h = 6.0 * H / Color.MAX_VALUE % 6.0;
                 final int c1 = (int) h;
                 final double c2 = h - c1;
 
-                final double X = ((Color.MAX_VALUE - S) * V) / Color.MAX_VALUE;
-                final double Y = ((Color.MAX_VALUE - (S * c2)) * V) / Color.MAX_VALUE;
-                final double Z = ((Color.MAX_VALUE - (S * (1.0 - c2))) * V) / Color.MAX_VALUE;
+                final double X = (Color.MAX_VALUE - S) * V / Color.MAX_VALUE;
+                final double Y = (Color.MAX_VALUE - S * c2) * V / Color.MAX_VALUE;
+                final double Z = (Color.MAX_VALUE - S * (1.0 - c2)) * V / Color.MAX_VALUE;
 
                 double R;
                 double G;

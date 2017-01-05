@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,6 @@ import org.jcvlib.core.Size;
 public enum Direction {
     /**
      * Define 4 directions type.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -49,7 +48,7 @@ public enum Direction {
 
         @Override
         public List<Point> getNeighbors(final Point point, final Size imageSize) {
-            final List<Point> neighbors = new ArrayList<Point>();
+            final List<Point> neighbors = new ArrayList<>();
 
             /*   3
              * 1 x 2
@@ -78,7 +77,6 @@ public enum Direction {
 
     /**
      * Define 8 directions type.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -95,7 +93,7 @@ public enum Direction {
 
         @Override
         public List<Point> getNeighbors(final Point point, final Size imageSize) {
-            final List<Point> neighbors = new ArrayList<Point>();
+            final List<Point> neighbors = new ArrayList<>();
 
             /* 1   3
              *   x

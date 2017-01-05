@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -175,9 +175,9 @@ public class TypeConvert {
                  * See:
                  * * http://www.devdaily.com/blog/post/java/getting-rgb-values-for-each-pixel-in-image-using-java-bufferedi
                  */
-                image.set(x, y, 0, (pixel >> 16) & 0xff); // Red
-                image.set(x, y, 1, (pixel >> 8) & 0xff); // Green
-                image.set(x, y, 2, (pixel >> 0) & 0xff); // Blue
+                image.set(x, y, 0, pixel >> 16 & 0xff); // Red
+                image.set(x, y, 1, pixel >> 8 & 0xff); // Green
+                image.set(x, y, 2, pixel >> 0 & 0xff); // Blue
 
                 break;
 
@@ -192,11 +192,11 @@ public class TypeConvert {
                  * See:
                  * * http://www.devdaily.com/blog/post/java/getting-rgb-values-for-each-pixel-in-image-using-java-bufferedi
                  */
-                image.set(x, y, 0, (pixel >> 16) & 0xff); // Red
-                image.set(x, y, 1, (pixel >> 8) & 0xff); // Green
-                image.set(x, y, 2, (pixel >> 0) & 0xff); // Blue
+                image.set(x, y, 0, pixel >> 16 & 0xff); // Red
+                image.set(x, y, 1, pixel >> 8 & 0xff); // Green
+                image.set(x, y, 2, pixel >> 0 & 0xff); // Blue
 
-                image.set(x, y, 3, (pixel >> 24) & 0xff); // Alpha
+                image.set(x, y, 3, pixel >> 24 & 0xff); // Alpha
 
                 break;
 
@@ -251,11 +251,11 @@ public class TypeConvert {
                 return image.get(x, y, 0);
 
             case 3:
-                return (new java.awt.Color(image.get(x, y, 0), image.get(x, y, 1), image.get(x, y, 2))).getRGB();
+                return new java.awt.Color(image.get(x, y, 0), image.get(x, y, 1), image.get(x, y, 2)).getRGB();
 
             case 4:
-                return (new java.awt.Color(image.get(x, y, 0), image.get(x, y, 1), image.get(x, y, 2),
-                        image.get(x, y, 3))).getRGB();
+                return new java.awt.Color(image.get(x, y, 0), image.get(x, y, 1), image.get(x, y, 2),
+                        image.get(x, y, 3)).getRGB();
 
             default:
                 throw new IllegalArgumentException("To convert 'Image' to 'BufferedImage', source image should have "
@@ -282,19 +282,19 @@ public class TypeConvert {
          * Perform operation.
          */
         final Image result = new Image(bufImg.getWidth(), bufImg.getHeight(),
-                detectNumOfChannelsByType(bufImg.getType()));
+                TypeConvert.detectNumOfChannelsByType(bufImg.getType()));
 
         if (result.getNumOfChannels() == 1) {
             for (int x = 0; x < result.getWidth(); ++x) {
                 for (int y = 0; y < result.getHeight(); ++y) {
 
-                    setPixel(result, x, y, bufImg.getRaster().getSample(x, y, 0), bufImg.getType());
+                    TypeConvert.setPixel(result, x, y, bufImg.getRaster().getSample(x, y, 0), bufImg.getType());
                 }
             }
         } else {
             for (int x = 0; x < result.getWidth(); ++x) {
                 for (int y = 0; y < result.getHeight(); ++y) {
-                    setPixel(result, x, y, bufImg.getRGB(x, y), bufImg.getType());
+                    TypeConvert.setPixel(result, x, y, bufImg.getRGB(x, y), bufImg.getType());
                 }
             }
         }
@@ -351,11 +351,11 @@ public class TypeConvert {
         switch (image.getNumOfChannels()) {
             case 1:
                 bufImg = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
-                WritableRaster raster = bufImg.getRaster();
+                final WritableRaster raster = bufImg.getRaster();
 
                 for (int y = 0; y < image.getHeight(); ++y) {
                     for (int x = 0; x < image.getWidth(); ++x) {
-                        raster.setSample(x, y, 0, getPixel(image, x, y));
+                        raster.setSample(x, y, 0, TypeConvert.getPixel(image, x, y));
                     }
                 }
 
@@ -366,7 +366,7 @@ public class TypeConvert {
 
                 for (int y = 0; y < image.getHeight(); ++y) {
                     for (int x = 0; x < image.getWidth(); ++x) {
-                        bufImg.setRGB(x, y, getPixel(image, x, y));
+                        bufImg.setRGB(x, y, TypeConvert.getPixel(image, x, y));
                     }
                 }
 
@@ -377,7 +377,7 @@ public class TypeConvert {
 
                 for (int y = 0; y < image.getHeight(); ++y) {
                     for (int x = 0; x < image.getWidth(); ++x) {
-                        bufImg.setRGB(x, y, getPixel(image, x, y));
+                        bufImg.setRGB(x, y, TypeConvert.getPixel(image, x, y));
                     }
                 }
 

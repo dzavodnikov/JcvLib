@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +44,8 @@ public class Image {
      */
     private int          subImageX;
     private int          subImageY;
-    private int          subImageWidth;
-    private int          subImageHeight;
+    private final int    subImageWidth;
+    private final int    subImageHeight;
 
     private final int    subImageLayerStart;
     private final int    subImageLayerLength;
@@ -367,7 +367,7 @@ public class Image {
         JParFor.exec(getSize().calculateN() * getNumOfChannels(), new JLoop() {
 
             @Override
-            public void execute(int arrayPosition, int nThread) {
+            public void execute(final int arrayPosition, final int nThread) {
                 final int[] xyc = new int[3];
                 calculateImagePosition(arrayPosition, xyc);
                 set(xyc[0], xyc[1], xyc[2], runner.execute(get(xyc[0], xyc[1], xyc[2])));
@@ -540,7 +540,7 @@ public class Image {
         foreach(new ParallelValueOperation() {
 
             @Override
-            public int execute(int value) {
+            public int execute(final int value) {
                 return JCV.round(c * value);
             }
         });
@@ -571,7 +571,7 @@ public class Image {
         /*
          * Perform operation.
          */
-        double result[] = new double[getNumOfChannels()];
+        final double result[] = new double[getNumOfChannels()];
 
         for (int channel = 0; channel < getNumOfChannels(); ++channel) {
             for (int x = 0; x < kernel.getColumnDimension(); ++x) {

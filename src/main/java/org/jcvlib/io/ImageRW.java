@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -117,7 +117,7 @@ public class ImageRW {
              * because standard implementation of PNG decoder generate "OutOfMemoryError: Java heap space"
              * on reading big PNG files.
              */
-            bufImg = (new PngImage()).read(imageFile);
+            bufImg = new PngImage().read(imageFile);
         } else {
             /*
              * Using standard Java library for other file image formats.

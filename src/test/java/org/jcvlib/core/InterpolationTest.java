@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,7 @@
  */
 package org.jcvlib.core;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -65,7 +64,7 @@ public class InterpolationTest {
      */
     @Test
     public void testNearest() {
-        assertEquals(7.0, this.image.get(1.1, 1.1, 0, Interpolation.NEAREST_NEIGHBOR), JCV.PRECISION);
+        Assert.assertEquals(7.0, this.image.get(1.1, 1.1, 0, Interpolation.NEAREST_NEIGHBOR), JCV.PRECISION);
     }
 
     /**
@@ -73,16 +72,16 @@ public class InterpolationTest {
      */
     @Test
     public void testBilinear() {
-        assertEquals(7.0, this.image.get(1.0, 1.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
-        assertEquals(8.0, this.image.get(2.0, 1.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
-        assertEquals(12.0, this.image.get(1.0, 2.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
-        assertEquals(13.0, this.image.get(2.0, 2.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
+        Assert.assertEquals(7.0, this.image.get(1.0, 1.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
+        Assert.assertEquals(8.0, this.image.get(2.0, 1.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
+        Assert.assertEquals(12.0, this.image.get(1.0, 2.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
+        Assert.assertEquals(13.0, this.image.get(2.0, 2.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
 
-        assertEquals(7.5, this.image.get(1.5, 1.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
-        assertEquals(7.4, this.image.get(1.4, 1.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
-        assertEquals(9.5, this.image.get(1.0, 1.5, 0, Interpolation.BILINEAR), JCV.PRECISION);
-        assertEquals(9.0, this.image.get(1.0, 1.4, 0, Interpolation.BILINEAR), JCV.PRECISION);
-        assertEquals(10.0, this.image.get(1.5, 1.5, 0, Interpolation.BILINEAR), JCV.PRECISION);
+        Assert.assertEquals(7.5, this.image.get(1.5, 1.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
+        Assert.assertEquals(7.4, this.image.get(1.4, 1.0, 0, Interpolation.BILINEAR), JCV.PRECISION);
+        Assert.assertEquals(9.5, this.image.get(1.0, 1.5, 0, Interpolation.BILINEAR), JCV.PRECISION);
+        Assert.assertEquals(9.0, this.image.get(1.0, 1.4, 0, Interpolation.BILINEAR), JCV.PRECISION);
+        Assert.assertEquals(10.0, this.image.get(1.5, 1.5, 0, Interpolation.BILINEAR), JCV.PRECISION);
     }
 
     /**
@@ -90,7 +89,7 @@ public class InterpolationTest {
      */
     @Test
     public void testBicubic() {
-        assertEquals(7.5000, this.image.get(1.5, 1.0, 0, Interpolation.BICUBIC), JCV.PRECISION);
-        assertEquals(10.3125, this.image.get(1.5, 1.5, 0, Interpolation.BICUBIC), JCV.PRECISION);
+        Assert.assertEquals(7.5000, this.image.get(1.5, 1.0, 0, Interpolation.BICUBIC), JCV.PRECISION);
+        Assert.assertEquals(10.3125, this.image.get(1.5, 1.5, 0, Interpolation.BICUBIC), JCV.PRECISION);
     }
 }

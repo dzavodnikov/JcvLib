@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -158,7 +158,7 @@ public class Geometry {
         // Create transformation matrix and generate error if points are incorrect.
         try {
             return X.solve(Y).transpose();
-        } catch (RuntimeException e) {
+        } catch (final RuntimeException e) {
             throw new IllegalArgumentException(e);
         }
     }
@@ -265,7 +265,7 @@ public class Geometry {
         // Create transformation matrix and generate error if points are incorrect.
         try {
             return X.solve(Y).transpose();
-        } catch (RuntimeException e) {
+        } catch (final RuntimeException e) {
             throw new IllegalArgumentException(e);
         }
     }
@@ -428,23 +428,23 @@ public class Geometry {
          * Perform operation.
          */
         // Correct angle.
-        final double rad = (angle / 180.0) * Math.PI;
+        final double rad = angle / 180.0 * Math.PI;
 
         /*
          * Create transformation matrix.
          */
         // Rotate kernel.
         //@formatter:off
-        final Matrix R = new Matrix(new double[][]{ 
-                {  Math.cos(rad), -Math.sin(rad) }, 
-                {  Math.sin(rad),  Math.cos(rad) } 
+        final Matrix R = new Matrix(new double[][]{
+                {  Math.cos(rad), -Math.sin(rad) },
+                {  Math.sin(rad),  Math.cos(rad) }
             });
         //@formatter:on
 
         // Center of shift.
         //@formatter:off
-        final Matrix s = new Matrix(new double[][]{ 
-                { centerOfRotation.getX() }, 
+        final Matrix s = new Matrix(new double[][]{
+                { centerOfRotation.getX() },
                 { centerOfRotation.getY() }
             });
         //@formatter:on

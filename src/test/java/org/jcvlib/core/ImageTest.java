@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,11 @@
  */
 package org.jcvlib.core;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.jcvlib.parallel.Parallel;
+import org.junit.Assert;
 import org.junit.Test;
 
 import Jama.Matrix;
@@ -42,7 +38,7 @@ public class ImageTest extends TestSuite {
     /**
      * Print first channel of given image with given comment.
      */
-    public static void printImage(Image image, String comment) {
+    public static void printImage(final Image image, final String comment) {
         System.out.println(comment);
         // Do not change the loop order!
         for (int y = 0; y < image.getHeight(); ++y) {
@@ -62,28 +58,28 @@ public class ImageTest extends TestSuite {
         // Incorrect Channel value.
         try {
             new Image(300, 200, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
         try {
             new Image(300, 200, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect Channel value.
         try {
             new Image(300, 200, -1);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
         try {
             new Image(300, 200, -1);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -96,13 +92,13 @@ public class ImageTest extends TestSuite {
     public void testSize() {
         final Image image = new Image(300, 200, 4);
 
-        assertEquals(300, image.getWidth());
-        assertEquals(200, image.getHeight());
+        Assert.assertEquals(300, image.getWidth());
+        Assert.assertEquals(200, image.getHeight());
 
-        assertEquals(300, image.getSize().getWidth());
-        assertEquals(200, image.getSize().getHeight());
+        Assert.assertEquals(300, image.getSize().getWidth());
+        Assert.assertEquals(200, image.getSize().getHeight());
 
-        assertEquals(4, image.getNumOfChannels());
+        Assert.assertEquals(4, image.getNumOfChannels());
     }
 
     /**
@@ -143,7 +139,7 @@ public class ImageTest extends TestSuite {
         for (int x = 0; x < image.getWidth(); ++x) {
             for (int y = 0; y < image.getHeight(); ++y) {
                 for (int channel = 0; channel < image.getNumOfChannels(); ++channel) {
-                    assertEquals(value, image.get(x, y, channel));
+                    Assert.assertEquals(value, image.get(x, y, channel));
 
                     // Next value.
                     ++value;
@@ -163,10 +159,10 @@ public class ImageTest extends TestSuite {
         final Image image = new Image(800, 600, 4);
 
         image.set(0, 0, 0, Color.MIN_VALUE - 1);
-        assertEquals(Color.MIN_VALUE, image.get(0, 0, 0));
+        Assert.assertEquals(Color.MIN_VALUE, image.get(0, 0, 0));
 
         image.set(1, 1, 1, Color.MAX_VALUE + 1);
-        assertEquals(Color.MAX_VALUE, image.get(1, 1, 1));
+        Assert.assertEquals(Color.MAX_VALUE, image.get(1, 1, 1));
     }
 
     /**
@@ -193,9 +189,9 @@ public class ImageTest extends TestSuite {
                             final int[] xyc = new int[3];
                             calculateImagePosition.invoke(image, pos, xyc);
 
-                            assertEquals(x, xyc[0]);
-                            assertEquals(y, xyc[1]);
-                            assertEquals(channel, xyc[2]);
+                            Assert.assertEquals(x, xyc[0]);
+                            Assert.assertEquals(y, xyc[1]);
+                            Assert.assertEquals(channel, xyc[2]);
                         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                             e.printStackTrace();
                         }
@@ -218,15 +214,15 @@ public class ImageTest extends TestSuite {
 
         image.fill(new Color(4, val1));
         image.get(10, 10, resColor);
-        assertTrue(resColor.equals(new Color(new int[]{ val1, val1, val1, val1 })));
+        Assert.assertTrue(resColor.equals(new Color(new int[] { val1, val1, val1, val1 })));
 
         final int val2 = 64;
-        final Color srcColor = new Color(new int[]{ val2, val2, val2, val2 });
+        final Color srcColor = new Color(new int[] { val2, val2, val2, val2 });
         final Point pos = new Point(10, 10);
         image.set(pos, srcColor);
 
         image.get(pos, resColor);
-        assertTrue(resColor.equals(srcColor));
+        Assert.assertTrue(resColor.equals(srcColor));
     }
 
     /**
@@ -239,84 +235,84 @@ public class ImageTest extends TestSuite {
         // Get on incorrect Height.
         try {
             image.get(300, 0, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
         try {
             image.get(-1, 0, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Get on incorrect Width.
         try {
             image.get(0, 200, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
         try {
             image.get(0, -1, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Set on incorrect Channel.
         try {
             image.get(0, 0, 4);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
         try {
             image.get(0, 0, -1);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Set on incorrect Height.
         try {
             image.set(300, 0, 0, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
         try {
             image.set(-1, 0, 0, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Set on incorrect Width.
         try {
             image.set(0, 200, 0, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
         try {
             image.set(0, -1, 0, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Set on incorrect Channel.
         try {
             image.set(0, 0, 4, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
         try {
             image.set(0, 0, -1, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -340,7 +336,7 @@ public class ImageTest extends TestSuite {
             }
         }
 
-        printImage(image, "Image before any filter applying:");
+        ImageTest.printImage(image, "Image before any filter applying:");
 
         /* Anchor in a kernel:
          *     0 1 2 3 4
@@ -364,13 +360,13 @@ public class ImageTest extends TestSuite {
             }
         });
 
-        printImage(result, "Image after nonlinear filter applying:");
+        ImageTest.printImage(result, "Image after nonlinear filter applying:");
 
         // Check values.
         counter = 1;
         for (int y = 0; y < image.getHeight(); ++y) {
             for (int x = 0; x < image.getWidth(); ++x) {
-                assertEquals(counter, result.get(x, y, 0));
+                Assert.assertEquals(counter, result.get(x, y, 0));
                 ++counter;
             }
         }
@@ -395,7 +391,7 @@ public class ImageTest extends TestSuite {
          * D               C
          */
         image.set(1, 0, 0, 1);
-        printImage(image, "Image before any filter applying:");
+        ImageTest.printImage(image, "Image before any filter applying:");
 
         /*
          *     0 1 2 3 4
@@ -439,15 +435,15 @@ public class ImageTest extends TestSuite {
          *   +-----------+
          * D               C
          */
-        printImage(result, "Image after nonlinear filter applying:");
+        ImageTest.printImage(result, "Image after nonlinear filter applying:");
 
         // Check values.
         for (int y = 0; y < result.getHeight(); ++y) {
             for (int x = 0; x < result.getWidth(); ++x) {
                 if (x == 3 && y == 4) {
-                    assertEquals(1, result.get(x, y, 0));
+                    Assert.assertEquals(1, result.get(x, y, 0));
                 } else {
-                    assertEquals(0, result.get(x, y, 0));
+                    Assert.assertEquals(0, result.get(x, y, 0));
                 }
             }
         }
@@ -468,28 +464,28 @@ public class ImageTest extends TestSuite {
 
         // Incorrect anchor X position.
         try {
-            (new Image(100, 100, 3)).noneLinearFilter(new Image(100, 100, 3), 5, 5, new Point(5, 1), 1,
+            new Image(100, 100, 3).noneLinearFilter(new Image(100, 100, 3), 5, 5, new Point(5, 1), 1,
                     Extrapolation.ZERO, op);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect anchor Y position.
         try {
-            (new Image(100, 100, 3)).noneLinearFilter(new Image(100, 100, 3), 5, 5, new Point(1, 5), 1,
+            new Image(100, 100, 3).noneLinearFilter(new Image(100, 100, 3), 5, 5, new Point(1, 5), 1,
                     Extrapolation.ZERO, op);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect iterations.
         try {
-            (new Image(100, 100, 3)).noneLinearFilter(new Image(100, 100, 3), 5, 5, new Point(1, 1), -1,
+            new Image(100, 100, 3).noneLinearFilter(new Image(100, 100, 3), 5, 5, new Point(1, 1), -1,
                     Extrapolation.ZERO, op);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -500,18 +496,18 @@ public class ImageTest extends TestSuite {
     @Test
     public void testFill() {
         final Image image = new Image(300, 200, 4);
-        image.fill(new Color(new int[]{ 0, 1, 2, 3 }));
+        image.fill(new Color(new int[] { 0, 1, 2, 3 }));
 
         try {
             image.fill(null);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
         try {
-            image.fill(new Color(new int[]{ 0, 1, 2 }));
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            image.fill(new Color(new int[] { 0, 1, 2 }));
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -522,12 +518,12 @@ public class ImageTest extends TestSuite {
     @Test
     public void testFillException() {
         final Image image = new Image(300, 200, 4);
-        image.fill(new Color(new int[]{ 0, 1, 2, 3 }));
+        image.fill(new Color(new int[] { 0, 1, 2, 3 }));
 
         for (int x = 0; x < image.getWidth(); ++x) {
             for (int y = 0; y < image.getHeight(); ++y) {
                 for (int channel = 0; channel < image.getNumOfChannels(); ++channel) {
-                    assertEquals(channel, image.get(x, y, channel));
+                    Assert.assertEquals(channel, image.get(x, y, channel));
                 }
             }
         }
@@ -539,14 +535,14 @@ public class ImageTest extends TestSuite {
     @Test
     public void testMult() {
         final Image image = new Image(300, 200, 4);
-        image.fill(new Color(new int[]{ 0, 1, 2, 3 }));
+        image.fill(new Color(new int[] { 0, 1, 2, 3 }));
 
         image.mult(2.0);
 
         for (int x = 0; x < image.getWidth(); ++x) {
             for (int y = 0; y < image.getHeight(); ++y) {
                 for (int channel = 0; channel < image.getNumOfChannels(); ++channel) {
-                    assertEquals(JCV.round(channel * 2.0), image.get(x, y, channel));
+                    Assert.assertEquals(JCV.round(channel * 2.0), image.get(x, y, channel));
                 }
             }
         }
@@ -561,8 +557,8 @@ public class ImageTest extends TestSuite {
 
         try {
             image.mult(-1.0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -573,7 +569,7 @@ public class ImageTest extends TestSuite {
     @Test
     public void testConvolve() {
         final Image image = new Image(3, 2, 1);
-        image.fill(new Color(new int[]{ 1 }));
+        image.fill(new Color(new int[] { 1 }));
 
         final Matrix kernel = new Matrix(2, 3);
         for (int i = 0; i < kernel.getRowDimension(); ++i) {
@@ -583,8 +579,8 @@ public class ImageTest extends TestSuite {
         }
 
         final double[] c = image.convolve(kernel);
-        assertEquals(1, c.length);
-        assertEquals(12.0, c[0], JCV.PRECISION);
+        Assert.assertEquals(1, c.length);
+        Assert.assertEquals(12.0, c[0], JCV.PRECISION);
     }
 
     /**
@@ -597,14 +593,14 @@ public class ImageTest extends TestSuite {
         image.convolve(new Matrix(2, 3));
         try {
             image.convolve(new Matrix(3, 3));
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
         try {
             image.convolve(new Matrix(2, 4));
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -615,21 +611,21 @@ public class ImageTest extends TestSuite {
     @Test
     public void testCopyCloneEquals() {
         final Image image = new Image(100, 100, 4);
-        image.fill(new Color(new int[]{ 1, 2, 3, 4 }));
+        image.fill(new Color(new int[] { 1, 2, 3, 4 }));
 
-        assertTrue(image.equals(image));
-        assertTrue(image.equals(image.makeCopy()));
-        assertFalse(image.equals(null));
-        assertFalse(image.equals(image.makeSubImage(10, 10, 10, 10)));
-        assertFalse(image.equals(image.makeLayer(1, 2)));
-        assertFalse(image.equals(0));
+        Assert.assertTrue(image.equals(image));
+        Assert.assertTrue(image.equals(image.makeCopy()));
+        Assert.assertFalse(image.equals(null));
+        Assert.assertFalse(image.equals(image.makeSubImage(10, 10, 10, 10)));
+        Assert.assertFalse(image.equals(image.makeLayer(1, 2)));
+        Assert.assertFalse(image.equals(0));
 
         final Image copy = image.makeCopy();
         copy.set(0, 0, 0, 5);
-        assertFalse(image.equals(copy));
+        Assert.assertFalse(image.equals(copy));
 
         final Image image1 = new Image(100, 100, 5);
-        assertFalse(image.equals(image1));
+        Assert.assertFalse(image.equals(image1));
     }
 
     /**
@@ -640,10 +636,10 @@ public class ImageTest extends TestSuite {
         final Image image = new Image(100, 100, 4);
         final Image copy = image.makeCopy();
         copy.set(10, 10, 2, 1);
-        assertFalse(image.equals(copy));
+        Assert.assertFalse(image.equals(copy));
 
         image.copyTo(copy);
-        assertTrue(image.equals(copy));
+        Assert.assertTrue(image.equals(copy));
     }
 
     /**
@@ -655,16 +651,16 @@ public class ImageTest extends TestSuite {
         final Image subImg = image.makeSubImage(10, 10, 20, 20);
         try {
             image.copyTo(subImg);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         final Image layer = image.makeLayer(0, 2);
         try {
             image.copyTo(layer);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -678,11 +674,11 @@ public class ImageTest extends TestSuite {
         final Image subImage = image.makeSubImage(80, 80, 20, 20);
         final Image subSubImage = subImage.makeSubImage(10, 10, 10, 10);
 
-        assertEquals(subImage.getHeight(), 20);
-        assertEquals(subImage.getWidth(), 20);
+        Assert.assertEquals(subImage.getHeight(), 20);
+        Assert.assertEquals(subImage.getWidth(), 20);
 
-        assertEquals(subSubImage.getHeight(), 10);
-        assertEquals(subSubImage.getWidth(), 10);
+        Assert.assertEquals(subSubImage.getHeight(), 10);
+        Assert.assertEquals(subSubImage.getWidth(), 10);
 
         /*
          * Verify access to pixels of sub-images.
@@ -703,7 +699,7 @@ public class ImageTest extends TestSuite {
         for (int y = 90; y < 100; ++y) {
             for (int x = 90; x < 100; ++x) {
                 for (int channel = 0; channel < 4; ++channel) {
-                    assertEquals(value, image.get(y, x, channel), JCV.PRECISION);
+                    Assert.assertEquals(value, image.get(y, x, channel), JCV.PRECISION);
                 }
             }
         }
@@ -720,16 +716,16 @@ public class ImageTest extends TestSuite {
         // Incorrect Width.
         try {
             image.makeSubImage(80, 80, 20, 21);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect Height.
         try {
             image.makeSubImage(80, 80, 21, 20);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -742,9 +738,9 @@ public class ImageTest extends TestSuite {
         final Image image = new Image(100, 100, 4);
         int value;
 
-        int startChannel = 1;
-        int sizeLayer = 2;
-        int numChannel = 3;
+        final int startChannel = 1;
+        final int sizeLayer = 2;
+        final int numChannel = 3;
 
         final Image layer = image.makeLayer(startChannel, sizeLayer);
         final Image channel = image.makeChannel(numChannel);
@@ -752,13 +748,13 @@ public class ImageTest extends TestSuite {
         /*
          * Check size.
          */
-        assertEquals(image.getHeight(), layer.getHeight());
-        assertEquals(image.getWidth(), layer.getWidth());
-        assertEquals(sizeLayer, layer.getNumOfChannels());
+        Assert.assertEquals(image.getHeight(), layer.getHeight());
+        Assert.assertEquals(image.getWidth(), layer.getWidth());
+        Assert.assertEquals(sizeLayer, layer.getNumOfChannels());
 
-        assertEquals(image.getHeight(), channel.getHeight());
-        assertEquals(image.getWidth(), channel.getWidth());
-        assertEquals(1, channel.getNumOfChannels());
+        Assert.assertEquals(image.getHeight(), channel.getHeight());
+        Assert.assertEquals(image.getWidth(), channel.getWidth());
+        Assert.assertEquals(1, channel.getNumOfChannels());
 
         /*
          * Check, that we have same source.
@@ -782,11 +778,11 @@ public class ImageTest extends TestSuite {
         for (int y = 0; y < layer.getHeight(); ++y) {
             for (int x = 0; x < layer.getWidth(); ++x) {
                 // Check single channel.
-                assertEquals(image.get(y, x, numChannel), channel.get(y, x, 0), JCV.PRECISION);
+                Assert.assertEquals(image.get(y, x, numChannel), channel.get(y, x, 0), JCV.PRECISION);
 
                 // Check layer.
                 for (int ch = 0; ch < layer.getNumOfChannels(); ++ch) {
-                    assertEquals(image.get(y, x, ch + startChannel), layer.get(y, x, ch), JCV.PRECISION);
+                    Assert.assertEquals(image.get(y, x, ch + startChannel), layer.get(y, x, ch), JCV.PRECISION);
                 }
             }
         }
@@ -802,48 +798,48 @@ public class ImageTest extends TestSuite {
         // Incorrect Channel.
         try {
             image.makeChannel(-1);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect Channel.
         try {
             image.makeChannel(4);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect start position.
         try {
             image.makeLayer(-1, 2);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect start length.
         try {
             image.makeLayer(0, 5);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect start length.
         try {
             image.makeLayer(2, 3);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect start length.
         try {
             image.makeLayer(2, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ class ImageComponent extends JComponent {
 
         // Update image.
         if (this.bufImg != null) {
-            Dimension dim = getPreferredSize();
+            final Dimension dim = getPreferredSize();
             g.drawImage(this.bufImg, 0, 0, dim.width, dim.height, this);
         }
     }
@@ -79,8 +79,8 @@ class ImageComponent extends JComponent {
 
         // Resize image.
         if (this.bufImg != null) {
-            setPreferredSize(new Dimension(JCV.round(this.scale * bufImg.getWidth()),
-                    JCV.round(this.scale * bufImg.getHeight())));
+            setPreferredSize(new Dimension(JCV.round(this.scale * this.bufImg.getWidth()),
+                    JCV.round(this.scale * this.bufImg.getHeight())));
             revalidate();
             repaint();
         }

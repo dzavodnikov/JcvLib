@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,7 +87,7 @@ public class VideoFileReader implements VideoReader, Runnable {
     /**
      * Path to file with video.
      */
-    private String        filePath;
+    private final String  filePath;
 
     /**
      * Variable to show that device is opened.
@@ -135,7 +135,7 @@ public class VideoFileReader implements VideoReader, Runnable {
 
     private void generateError(final String errorMessage) throws IOException {
         this.errorMessage = errorMessage;
-        this.checkErrors();
+        checkErrors();
     }
 
     private void checkErrors() throws IOException {
@@ -163,7 +163,7 @@ public class VideoFileReader implements VideoReader, Runnable {
                 // Wait closed old video file.
                 try {
                     Thread.sleep(waitStep);
-                } catch (InterruptedException e) {
+                } catch (final InterruptedException e) {
                     generateError(e.getMessage());
                 }
 
@@ -188,14 +188,14 @@ public class VideoFileReader implements VideoReader, Runnable {
                 // Wait other thread.
                 try {
                     Thread.sleep(waitStep);
-                } catch (InterruptedException e) {
+                } catch (final InterruptedException e) {
                     generateError(e.getMessage());
                 }
 
                 // Calculate waiting time.
                 timeCounter += waitStep;
             }
-        } catch (RuntimeException e) {
+        } catch (final RuntimeException e) {
             generateError(e.getMessage());
         }
 
@@ -253,10 +253,10 @@ public class VideoFileReader implements VideoReader, Runnable {
             this.videoCoder = null;
             for (int i = 0; i < numStreams; ++i) {
                 // Find the stream object.
-                IStream stream = this.container.getStream(i);
+                final IStream stream = this.container.getStream(i);
 
                 // Get the pre-configured decoder that can decode this stream.
-                IStreamCoder coder = stream.getStreamCoder();
+                final IStreamCoder coder = stream.getStreamCoder();
                 if (coder.getCodecType() == ICodec.Type.CODEC_TYPE_VIDEO) {
                     videoStreamId = i;
                     this.videoCoder = coder;
@@ -296,7 +296,7 @@ public class VideoFileReader implements VideoReader, Runnable {
             /*
              * 7. Now, we start walking through the container looking at each packet.
              */
-            IPacket packet = IPacket.make();
+            final IPacket packet = IPacket.make();
             long firstTimestampInStream = Global.NO_PTS;
             long systemClockStartTime = 0;
             while (this.container.readNextPacket(packet) >= 0 && this.isOpen) {
@@ -314,7 +314,7 @@ public class VideoFileReader implements VideoReader, Runnable {
                         /*
                          * 10. Decode the video, checking for any errors.
                          */
-                        int bytesDecoded = this.videoCoder.decodeVideo(picture, packet, offset);
+                        final int bytesDecoded = this.videoCoder.decodeVideo(picture, packet, offset);
                         if (bytesDecoded < 0) {
                             throw new RuntimeException(String.format("Got error decoding video in: %s", this.filePath));
                         }
@@ -380,9 +380,9 @@ public class VideoFileReader implements VideoReader, Runnable {
                             systemClockStartTime = System.currentTimeMillis();
                         } else {
                             // In milliseconds (10^{-3} seconds).
-                            long systemClockCurrentTime = System.currentTimeMillis();
+                            final long systemClockCurrentTime = System.currentTimeMillis();
                             // In milliseconds (10^{-3} seconds).
-                            long mSecClockTimeSinceStartOfVideo = systemClockCurrentTime - systemClockStartTime;
+                            final long mSecClockTimeSinceStartOfVideo = systemClockCurrentTime - systemClockStartTime;
 
                             /*
                              * Compute how long for this frame since the first frame in the stream.
@@ -394,12 +394,12 @@ public class VideoFileReader implements VideoReader, Runnable {
                             // And we give ourselves 50 ms of tolerance.
                             final long mSecTolerance = 50;
                             // In milliseconds (10^{-3} seconds).
-                            final long mSecToSleep = (mSecStreamTimeSinceStartOfVideo
-                                    - (mSecClockTimeSinceStartOfVideo + mSecTolerance));
+                            final long mSecToSleep = mSecStreamTimeSinceStartOfVideo
+                                    - (mSecClockTimeSinceStartOfVideo + mSecTolerance);
                             if (mSecToSleep > 0) {
                                 try {
                                     Thread.sleep(mSecToSleep);
-                                } catch (InterruptedException e) {
+                                } catch (final InterruptedException e) {
                                     /*
                                      * We might get this when the user closes the dialog box, so just return from the method.
                                      */
@@ -415,7 +415,7 @@ public class VideoFileReader implements VideoReader, Runnable {
                     }
                 }
             }
-        } catch (RuntimeException e) {
+        } catch (final RuntimeException e) {
             this.errorMessage = e.getMessage();
         }
 
@@ -445,7 +445,7 @@ public class VideoFileReader implements VideoReader, Runnable {
     @SuppressWarnings("deprecation")
     @Override
     public Image getImage() throws IOException {
-        this.checkErrors();
+        checkErrors();
 
         /*
          * 16. Convert the BGR24 to an Java BufferedImage.

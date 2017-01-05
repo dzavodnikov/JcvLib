@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -426,9 +426,9 @@ public class JCV {
         final StringBuilder sb = new StringBuilder();
 
         sb.append("{");
-        sb.append(getPointString(x, y));
+        sb.append(JCV.getPointString(x, y));
         sb.append(", ");
-        sb.append(getSizeString(width, height));
+        sb.append(JCV.getSizeString(width, height));
         sb.append("}");
 
         return sb.toString();

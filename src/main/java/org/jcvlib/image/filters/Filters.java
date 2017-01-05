@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,47 +44,34 @@ public class Filters {
 
     /**
      * Convolves an image with the kernel. Common-used method for apply linear matrix filter.
-     *
      * <p>
-     * For example, we have matrix kernel:
-     *
-     * <code><pre>
+     * For example, we have matrix kernel: <code><pre>
      *     0 1 2
      *   +-------+
      * 0 | 1 1 1 |
      * 1 | 1 1 1 |
      * 2 | 1 1 1 |
      *   +-------+
-     * </pre></code>
-     *
-     * with <code>div = 9</code> and <code>offset = 0</code>.
+     * </pre></code> with <code>div = 9</code> and <code>offset = 0</code>.
      * </p>
-     *
      * <p>
-     * For each pixels we select aperture (using extrapolation on the image borders):
-     *
-     * <code><pre>
+     * For each pixels we select aperture (using extrapolation on the image borders): <code><pre>
      *     0 1 2
      *   +-------+
      * 0 | o o o |
      * 1 | o x o |
      * 2 | o o o |
      *   +-------+
-     * </pre></code>
-     *
-     * and multiply each value from aperture to corresponding value from kernel. For example value in position
-     * <code>(0, 1)</code> from aperture will be multiply to value <code>(0, 1)</code> from kernel.
+     * </pre></code> and multiply each value from aperture to corresponding value from kernel. For example value in
+     * position <code>(0, 1)</code> from aperture will be multiply to value <code>(0, 1)</code> from kernel.
      * </p>
-     *
      * <p>
      * Then all multiplied values are summarized, divided to <code>div</code> value and to the result added
      * <code>offset</code> value.
      * </p>
-     *
      * <p>
      * Result of this operations saved into output image into corresponding position.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -160,15 +147,14 @@ public class Filters {
     public static Image separableFilter(final Image image, final Matrix kernelFirst, final Matrix kernelSecond,
             final double div, final double offset, final Extrapolation extrapolation) {
         // First iteration.
-        final Image result = linearFilter(image, kernelFirst, div, offset, extrapolation);
+        final Image result = Filters.linearFilter(image, kernelFirst, div, offset, extrapolation);
 
         // Second iteration.
-        return linearFilter(result, kernelSecond, div, offset, extrapolation);
+        return Filters.linearFilter(result, kernelSecond, div, offset, extrapolation);
     }
 
     /**
      * Threshold filter.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -213,7 +199,7 @@ public class Filters {
         result.foreach(new ParallelValueOperation() {
 
             @Override
-            public int execute(int value) {
+            public int execute(final int value) {
                 return thresholdMethod.run(value, threshold, maxVal);
             }
         });
@@ -226,12 +212,11 @@ public class Filters {
      * value.
      */
     public static Image threshold(final Image image, final int threshold, final Threshold thresholdMethod) {
-        return threshold(image, threshold, thresholdMethod, Color.MAX_VALUE);
+        return Filters.threshold(image, threshold, thresholdMethod, Color.MAX_VALUE);
     }
 
     /**
      * Adaptive threshold.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -313,12 +298,11 @@ public class Filters {
      */
     public static Image adapriveThreshold(final Image image, final int blockSize,
             final ThresholdAdaptive thresholdMethod, final int C) {
-        return adapriveThreshold(image, blockSize, thresholdMethod, C, Color.MAX_VALUE);
+        return Filters.adapriveThreshold(image, blockSize, thresholdMethod, C, Color.MAX_VALUE);
     }
 
     /**
      * Calculate value for threshold by Otsu method.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -365,7 +349,7 @@ public class Filters {
             mu2[i] = (mu - q1[i] * mu1[i]) / (1.0 - q1[i]);
         }
 
-        double[] sb = new double[256];
+        final double[] sb = new double[256];
         for (int i = 0; i < sb.length; ++i) {
             sb[i] = q1[i] * (1.0 - q1[i]) * Math.pow(mu1[i] - mu2[i], 2);
         }
@@ -384,11 +368,9 @@ public class Filters {
 
     /**
      * Gradient filter by X and Y dimensions.
-     *
      * <p>
      * This method is useful for creation own gradient methods.
      * </p>
-     *
      * <p>
      * Algorithm:
      * <ol>
@@ -397,7 +379,6 @@ public class Filters {
      * <li>Calculate gradient by formula <code>G = SQRT(Gx<sup>2</sup> + Gy<sup>2</sup>)</code>.</li>
      * </ol>
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -456,11 +437,9 @@ public class Filters {
 
     /**
      * Edge detection algorithms.
-     *
      * <p>
      * Based on {@link #gradientFilter(Image, Matrix, Matrix, double, Extrapolation)}.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -481,8 +460,8 @@ public class Filters {
      */
     public static Image edgeDetection(final Image image, final EdgeDetect edgeDetectionMethod, final double scale,
             final Extrapolation extrapolation) {
-        return gradientFilter(image, edgeDetectionMethod.getMatrixKernelX(), edgeDetectionMethod.getMatrixKernelY(),
-                scale, extrapolation);
+        return Filters.gradientFilter(image, edgeDetectionMethod.getMatrixKernelX(),
+                edgeDetectionMethod.getMatrixKernelY(), scale, extrapolation);
     }
 
     /**
@@ -490,7 +469,7 @@ public class Filters {
      * and {@link Extrapolation#REFLECT} as default extrapolation method.
      */
     public static Image edgeDetection(final Image image, final EdgeDetect edgeDetectionMethod) {
-        return edgeDetection(image, edgeDetectionMethod, 1.0, Extrapolation.REFLECT);
+        return Filters.edgeDetection(image, edgeDetectionMethod, 1.0, Extrapolation.REFLECT);
     }
 
     /**
@@ -499,12 +478,11 @@ public class Filters {
      * extrapolation method.
      */
     public static Image edgeDetection(final Image image) {
-        return edgeDetection(image, EdgeDetect.SOBEL, 1.0, Extrapolation.REFLECT);
+        return Filters.edgeDetection(image, EdgeDetect.SOBEL, 1.0, Extrapolation.REFLECT);
     }
 
     /**
      * Discrete Laplace operator.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -521,16 +499,15 @@ public class Filters {
      *         image.
      */
     public static Image laplacian(final Image image, final Extrapolation extrapolation) {
-        return linearFilter(image, EdgeDetect.LAPLACIAN.getMatrixKernelX(), -1.0, Color.MIN_VALUE, extrapolation);
+        return Filters.linearFilter(image, EdgeDetect.LAPLACIAN.getMatrixKernelX(), -1.0, Color.MIN_VALUE,
+                extrapolation);
     }
 
     /**
      * Discrete Laplace operator.
-     *
      * <p>
      * Use {@link Extrapolation#REPLICATE} by default.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -540,37 +517,30 @@ public class Filters {
      * </p>
      */
     public static Image laplacian(final Image image) {
-        return laplacian(image, Extrapolation.REPLICATE);
+        return Filters.laplacian(image, Extrapolation.REPLICATE);
     }
 
     /**
      * Invert values into image: each value V invert to <code>({@link Color#MAX_VALUE} - V)</code>.
      */
     public static Image invert(final Image image) {
-        final Matrix invertKernel = new Matrix(new double[][]{ { -1.0 } });
+        final Matrix invertKernel = new Matrix(new double[][] { { -1.0 } });
         final double div = 1.0;
         final double offset = Color.MAX_VALUE;
 
-        return linearFilter(image, invertKernel, div, offset, Extrapolation.REFLECT);
+        return Filters.linearFilter(image, invertKernel, div, offset, Extrapolation.REFLECT);
     }
 
     /**
      * Release Gaussian kernel for Gaussian filter as a <strong>vector with size <code>(width, 1)</code></strong>.
-     *
      * <p>
-     * Used formula:
-     * 
-     * <code><pre>
+     * Used formula: <code><pre>
      * G(x) = alpha * exp{-(x<sup>2</sup>) / (2 * sigma<sup>2</sup>)}
-     * </pre></code>
-     * 
-     * where <code>alpha</code> is a scalable parameter to <code>sum(G(x, y)) == 1.0</code>.
+     * </pre></code> where <code>alpha</code> is a scalable parameter to <code>sum(G(x, y)) == 1.0</code>.
      * </p>
-     *
      * <p>
      * Uses into {@link #gaussianBlur(Image, Size, double, double, Extrapolation)}.
      * </p>
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -613,18 +583,17 @@ public class Filters {
      * <code>sigma<sup>2</sup></code> value.
      */
     public static Matrix getGaussianKernel(final int kernelSize) {
-        return getGaussianKernel(kernelSize, getSigma(kernelSize));
+        return Filters.getGaussianKernel(kernelSize, Filters.getSigma(kernelSize));
     }
 
     /**
      * Return size of one dimension base on <code>sigma</code> value.
-     *
      * <p>
      * Uses into {@link #gaussianBlur(Image, Size, double, double, Extrapolation)}.
      * </p>
      */
     public static int getKernelSize(final double sigma) {
-        int size = JCV.roundDown(sigmaSizeCoeff * sigma);
+        int size = JCV.roundDown(Filters.sigmaSizeCoeff * sigma);
         if (size % 2 == 0) {
             ++size;
         }
@@ -636,12 +605,11 @@ public class Filters {
      * Return <code>sigma</code> base on size value of one dimension for Gaussian blur.
      */
     public static double getSigma(final int size) {
-        return size / sigmaSizeCoeff;
+        return size / Filters.sigmaSizeCoeff;
     }
 
     /**
      * Gaussian blur.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -673,12 +641,12 @@ public class Filters {
         /*
          * Perform transformation.
          */
-        final Matrix gaussianKernelX = getGaussianKernel(kernelSize.getWidth(), sigmaX);
-        final Matrix gaussianKernelY = getGaussianKernel(kernelSize.getHeight(), sigmaY).transpose();
+        final Matrix gaussianKernelX = Filters.getGaussianKernel(kernelSize.getWidth(), sigmaX);
+        final Matrix gaussianKernelY = Filters.getGaussianKernel(kernelSize.getHeight(), sigmaY).transpose();
         final double div = 1.0;
         final double offset = Color.MIN_VALUE;
 
-        return separableFilter(image, gaussianKernelX, gaussianKernelY, div, offset, extrapolationMethod);
+        return Filters.separableFilter(image, gaussianKernelX, gaussianKernelY, div, offset, extrapolationMethod);
     }
 
     /**
@@ -718,7 +686,7 @@ public class Filters {
      * extrapolation method.
      */
     public static Image blur(final Image image, final Size kernelSize, final Blur blurMethod) {
-        return blur(image, kernelSize, blurMethod, Extrapolation.REPLICATE);
+        return Filters.blur(image, kernelSize, blurMethod, Extrapolation.REPLICATE);
     }
 
     /**
@@ -726,7 +694,7 @@ public class Filters {
      * {@link Extrapolation#REPLICATE} as default extrapolation method.
      */
     public static Image blur(final Image image, final Size kernelSize) {
-        return blur(image, kernelSize, Blur.GAUSSIAN, Extrapolation.REPLICATE);
+        return Filters.blur(image, kernelSize, Blur.GAUSSIAN, Extrapolation.REPLICATE);
     }
 
     /**
@@ -761,7 +729,7 @@ public class Filters {
      * extrapolation method.
      */
     public static Image sharpen(final Image image, final Sharpen sharpenMethod) {
-        return sharpen(image, sharpenMethod, Extrapolation.REPLICATE);
+        return Filters.sharpen(image, sharpenMethod, Extrapolation.REPLICATE);
     }
 
     /**
@@ -769,12 +737,11 @@ public class Filters {
      * and {@link Extrapolation#REPLICATE} as default extrapolation method.
      */
     public static Image sharpen(final Image source) {
-        return sharpen(source, Sharpen.MODERN, Extrapolation.REPLICATE);
+        return Filters.sharpen(source, Sharpen.MODERN, Extrapolation.REPLICATE);
     }
 
     /**
      * Morphology transformation.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -830,7 +797,7 @@ public class Filters {
      */
     public static Image morphology(final Image image, final Size kernelSize, final Morphology morphologyMethod,
             final int iterations) {
-        return morphology(image, kernelSize, morphologyMethod, iterations, Extrapolation.REPLICATE);
+        return Filters.morphology(image, kernelSize, morphologyMethod, iterations, Extrapolation.REPLICATE);
     }
 
     /**
@@ -838,6 +805,6 @@ public class Filters {
      * iteration and {@link Extrapolation#REPLICATE} as default extrapolation method.
      */
     public static Image morphology(final Image image, final Size kernelSize, final Morphology morphologyMethod) {
-        return morphology(image, kernelSize, morphologyMethod, 1, Extrapolation.REPLICATE);
+        return Filters.morphology(image, kernelSize, morphologyMethod, 1, Extrapolation.REPLICATE);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,7 +87,7 @@ public class VideoFileWriter implements VideoWriter {
 
     private long               totalTimeStamp = 0;
 
-    private long               incrementTimeStamp;
+    private final long         incrementTimeStamp;
 
     /**
      * Create new object for write video into the file.
@@ -141,7 +141,7 @@ public class VideoFileWriter implements VideoWriter {
         if (FPS < 0) {
             throw new IllegalArgumentException("Parameter 'FPS' must be more than 0!");
         }
-        IRational frameRate = IRational.make(FPS, 1); // Number of images per second of your end result video.
+        final IRational frameRate = IRational.make(FPS, 1); // Number of images per second of your end result video.
         this.incrementTimeStamp = Math.round(1000000.0 / FPS);
         this.outStreamCoder.setFrameRate(frameRate);
         this.outStreamCoder.setTimeBase(IRational.make(frameRate.getDenominator(), frameRate.getNumerator()));
@@ -205,7 +205,7 @@ public class VideoFileWriter implements VideoWriter {
         IConverter converter = null;
         try {
             converter = ConverterFactory.createConverter(worksWithXugglerBufferedImage, IPixelFormat.Type.YUV420P);
-        } catch (UnsupportedOperationException e) {
+        } catch (final UnsupportedOperationException e) {
             throw new IOException(e.getMessage());
         }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,7 @@
  */
 package org.jcvlib.core;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -41,15 +37,15 @@ public class ColorTest {
 
         final int vlaue = 127;
         final Color color1 = new Color(3, vlaue);
-        assertEquals(vlaue, color1.get(0), JCV.PRECISION);
-        assertEquals(vlaue, color1.get(1), JCV.PRECISION);
-        assertEquals(vlaue, color1.get(2), JCV.PRECISION);
+        Assert.assertEquals(vlaue, color1.get(0), JCV.PRECISION);
+        Assert.assertEquals(vlaue, color1.get(1), JCV.PRECISION);
+        Assert.assertEquals(vlaue, color1.get(2), JCV.PRECISION);
 
         final int[] c = new int[] { 32, 64, 128 };
         final Color color2 = new Color(c);
-        assertEquals(c[0], color2.get(0), JCV.PRECISION);
-        assertEquals(c[1], color2.get(1), JCV.PRECISION);
-        assertEquals(c[2], color2.get(2), JCV.PRECISION);
+        Assert.assertEquals(c[0], color2.get(0), JCV.PRECISION);
+        Assert.assertEquals(c[1], color2.get(1), JCV.PRECISION);
+        Assert.assertEquals(c[2], color2.get(2), JCV.PRECISION);
     }
 
     /**
@@ -60,24 +56,24 @@ public class ColorTest {
         // Incorrect number of Channels.
         try {
             new Color(0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect number of Channels.
         try {
             new Color(-1);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect source value.
         try {
             new Color(new int[] {});
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -104,9 +100,9 @@ public class ColorTest {
         color.set(1, Color.MIN_VALUE + 1);
         color.set(2, Color.MIN_VALUE + 2);
 
-        assertEquals(Color.MIN_VALUE + 0, color.get(0));
-        assertEquals(Color.MIN_VALUE + 1, color.get(1));
-        assertEquals(Color.MIN_VALUE + 2, color.get(2));
+        Assert.assertEquals(Color.MIN_VALUE + 0, color.get(0));
+        Assert.assertEquals(Color.MIN_VALUE + 1, color.get(1));
+        Assert.assertEquals(Color.MIN_VALUE + 2, color.get(2));
     }
 
     /**
@@ -119,8 +115,8 @@ public class ColorTest {
         color.set(0, Color.MAX_VALUE + 1);
         color.set(1, Color.MIN_VALUE - 1);
 
-        assertEquals(Color.MAX_VALUE, color.get(0));
-        assertEquals(Color.MIN_VALUE, color.get(1));
+        Assert.assertEquals(Color.MAX_VALUE, color.get(0));
+        Assert.assertEquals(Color.MIN_VALUE, color.get(1));
     }
 
     /**
@@ -133,14 +129,14 @@ public class ColorTest {
         // Set in incorrect position.
         try {
             color.set(5, Color.MIN_VALUE);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
         try {
             color.set(-1, Color.MIN_VALUE);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -151,19 +147,19 @@ public class ColorTest {
     @Test
     public void testCopyEquals() {
         final Color color1 = new Color(2, 32);
-        assertTrue(color1.equals(color1));
-        assertTrue(color1.equals(new Color(2, 32)));
-        assertFalse(color1.equals(1));
-        assertFalse(color1.equals(null));
+        Assert.assertTrue(color1.equals(color1));
+        Assert.assertTrue(color1.equals(new Color(2, 32)));
+        Assert.assertFalse(color1.equals(1));
+        Assert.assertFalse(color1.equals(null));
 
         final Color color2 = color1.makeCopy();
-        assertTrue(color1.equals(color2));
+        Assert.assertTrue(color1.equals(color2));
 
         color2.set(1, 64);
-        assertFalse(color1.equals(color2));
+        Assert.assertFalse(color1.equals(color2));
 
         final Color color3 = new Color(3, 1);
-        assertFalse(color1.equals(color3));
+        Assert.assertFalse(color1.equals(color3));
     }
 
     /**
@@ -171,11 +167,12 @@ public class ColorTest {
      */
     @Test
     public void testEuclidDist() {
-        assertEquals(1.0, (new Color(new int[] { 5, 5 })).euclidDist(new Color(new int[] { 4, 6 })), JCV.PRECISION);
+        Assert.assertEquals(1.0, new Color(new int[] { 5, 5 }).euclidDist(new Color(new int[] { 4, 6 })),
+                JCV.PRECISION);
 
         final Color min = new Color(new int[] { Color.MIN_VALUE, Color.MIN_VALUE });
         final Color max = new Color(new int[] { Color.MAX_VALUE, Color.MAX_VALUE });
-        assertEquals(Color.MAX_VALUE, min.euclidDist(max), JCV.PRECISION);
+        Assert.assertEquals(Color.MAX_VALUE, min.euclidDist(max), JCV.PRECISION);
     }
 
     /**
@@ -184,9 +181,9 @@ public class ColorTest {
     @Test
     public void testEuclidDistException() {
         try {
-            (new Color(new int[] { 1, 1 })).euclidDist(new Color(new int[] { 4, 6, 8 }));
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            new Color(new int[] { 1, 1 }).euclidDist(new Color(new int[] { 4, 6, 8 }));
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }

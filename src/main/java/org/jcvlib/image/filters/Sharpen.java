@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,9 +64,9 @@ public enum Sharpen {
         @Override
         protected Image run(final Image image, final Extrapolation extrapolationMethod) {
             //@formatter:off
-            final Matrix modernSharpen = new Matrix(new double[][]{ 
-                    {  0.0, -1.0,  0.0 }, 
-                    { -1.0,  5.0, -1.0 }, 
+            final Matrix modernSharpen = new Matrix(new double[][]{
+                    {  0.0, -1.0,  0.0 },
+                    { -1.0,  5.0, -1.0 },
                     {  0.0, -1.0,  0.0 }
                 });
             //@formatter:on

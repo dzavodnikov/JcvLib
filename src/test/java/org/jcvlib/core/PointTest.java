@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,11 +18,7 @@
  */
 package org.jcvlib.core;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -48,16 +44,16 @@ public class PointTest {
         // Incorrect Y position.
         try {
             new Point(-1, 0);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
 
         // Incorrect X position.
         try {
             new Point(0, -1);
-            fail("Not thrown IllegalArgumentException!");
-        } catch (IllegalArgumentException e) {
+            Assert.fail("Not thrown IllegalArgumentException!");
+        } catch (final IllegalArgumentException e) {
             System.out.println("Exception message example:\n" + e.getMessage() + "\n");
         }
     }
@@ -67,10 +63,10 @@ public class PointTest {
      */
     @Test
     public void testXY() {
-        Point point = new Point(1, 2);
+        final Point point = new Point(1, 2);
 
-        assertEquals(1, point.getX());
-        assertEquals(2, point.getY());
+        Assert.assertEquals(1, point.getX());
+        Assert.assertEquals(2, point.getY());
     }
 
     /**
@@ -90,15 +86,15 @@ public class PointTest {
     @Test
     public void testEquals() {
         final Point point1 = new Point(1, 2);
-        assertTrue(point1.equals(point1));
-        assertTrue(point1.equals(new Point(1, 2)));
-        assertFalse(point1.equals(null));
-        assertFalse(point1.equals(0));
+        Assert.assertTrue(point1.equals(point1));
+        Assert.assertTrue(point1.equals(new Point(1, 2)));
+        Assert.assertFalse(point1.equals(null));
+        Assert.assertFalse(point1.equals(0));
 
         final Point point2 = new Point(2, 2);
-        assertFalse(point1.equals(point2));
+        Assert.assertFalse(point1.equals(point2));
 
         final Point point3 = new Point(1, 3);
-        assertFalse(point1.equals(point3));
+        Assert.assertFalse(point1.equals(point3));
     }
 }

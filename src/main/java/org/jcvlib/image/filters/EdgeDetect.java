@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import Jama.Matrix;
 
 /**
  * Edge detection methods.
- *
  * <p>
  * <h6>Links:</h6>
  * <ol>
@@ -35,7 +34,6 @@ import Jama.Matrix;
 public enum EdgeDetect {
     /**
      * Roberts cross.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -48,9 +46,9 @@ public enum EdgeDetect {
         @Override
         protected Matrix getMatrixKernelX() {
             //@formatter:off
-            return new Matrix(new double[][]{ 
-                {  1.0,  0.0,  0.0 }, 
-                {  0.0, -1.0,  0.0 }, 
+            return new Matrix(new double[][]{
+                {  1.0,  0.0,  0.0 },
+                {  0.0, -1.0,  0.0 },
                 {  0.0,  0.0,  0.0 }
             });
             //@formatter:on
@@ -59,9 +57,9 @@ public enum EdgeDetect {
         @Override
         protected Matrix getMatrixKernelY() {
             //@formatter:off
-            return new Matrix(new double[][]{ 
-                {  0.0,  0.0,  0.0 }, 
-                {  0.0,  0.0, -1.0 }, 
+            return new Matrix(new double[][]{
+                {  0.0,  0.0,  0.0 },
+                {  0.0,  0.0, -1.0 },
                 {  0.0,  1.0,  0.0 }
             });
             //@formatter:on
@@ -70,7 +68,6 @@ public enum EdgeDetect {
 
     /**
      * Prewitt operator.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -83,9 +80,9 @@ public enum EdgeDetect {
         @Override
         protected Matrix getMatrixKernelX() {
             //@formatter:off
-            return new Matrix(new double[][]{ 
-                { -1.0,  0.0,  1.0 }, 
-                { -1.0,  0.0,  1.0 }, 
+            return new Matrix(new double[][]{
+                { -1.0,  0.0,  1.0 },
+                { -1.0,  0.0,  1.0 },
                 { -1.0,  0.0,  1.0 }
             });
             //@formatter:on
@@ -94,9 +91,9 @@ public enum EdgeDetect {
         @Override
         protected Matrix getMatrixKernelY() {
             //@formatter:off
-            return new Matrix(new double[][]{ 
-                {  1.0,  1.0,  1.0 }, 
-                {  0.0,  0.0,  0.0 }, 
+            return new Matrix(new double[][]{
+                {  1.0,  1.0,  1.0 },
+                {  0.0,  0.0,  0.0 },
                 { -1.0, -1.0, -1.0 }
             });
             //@formatter:on
@@ -105,7 +102,6 @@ public enum EdgeDetect {
 
     /**
      * Sobel operator.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -118,9 +114,9 @@ public enum EdgeDetect {
         @Override
         protected Matrix getMatrixKernelX() {
             //@formatter:off
-            return new Matrix(new double[][]{ 
-                { -1.0,  0.0,  1.0 }, 
-                { -2.0,  0.0,  2.0 }, 
+            return new Matrix(new double[][]{
+                { -1.0,  0.0,  1.0 },
+                { -2.0,  0.0,  2.0 },
                 { -1.0,  0.0,  1.0 }
             });
             //@formatter:on
@@ -130,8 +126,8 @@ public enum EdgeDetect {
         protected Matrix getMatrixKernelY() {
             //@formatter:off
             return new Matrix(new double[][]{
-                { -1.0, -2.0, -1.0 }, 
-                {  0.0,  0.0,  0.0 }, 
+                { -1.0, -2.0, -1.0 },
+                {  0.0,  0.0,  0.0 },
                 {  1.0,  2.0,  1.0 }
             });
             //@formatter:on
@@ -140,7 +136,6 @@ public enum EdgeDetect {
 
     /**
      * Scharr operator.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -154,9 +149,9 @@ public enum EdgeDetect {
         @Override
         protected Matrix getMatrixKernelX() {
             //@formatter:off
-            return new Matrix(new double[][]{ 
-                {   3.0,   0.0,  -3.0 }, 
-                {  10.0,   0.0, -10.0 }, 
+            return new Matrix(new double[][]{
+                {   3.0,   0.0,  -3.0 },
+                {  10.0,   0.0, -10.0 },
                 {   3.0,   0.0,  -3.0 }
             });
             //@formatter:on
@@ -165,9 +160,9 @@ public enum EdgeDetect {
         @Override
         protected Matrix getMatrixKernelY() {
             //@formatter:off
-            return new Matrix(new double[][]{ 
-                {   3.0,  10.0,   3.0 }, 
-                {   0.0,   0.0,   0.0 }, 
+            return new Matrix(new double[][]{
+                {   3.0,  10.0,   3.0 },
+                {   0.0,   0.0,   0.0 },
                 {  -3.0, -10.0,  -3.0 }
             });
             //@formatter:on
@@ -176,7 +171,6 @@ public enum EdgeDetect {
 
     /**
      * Discrete Laplace operator.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -190,9 +184,9 @@ public enum EdgeDetect {
         @Override
         protected Matrix getMatrixKernelX() {
             //@formatter:off
-            return new Matrix(new double[][]{ 
-                {   0.0,   1.0,   0.0 }, 
-                {   1.0,  -4.0,   1.0 }, 
+            return new Matrix(new double[][]{
+                {   0.0,   1.0,   0.0 },
+                {   1.0,  -4.0,   1.0 },
                 {   0.0,   1.0,   0.0 }
             });
             //@formatter:on

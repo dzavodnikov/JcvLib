@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ package org.jcvlib.core;
 public enum Interpolation {
     /**
      * Nearest neighbor interpolation.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -48,7 +47,6 @@ public enum Interpolation {
 
     /**
      * Bilinear interpolation.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -83,7 +81,6 @@ public enum Interpolation {
 
     /**
      * Bicubic interpolation.
-     *
      * <p>
      * <h6>Links:</h6>
      * <ol>
@@ -117,7 +114,7 @@ public enum Interpolation {
          * Return nearest values to given position.
          */
         private double[] calculateNearPos(final Image image, final int x, final int y, final int channel) {
-            return new double[]{ image.get(x - 1, y, channel, Extrapolation.REFLECT),
+            return new double[] { image.get(x - 1, y, channel, Extrapolation.REFLECT),
                     image.get(x, y, channel, Extrapolation.REFLECT),
                     image.get(x + 1, y, channel, Extrapolation.REFLECT),
                     image.get(x + 2, y, channel, Extrapolation.REFLECT) };

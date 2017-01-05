@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,10 @@
  */
 package org.jcvlib.image;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
 import java.awt.image.BufferedImage;
 
 import org.jcvlib.core.Image;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -61,9 +59,9 @@ public class TypeConvertTest {
      * + TYPE_INT_ARGB 8-bit alpha, red, green, and blue values stored in a 32-bit integer.
      * + TYPE_INT_ARGB_PRE 8-bit alpha and premultiplied red, green, and blue values stored in a 32-bit integer.
      */
-    private int width  = 2500;
+    private final int width  = 2500;
 
-    private int height = 2500;
+    private final int height = 2500;
 
     /**
      * Test method for: {@link TypeConvert#fromBufferedImage(BufferedImage)}, {@link TypeConvert#toBufferedImage(Image)}
@@ -91,15 +89,15 @@ public class TypeConvertTest {
         // Check values.
         try {
             final Image image = TypeConvert.fromBufferedImage(bufImg);
-            assertEquals(1, image.getNumOfChannels());
+            Assert.assertEquals(1, image.getNumOfChannels());
 
             for (int y = 0; y < image.getHeight(); ++y) {
                 for (int x = 0; x < image.getWidth(); ++x) {
-                    assertEquals(image.get(x, y, 0), bufImg.getRaster().getSample(x, y, 0) * 255);
+                    Assert.assertEquals(image.get(x, y, 0), bufImg.getRaster().getSample(x, y, 0) * 255);
                 }
             }
-        } catch (Exception e) {
-            fail(e.getMessage());
+        } catch (final Exception e) {
+            Assert.fail(e.getMessage());
         }
     }
 
@@ -148,7 +146,7 @@ public class TypeConvertTest {
      * @param maxValue
      *            Max value to using {@link BufferedImage} with different range for color.
      */
-    private void testGrayscaleImage(BufferedImage bufImg, int maxValue) {
+    private void testGrayscaleImage(final BufferedImage bufImg, final int maxValue) {
         // Initialize.
         int color = 0;
         for (int y = 0; y < bufImg.getHeight(); ++y) {
@@ -165,17 +163,17 @@ public class TypeConvertTest {
         // Check values.
         try {
             final Image image = TypeConvert.fromBufferedImage(bufImg);
-            assertEquals(1, image.getNumOfChannels());
+            Assert.assertEquals(1, image.getNumOfChannels());
 
             for (int y = 0; y < image.getHeight(); ++y) {
                 for (int x = 0; x < image.getWidth(); ++x) {
-                    assertEquals(image.get(x, y, 0) / org.jcvlib.core.Color.MAX_VALUE,
-                            (double) (bufImg.getRaster().getSample(x, y, 0)) / (double) (maxValue),
+                    Assert.assertEquals(image.get(x, y, 0) / org.jcvlib.core.Color.MAX_VALUE,
+                            (double) bufImg.getRaster().getSample(x, y, 0) / (double) maxValue,
                             org.jcvlib.core.Color.MAX_VALUE);
                 }
             }
-        } catch (Exception e) {
-            fail(e.getMessage());
+        } catch (final Exception e) {
+            Assert.fail(e.getMessage());
         }
     }
 
@@ -187,7 +185,7 @@ public class TypeConvertTest {
      * @param hasAlpha
      *            Is given image should support alpha-channel.
      */
-    private void initializeMultichannelImage(BufferedImage bufImg, boolean hasAlpha) {
+    private void initializeMultichannelImage(final BufferedImage bufImg, final boolean hasAlpha) {
         int R = 0;
         int G = 0;
         int B = 0;
@@ -227,12 +225,12 @@ public class TypeConvertTest {
     /**
      * This method compare {@link BufferedImage} and {@link JcvImage64F}.
      */
-    private void compareMultichannelImage(BufferedImage bufImg, boolean hasAlpha, Image image) {
+    private void compareMultichannelImage(final BufferedImage bufImg, final boolean hasAlpha, final Image image) {
         try {
             if (hasAlpha) {
-                assertEquals(4, image.getNumOfChannels());
+                Assert.assertEquals(4, image.getNumOfChannels());
             } else {
-                assertEquals(3, image.getNumOfChannels());
+                Assert.assertEquals(3, image.getNumOfChannels());
             }
 
             // Check values.
@@ -241,19 +239,19 @@ public class TypeConvertTest {
                     /*
                      * http://docs.oracle.com/javase/6/docs/api/java/awt/Color.html
                      */
-                    java.awt.Color rgb = new java.awt.Color(bufImg.getRGB(x, y), hasAlpha);
+                    final java.awt.Color rgb = new java.awt.Color(bufImg.getRGB(x, y), hasAlpha);
 
                     // Verify convert.
-                    assertEquals(image.get(x, y, 0), rgb.getRed());
-                    assertEquals(image.get(x, y, 1), rgb.getGreen());
-                    assertEquals(image.get(x, y, 2), rgb.getBlue());
+                    Assert.assertEquals(image.get(x, y, 0), rgb.getRed());
+                    Assert.assertEquals(image.get(x, y, 1), rgb.getGreen());
+                    Assert.assertEquals(image.get(x, y, 2), rgb.getBlue());
                     if (hasAlpha) {
-                        assertEquals(image.get(x, y, 3), rgb.getAlpha());
+                        Assert.assertEquals(image.get(x, y, 3), rgb.getAlpha());
                     }
                 }
             }
-        } catch (Exception e) {
-            fail(e.getMessage());
+        } catch (final Exception e) {
+            Assert.fail(e.getMessage());
         }
     }
 
@@ -268,7 +266,7 @@ public class TypeConvertTest {
      * @param hasAlpha
      *            Define using 3 or 4 channels.
      */
-    private void testMultichannelImage(BufferedImage bufImg1, boolean hasAlpha) {
+    private void testMultichannelImage(final BufferedImage bufImg1, final boolean hasAlpha) {
         initializeMultichannelImage(bufImg1, hasAlpha);
 
         // Check values.
@@ -280,8 +278,8 @@ public class TypeConvertTest {
             // Compare results.
             compareMultichannelImage(bufImg1, hasAlpha, image);
             compareMultichannelImage(bufImg2, hasAlpha, image);
-        } catch (Exception e) {
-            fail(e.getMessage());
+        } catch (final Exception e) {
+            Assert.fail(e.getMessage());
         }
     }
 }

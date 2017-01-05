@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 
 import org.jcvlib.core.Color;
 import org.jcvlib.core.Image;
@@ -48,21 +49,14 @@ import org.jcvlib.io.ImageRW;
 
 /**
  * Base class for all GUI functions.
- *
  * <p>
- * Example of usage:
- * 
- * <code><pre>
+ * Example of usage: <code><pre>
  * // Image image = ...
  * Window window = new Window("My Image");
  * window.show(image);
  * ...
  * // window.close();   // Needed if you want close window from your program.
- * </pre></code>
- * 
- * or just:
- * 
- * <code><pre>
+ * </pre></code> or just: <code><pre>
  * // Image image = ...
  * Window.openAndShow(image, "My Image");
  * </pre></code>
@@ -79,7 +73,7 @@ public final class Window {
     /**
      * Contain links to all windows.
      */
-    private static ArrayList<Window> allWindows             = new ArrayList<Window>();
+    private static ArrayList<Window> allWindows             = new ArrayList<>();
 
     /**
      * Define char of last pressed keys in all windows.
@@ -151,14 +145,13 @@ public final class Window {
     /**
      * Create new window with defined size and given name of this window.
      */
-    @SuppressWarnings("static-access")
     public Window(final String title) {
         this.wasOpened = false;
         this.title = title;
 
         // Add link to global list.
-        synchronized (this.allWindows) {
-            this.allWindows.add(this);
+        synchronized (Window.allWindows) {
+            Window.allWindows.add(this);
         }
     }
 
@@ -175,11 +168,11 @@ public final class Window {
         this.frame.setResizable(true);
 
         // Add listener for correct close windows.
-        this.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.frame.addWindowListener(new WindowAdapter() {
 
             @Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing(final WindowEvent e) {
                 close(); // Close current window.
             }
         });
@@ -188,22 +181,22 @@ public final class Window {
         this.frame.addKeyListener(new KeyListener() {
 
             @Override
-            public void keyPressed(KeyEvent event) {
+            public void keyPressed(final KeyEvent event) {
                 // Do nothing.
             }
 
             @Override
-            public void keyReleased(KeyEvent event) {
+            public void keyReleased(final KeyEvent event) {
                 setKeyChar(event.getKeyChar());
 
                 // Listener for close all windows by press 'Esc' button.
-                if (getLastPressedKeyChar() == KeyEvent.VK_ESCAPE) {
-                    closeAll();
+                if (Window.getLastPressedKeyChar() == KeyEvent.VK_ESCAPE) {
+                    Window.closeAll();
                 }
             }
 
             @Override
-            public void keyTyped(KeyEvent event) {
+            public void keyTyped(final KeyEvent event) {
                 // Do nothing.
             }
         });
@@ -223,11 +216,11 @@ public final class Window {
         final JMenuBar menuBar = new JMenuBar();
         this.frame.setJMenuBar(menuBar);
 
-        this.createFileMenu(menuBar);
-        this.createResizeMenu(menuBar);
+        createFileMenu(menuBar);
+        createResizeMenu(menuBar);
 
         // Create status bar.
-        this.createStatusBar();
+        createStatusBar();
 
         // Set objects onto canvas.
         this.frame.pack();
@@ -236,7 +229,7 @@ public final class Window {
 
     private void setKeyChar(final int keyChar) {
         this.pressedKeyChar = keyChar;
-        allLastPressedKeyChar = keyChar;
+        Window.allLastPressedKeyChar = keyChar;
     }
 
     /**
@@ -247,7 +240,7 @@ public final class Window {
 
         // Create window if needed.
         if (!this.wasOpened) {
-            this.open();
+            open();
         }
 
         this.imageComponent.setBufferedImage(TypeConvert.toBufferedImage(this.image));
@@ -271,8 +264,8 @@ public final class Window {
      * Close all opened windows. Same as press <strong>Esc</strong> key.
      */
     public static synchronized void closeAll() {
-        if (allWindows != null) {
-            for (Window window : allWindows) {
+        if (Window.allWindows != null) {
+            for (final Window window : Window.allWindows) {
                 window.close();
             }
         }
@@ -294,13 +287,12 @@ public final class Window {
 
     /**
      * Return last key char of last pressed key in some opened window in current application.
-     *
      * <p>
      * If opened only one window result will be same as {@link #getPressedKeyChar()}.
      * </p>
      */
     public static int getLastPressedKeyChar() {
-        return allLastPressedKeyChar;
+        return Window.allLastPressedKeyChar;
     }
 
     private void createFileMenu(final JMenuBar menuBar) {
@@ -321,7 +313,8 @@ public final class Window {
              */
             @Override
             public void actionPerformed(final ActionEvent action) {
-                FileDialog chooser = new FileDialog(frame, "Select path and name to save file", FileDialog.SAVE);
+                final FileDialog chooser = new FileDialog(Window.this.frame, "Select path and name to save file",
+                        FileDialog.SAVE);
 
                 chooser.setVisible(true);
                 if (chooser.getFile() != null) {
@@ -344,13 +337,13 @@ public final class Window {
                         }
 
                         // Set new name title of window according to file name to saving image.
-                        frame.setTitle(fileName);
+                        Window.this.frame.setTitle(fileName);
 
                         // Write image to file.
                         final String fullFilePath = chooser.getDirectory() + File.separator + fileName + "."
                                 + fileFormat;
-                        ImageRW.write(image, fullFilePath);
-                    } catch (Exception e) {
+                        ImageRW.write(Window.this.image, fullFilePath);
+                    } catch (final Exception e) {
                         e.printStackTrace();
                         System.err.println("Can not save image: " + e.getMessage());
                     }
@@ -375,7 +368,7 @@ public final class Window {
                  * See:
                  * * http://stackoverflow.com/questions/1234912/how-to-programmatically-close-a-jframe
                  */
-                frame.dispose();
+                Window.this.frame.dispose();
             }
         });
         // Add hot-key <Ctrl>+<Q> to call 'File' -> 'Quite' menu item.
@@ -398,7 +391,7 @@ public final class Window {
 
             @Override
             public void actionPerformed(final ActionEvent action) {
-                imageComponent.setScale(imageComponent.getScale() + 0.1f);
+                Window.this.imageComponent.setScale(Window.this.imageComponent.getScale() + 0.1f);
             }
         });
         // Add hot-key <Ctrl>+<+> to call 'Resize' -> 'Zoom +' menu item.
@@ -415,7 +408,7 @@ public final class Window {
 
             @Override
             public void actionPerformed(final ActionEvent action) {
-                imageComponent.setScale(imageComponent.getScale() - 0.1f);
+                Window.this.imageComponent.setScale(Window.this.imageComponent.getScale() - 0.1f);
             }
         });
         // Add hot-key <Ctrl>+<-> to call 'Resize' -> 'Zoom --' menu item.
@@ -432,7 +425,7 @@ public final class Window {
 
             @Override
             public void actionPerformed(final ActionEvent action) {
-                imageComponent.setDefaultScale();
+                Window.this.imageComponent.setDefaultScale();
             }
         });
         // Add hot-key <Ctrl>+<0> to call 'Resize' -> 'Zoom 0' menu item.
@@ -444,8 +437,8 @@ public final class Window {
         final StatusBar statusBar = new StatusBar();
         this.frame.add(statusBar, java.awt.BorderLayout.SOUTH);
 
-        final String baseMsg = MessageFormat.format(toolbarMessageTemplate,
-                JCV.getSizeString(image.getWidth(), image.getHeight()), image.getNumOfChannels());
+        final String baseMsg = MessageFormat.format(Window.toolbarMessageTemplate,
+                JCV.getSizeString(this.image.getWidth(), this.image.getHeight()), this.image.getNumOfChannels());
         // Set status bar message.
         statusBar.setMessage(baseMsg);
         this.imageComponent.addMouseMotionListener(new MouseMotionListener() {
@@ -463,18 +456,18 @@ public final class Window {
                 final int y = event.getY();
 
                 // Create output info.
-                if ((x < image.getWidth()) && (y < image.getHeight())) {
-                    mousePos = new Point(x, y);
-                    StringBuilder sb = new StringBuilder();
+                if (x < Window.this.image.getWidth() && y < Window.this.image.getHeight()) {
+                    Window.this.mousePos = new Point(x, y);
+                    final StringBuilder sb = new StringBuilder();
 
                     // Output position.
                     sb.append("    Point");
-                    sb.append(mousePos.toString());
+                    sb.append(Window.this.mousePos.toString());
 
                     // Get color value.
                     sb.append(" = Color");
-                    final Color color = new Color(image.getNumOfChannels());
-                    image.get(mousePos, color);
+                    final Color color = new Color(Window.this.image.getNumOfChannels());
+                    Window.this.image.get(Window.this.mousePos, color);
                     sb.append(color.toString());
 
                     // Update status bar message.

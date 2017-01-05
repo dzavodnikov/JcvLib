@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,13 +38,13 @@ public class Size {
      * Create new size.
      */
     public Size(final int width, final int height) {
-        if (width < MIN_WIDTH) {
+        if (width < Size.MIN_WIDTH) {
             throw new IllegalArgumentException("Value of 'width' (= " + Integer.toString(width)
-                    + ") must be more or equals than " + Integer.toString(MIN_WIDTH) + "!");
+                    + ") must be more or equals than " + Integer.toString(Size.MIN_WIDTH) + "!");
         }
-        if (height < MIN_HEIGHT) {
+        if (height < Size.MIN_HEIGHT) {
             throw new IllegalArgumentException("Value of 'height' (= " + Integer.toString(height)
-                    + ") must be more or equals than " + Integer.toString(MIN_HEIGHT) + "!");
+                    + ") must be more or equals than " + Integer.toString(Size.MIN_HEIGHT) + "!");
         }
 
         this.width = width;
@@ -124,7 +124,7 @@ public class Size {
         /*
          * Check.
          */
-        return (getWidth() <= size.getWidth()) && (getHeight() <= size.getHeight());
+        return getWidth() <= size.getWidth() && getHeight() <= size.getHeight();
     }
 
     /**

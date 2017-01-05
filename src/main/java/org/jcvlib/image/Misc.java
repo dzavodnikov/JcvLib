@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,13 +87,13 @@ public class Misc {
         final Image regionImage = new Image(image.getWidth(), image.getHeight(), 1);
         regionImage.fill(new Color(1, Color.MIN_VALUE));
 
-        final List<Point> pointList = new ArrayList<Point>();
+        final List<Point> pointList = new ArrayList<>();
         pointList.add(seed);
 
         final Color seedColor = new Color(image.getNumOfChannels());
         image.get(seed, seedColor);
 
-        final List<Color> colorList = new ArrayList<Color>();
+        final List<Color> colorList = new ArrayList<>();
         colorList.add(seedColor);
 
         final Color statFillColor = new Color(1, Color.MAX_VALUE);
@@ -117,7 +117,7 @@ public class Misc {
 
             // Process neighbors.
             final Color neighborColor = new Color(image.getNumOfChannels());
-            for (Point neighborPoint : directionType.getNeighbors(point, image.getSize())) {
+            for (final Point neighborPoint : directionType.getNeighbors(point, image.getSize())) {
                 image.get(neighborPoint, neighborColor);
 
                 if (!neighborColor.equals(fillColor) && sourceColor.euclidDist(neighborColor) <= distance) {
@@ -159,7 +159,7 @@ public class Misc {
         /*
          * Perform operation.
          */
-        final List<Matrix> result = new LinkedList<Matrix>();
+        final List<Matrix> result = new LinkedList<>();
         for (int i = 0; i < image.getNumOfChannels(); ++i) {
             result.add(new Matrix(image.getHeight(), image.getWidth()));
         }
@@ -219,7 +219,7 @@ public class Misc {
         Parallel.pixels(Filters.blur(image, new Size(5, 5), Blur.GAUSSIAN), new PixelsLoop() {
 
             @Override
-            public void execute(int x, int y, final int worker) {
+            public void execute(final int x, final int y, final int worker) {
                 for (int channel = 0; channel < image.getNumOfChannels(); ++channel) {
                     result.set(2 * x, 2 * y, channel, image.get(x, y, channel));
                     result.set(2 * x + 1, 2 * y, channel, image.get(x, y, channel));
@@ -262,7 +262,7 @@ public class Misc {
         Parallel.pixels(result, new PixelsLoop() {
 
             @Override
-            public void execute(int x, int y, final int worker) {
+            public void execute(final int x, final int y, final int worker) {
                 for (int channel = 0; channel < blurImage.getNumOfChannels(); ++channel) {
                     result.set(x, y, channel, blurImage.get(2 * x, 2 * y, channel));
                 }
@@ -299,12 +299,12 @@ public class Misc {
         /*
          * Perform operation.
          */
-        final List<Image> result = new LinkedList<Image>();
+        final List<Image> result = new LinkedList<>();
 
         Image current = image;
         while (current.getWidth() > minSize.getWidth() && current.getWidth() > minSize.getHeight()) {
             result.add(current);
-            current = buildPyramidDown(current);
+            current = Misc.buildPyramidDown(current);
         }
 
         return result;
@@ -315,7 +315,7 @@ public class Misc {
      * size.
      */
     public static List<Image> buildPyramidGauss(final Image image) {
-        return buildPyramidGauss(image, new Size(16, 16));
+        return Misc.buildPyramidGauss(image, new Size(16, 16));
     }
 
     /**
@@ -345,11 +345,11 @@ public class Misc {
         /*
          * Perform operation.
          */
-        final List<Image> result = new LinkedList<Image>();
+        final List<Image> result = new LinkedList<>();
 
         Image current = image;
         while (maxSize.getWidth() > current.getWidth() && maxSize.getHeight() > current.getHeight()) {
-            current = buildPyramidUp(current);
+            current = Misc.buildPyramidUp(current);
             result.add(current);
         }
 

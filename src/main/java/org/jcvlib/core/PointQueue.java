@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2015-2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -129,11 +129,11 @@ public class PointQueue {
         final int lastElement = getLenght() - 1;
 
         for (int i = 0; i < lastElement; ++i) {
-            sb.append((new Point(getX(i), getY(i))).toString());
+            sb.append(new Point(getX(i), getY(i)).toString());
         }
 
         if (lastElement >= 0) {
-            sb.append((new Point(getX(lastElement), getY(lastElement))).toString());
+            sb.append(new Point(getX(lastElement), getY(lastElement)).toString());
         }
 
         sb.append("}");
