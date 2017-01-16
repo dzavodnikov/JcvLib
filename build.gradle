@@ -1,3 +1,9 @@
+plugins {
+    // See:
+    //      https://github.com/ajoberstar/gradle-git/
+    id 'org.ajoberstar.github-pages' version '1.5.0' // Not support '+' symbol!
+}
+
 apply plugin: 'java'
 
 tasks.withType(JavaCompile) {
@@ -9,6 +15,12 @@ tasks.withType(JavaCompile) {
     // See: 
     //      https://mrhaki.blogspot.ru/2012/06/gradle-goodness-set-java-compiler.html
     options.encoding = 'UTF-8'
+}
+
+tasks.withType(Javadoc) {
+    // See:
+    //      http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html
+    options.addStringOption('Xdoclint:none', '-quiet')
 }
 
 test {
@@ -29,7 +41,21 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.dzavodnikov:JcvLib:4.+'
+    compile     'com.github.dzavodnikov:JParFor:1.+'
+    compile     'gov.nist.math:jama:1.+'
+    compile     'com.github.kerner1000:javapng:2.+'
+    compile     'org.slf4j:slf4j-api:1.+'
+    compile     'org.slf4j:slf4j-simple:1.+'
+    compile     'xuggle:xuggle-xuggler:5.5' // Not support '+' symbol!
+    testCompile 'junit:junit:4.+'
+}
+
+// See:
+//      https://github.com/ajoberstar/gradle-git/wiki/org.ajoberstar.github-pages/
+githubPages {
+    pages {
+        from javadoc
+    }
 }
 
 apply plugin: 'eclipse'
