@@ -6,7 +6,7 @@ Examples for [JcvLib](https://github.com/dzavodnikov/JcvLib/) library.
 
 Requirements
 ============
- * Java 1.8 or newer.
+ * Java 8 or newer.
  * If you want using video -- *OS*: Linux or Windows, *Arch*: i386 or x86/x64.
 
 

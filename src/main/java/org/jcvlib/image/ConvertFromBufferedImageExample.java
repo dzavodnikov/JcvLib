@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ public class ConvertFromBufferedImageExample {
          */
         for (int h = 0; h < height; ++h) {
             for (int w = 0; w < width; ++w) {
-                if (((h / 50) + (w / 50)) % 2 == 0) {
+                if ((h / 50 + w / 50) % 2 == 0) {
                     // Checkerboard pattern.
                     raster.setSample(w, h, 0, 0);
                 } else {

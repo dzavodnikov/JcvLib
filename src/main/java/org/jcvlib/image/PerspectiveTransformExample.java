@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,13 +47,13 @@ public class PerspectiveTransformExample {
         final Image image = ImageRW.read(IMAGES + File.separatorChar + "Calibr.png");
 
         // Find transform.
-        final List<Point> srcPoint = new LinkedList<Point>();
+        final List<Point> srcPoint = new LinkedList<>();
         srcPoint.add(new Point(49, 83));
         srcPoint.add(new Point(210, 66));
         srcPoint.add(new Point(238, 174));
         srcPoint.add(new Point(67, 207));
 
-        final List<Point> dstPoint = new LinkedList<Point>();
+        final List<Point> dstPoint = new LinkedList<>();
         dstPoint.add(new Point(0, 0));
         dstPoint.add(new Point(400, 0));
         dstPoint.add(new Point(400, 300));

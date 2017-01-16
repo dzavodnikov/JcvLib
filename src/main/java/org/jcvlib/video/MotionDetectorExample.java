@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,13 +81,13 @@ public class MotionDetectorExample {
             previous = current.makeCopy();
 
             // 4. Threshold.
-            Image thresh = Filters.threshold(blur, motionThreshold, Threshold.BINARY);
+            final Image thresh = Filters.threshold(blur, motionThreshold, Threshold.BINARY);
 
             // 5. Morphology close.
-            Image close = Filters.morphology(thresh, kernelSize, Morphology.CLOSE);
+            final Image close = Filters.morphology(thresh, kernelSize, Morphology.CLOSE);
 
             // 6. Morphology open.
-            Image open = Filters.morphology(close, kernelSize, Morphology.OPEN);
+            final Image open = Filters.morphology(close, kernelSize, Morphology.OPEN);
 
             // 7. Update motion history image.
             VideoAnalysis.updateHistoryImage(mhi, open, 16.0);

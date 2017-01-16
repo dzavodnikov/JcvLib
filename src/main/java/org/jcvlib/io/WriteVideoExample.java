@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public class WriteVideoExample {
         final VideoFileWriter video = new VideoFileWriter(filePath, image.getSize(), 30, 10, 128);
         video.open();
 
-        int diag = Math.min(image.getWidth(), image.getHeight());
+        final int diag = Math.min(image.getWidth(), image.getHeight());
         for (int i = 0; i < diag; ++i) {
             // Draw red line.
             image.set(i, i, 0, 255);

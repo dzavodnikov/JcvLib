@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,8 +49,8 @@ public class StereoVisionVideoExample {
 
         final Window windowMap = new Window();
         while (webCamLeft.isOpen() && webCamRight.isOpen() && windowLeft.getPressedKeyChar() != KeyEvent.VK_ESCAPE) {
-            Image left = webCamLeft.getImage();
-            Image right = webCamRight.getImage();
+            final Image left = webCamLeft.getImage();
+            final Image right = webCamRight.getImage();
 
             // Find distance map.
             //final Image map = Stereo.getMap(grayLeft, grayRight);

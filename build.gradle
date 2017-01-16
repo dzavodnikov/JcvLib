@@ -5,6 +5,7 @@ tasks.withType(JavaCompile) {
     //      https://stackoverflow.com/questions/21028438/
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+
     // See: 
     //      https://mrhaki.blogspot.ru/2012/06/gradle-goodness-set-java-compiler.html
     options.encoding = 'UTF-8'
@@ -12,15 +13,6 @@ tasks.withType(JavaCompile) {
 
 test {
      maxHeapSize = '512m' // To be compatible with Travis-CI infrastructure.
-}
-
-apply plugin: 'eclipse'
-
-// See: 
-//      https://stackoverflow.com/questions/10156847/
-eclipse.classpath {
-    downloadSources = true
-    downloadJavadoc = true
 }
 
 repositories {
@@ -38,4 +30,13 @@ repositories {
 
 dependencies {
     compile 'com.github.dzavodnikov:JcvLib:4.+'
+}
+
+apply plugin: 'eclipse'
+
+// See: 
+//      https://stackoverflow.com/questions/10156847/
+eclipse.classpath {
+    downloadSources = true
+    downloadJavadoc = true
 }

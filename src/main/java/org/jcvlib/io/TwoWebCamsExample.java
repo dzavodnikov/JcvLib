@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2016 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,7 @@ public class TwoWebCamsExample {
                 window1.show(webCam1.getImage());
                 window2.show(webCam2.getImage());
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             System.out.println(e.getMessage());
         }
 
