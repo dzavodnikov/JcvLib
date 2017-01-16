@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,8 +21,6 @@ package org.jcvlib.core;
 import java.text.MessageFormat;
 
 import org.jcvlib.parallel.Parallel;
-import org.jcvlib.parallel.PixelsLoop;
-import org.jparfor.JLoop;
 import org.jparfor.JParFor;
 
 import Jama.Matrix;
@@ -364,14 +362,10 @@ public class Image {
     }
 
     public void foreach(final ParallelValueOperation runner) {
-        JParFor.exec(getSize().calculateN() * getNumOfChannels(), new JLoop() {
-
-            @Override
-            public void execute(final int arrayPosition, final int nThread) {
-                final int[] xyc = new int[3];
-                calculateImagePosition(arrayPosition, xyc);
-                set(xyc[0], xyc[1], xyc[2], runner.execute(get(xyc[0], xyc[1], xyc[2])));
-            }
+        JParFor.exec(getSize().calculateN() * getNumOfChannels(), (arrayPosition, nThread) -> {
+            final int[] xyc = new int[3];
+            calculateImagePosition(arrayPosition, xyc);
+            set(xyc[0], xyc[1], xyc[2], runner.execute(get(xyc[0], xyc[1], xyc[2])));
         });
     }
 
@@ -381,14 +375,10 @@ public class Image {
         final Image sourceExtend = new Image(getWidth() + width - 1, getHeight() + height - 1, getNumOfChannels());
 
         // Fill extend image.
-        Parallel.pixels(sourceExtend, new PixelsLoop() {
-
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                for (int channel = 0; channel < sourceExtend.getNumOfChannels(); ++channel) {
-                    sourceExtend.setUnsafe(x, y, channel,
-                            get(x - anchor.getX(), y - anchor.getY(), channel, extrapolation));
-                }
+        Parallel.pixels(sourceExtend, (x, y, worker) -> {
+            for (int channel = 0; channel < sourceExtend.getNumOfChannels(); ++channel) {
+                sourceExtend.setUnsafe(x, y, channel,
+                        get(x - anchor.getX(), y - anchor.getY(), channel, extrapolation));
             }
         });
 
@@ -404,21 +394,17 @@ public class Image {
         }
 
         // Run operator for each pixel from extended image.
-        Parallel.pixels(this, new PixelsLoop() {
+        Parallel.pixels(this, (x, y, worker) -> {
+            final Image aperture = apertures[worker];
+            final Color color = colors[worker];
 
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                final Image aperture = apertures[worker];
-                final Color color = colors[worker];
+            // Update position.
+            aperture.subImageX = x;
+            aperture.subImageY = y;
 
-                // Update position.
-                aperture.subImageX = x;
-                aperture.subImageY = y;
-
-                // Execute.
-                operator.execute(aperture, color);
-                result.set(x, y, color);
-            }
+            // Execute.
+            operator.execute(aperture, color);
+            result.set(x, y, color);
         });
     }
 
@@ -506,13 +492,9 @@ public class Image {
         /*
          * Set values.
          */
-        Parallel.pixels(this, new PixelsLoop() {
-
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                for (int channel = 0; channel < getNumOfChannels(); ++channel) {
-                    set(x, y, channel, color.get(channel));
-                }
+        Parallel.pixels(this, (x, y, worker) -> {
+            for (int channel = 0; channel < getNumOfChannels(); ++channel) {
+                set(x, y, channel, color.get(channel));
             }
         });
     }
@@ -537,13 +519,7 @@ public class Image {
         /*
          * Perform operation.
          */
-        foreach(new ParallelValueOperation() {
-
-            @Override
-            public int execute(final int value) {
-                return JCV.round(c * value);
-            }
-        });
+        foreach(value -> JCV.round(c * value));
     }
 
     /**
@@ -611,13 +587,9 @@ public class Image {
         /*
          * Copy values.
          */
-        Parallel.pixels(this, new PixelsLoop() {
-
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                for (int channel = 0; channel < getNumOfChannels(); ++channel) {
-                    target.setUnsafe(x, y, channel, getUnsafe(x, y, channel));
-                }
+        Parallel.pixels(this, (x, y, worker) -> {
+            for (int channel = 0; channel < getNumOfChannels(); ++channel) {
+                target.setUnsafe(x, y, channel, getUnsafe(x, y, channel));
             }
         });
     }

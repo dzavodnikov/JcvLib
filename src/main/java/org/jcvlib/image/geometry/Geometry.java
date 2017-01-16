@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ import org.jcvlib.core.JCV;
 import org.jcvlib.core.Point;
 import org.jcvlib.core.Size;
 import org.jcvlib.parallel.Parallel;
-import org.jcvlib.parallel.PixelsLoop;
 
 import Jama.Matrix;
 
@@ -84,23 +83,19 @@ public class Geometry {
         final Image result = new Image(newSize.getWidth(), newSize.getHeight(), image.getNumOfChannels());
         final Matrix invP = P.inverse();
 
-        Parallel.pixels(result, new PixelsLoop() {
+        Parallel.pixels(result, (x, y, worker) -> {
+            for (int channel = 0; channel < result.getNumOfChannels(); ++channel) {
+                final double t = invP.get(2, 0) * x + invP.get(2, 1) * y + invP.get(2, 2);
+                final double nx = (invP.get(0, 0) * x + invP.get(0, 1) * y + invP.get(0, 2)) / t;
+                final double ny = (invP.get(1, 0) * x + invP.get(1, 1) * y + invP.get(1, 2)) / t;
 
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                for (int channel = 0; channel < result.getNumOfChannels(); ++channel) {
-                    final double t = invP.get(2, 0) * x + invP.get(2, 1) * y + invP.get(2, 2);
-                    final double nx = (invP.get(0, 0) * x + invP.get(0, 1) * y + invP.get(0, 2)) / t;
-                    final double ny = (invP.get(1, 0) * x + invP.get(1, 1) * y + invP.get(1, 2)) / t;
-
-                    double value;
-                    if (nx < 0 || nx > image.getWidth() - 1 || ny < 0 || ny > image.getHeight() - 1) {
-                        value = fillColor.get(channel);
-                    } else {
-                        value = image.get(nx, ny, channel, interpolation);
-                    }
-                    result.set(x, y, channel, JCV.round(value));
+                double value;
+                if (nx < 0 || nx > image.getWidth() - 1 || ny < 0 || ny > image.getHeight() - 1) {
+                    value = fillColor.get(channel);
+                } else {
+                    value = image.get(nx, ny, channel, interpolation);
                 }
+                result.set(x, y, channel, JCV.round(value));
             }
         });
 

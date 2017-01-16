@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ package org.jcvlib.parallel;
 
 import org.jcvlib.core.Image;
 import org.jcvlib.core.JCV;
-import org.jparfor.JLoop;
 import org.jparfor.JParFor;
 
 /**
@@ -99,13 +98,7 @@ public class Parallel {
          */
         JParFor.setMinIterations(
                 JCV.roundUp((double) Parallel.getMinSize() / (double) (image.getWidth() * image.getHeight())));
-        JParFor.exec(image.getNumOfChannels(), new JLoop() {
-
-            @Override
-            public void execute(final int channel, final int nThread) {
-                runner.execute(channel);
-            }
-        });
+        JParFor.exec(image.getNumOfChannels(), (channel, nThread) -> runner.execute(channel));
     }
 
     /**
@@ -127,13 +120,9 @@ public class Parallel {
          * Perform operation.
          */
         JParFor.setMinIterations(JCV.roundUp(Parallel.getMinSize() / image.getWidth() + 1.0));
-        JParFor.exec(image.getHeight(), new JLoop() {
-
-            @Override
-            public void execute(final int y, final int nThread) {
-                for (int x = 0; x < image.getWidth(); ++x) {
-                    runner.execute(x, y, nThread);
-                }
+        JParFor.exec(image.getHeight(), (y, nThread) -> {
+            for (int x = 0; x < image.getWidth(); ++x) {
+                runner.execute(x, y, nThread);
             }
         });
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import org.jcvlib.core.Image;
 import org.jcvlib.core.JCV;
 import org.jcvlib.image.Misc;
 import org.jcvlib.parallel.Parallel;
-import org.jcvlib.parallel.PixelsLoop;
 
 /**
  * This class contains methods for <a href="http://en.wikipedia.org/wiki/Motion_analysis">Motion analysis</a> and
@@ -59,13 +58,9 @@ public class VideoAnalysis {
          */
         // Out of date current values.
         final Image proxyHistory = history;
-        Parallel.pixels(proxyHistory, new PixelsLoop() {
-
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                for (int channel = 0; channel < proxyHistory.getNumOfChannels(); ++channel) {
-                    proxyHistory.set(x, y, channel, JCV.round(proxyHistory.get(x, y, channel) - outOfDate));
-                }
+        Parallel.pixels(proxyHistory, (x, y, worker) -> {
+            for (int channel = 0; channel < proxyHistory.getNumOfChannels(); ++channel) {
+                proxyHistory.set(x, y, channel, JCV.round(proxyHistory.get(x, y, channel) - outOfDate));
             }
         });
 

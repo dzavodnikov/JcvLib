@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,10 @@ import org.jcvlib.core.Color;
 import org.jcvlib.core.Extrapolation;
 import org.jcvlib.core.Image;
 import org.jcvlib.core.JCV;
-import org.jcvlib.core.KernelOperation;
 import org.jcvlib.core.Point;
 import org.jcvlib.core.Size;
 import org.jcvlib.image.Misc;
 import org.jcvlib.parallel.Parallel;
-import org.jcvlib.parallel.PixelsLoop;
 
 import Jama.Matrix;
 
@@ -107,31 +105,27 @@ public enum Blur {
             final Point kernelCenter = JCV.calculateCenter(kernelSize.getWidth(), kernelSize.getHeight());
             final Image result = image.makeSame();
 
-            Parallel.pixels(image, new PixelsLoop() {
+            Parallel.pixels(image, (x, y, worker) -> {
+                final int shiftX = x - kernelCenter.getX();
+                final int shiftY = y - kernelCenter.getY();
 
-                @Override
-                public void execute(final int x, final int y, final int worker) {
-                    final int shiftX = x - kernelCenter.getX();
-                    final int shiftY = y - kernelCenter.getY();
-
-                    // Copy content into temporary array.
-                    final int[] tempArr = new int[kernelSize.calculateN()];
-                    for (int lx = 0; lx < kernelSize.getWidth(); ++lx) {
-                        for (int ly = 0; ly < kernelSize.getHeight(); ++ly) {
-                            for (int channel = 0; channel < image.getNumOfChannels(); ++channel) {
-                                tempArr[lx * kernelSize.getHeight() + ly] = image.get(shiftX + lx, shiftY + ly, channel,
-                                        extrapolation);
-                            }
+                // Copy content into temporary array.
+                final int[] tempArr = new int[kernelSize.calculateN()];
+                for (int lx = 0; lx < kernelSize.getWidth(); ++lx) {
+                    for (int ly = 0; ly < kernelSize.getHeight(); ++ly) {
+                        for (int channel1 = 0; channel1 < image.getNumOfChannels(); ++channel1) {
+                            tempArr[lx * kernelSize.getHeight() + ly] = image.get(shiftX + lx, shiftY + ly, channel1,
+                                    extrapolation);
                         }
                     }
+                }
 
-                    // Sort temporary array.
-                    Arrays.sort(tempArr);
+                // Sort temporary array.
+                Arrays.sort(tempArr);
 
-                    // Return middle element.
-                    for (int channel = 0; channel < image.getNumOfChannels(); ++channel) {
-                        result.set(x, y, channel, tempArr[(tempArr.length - 1) / 2]);
-                    }
+                // Return middle element.
+                for (int channel2 = 0; channel2 < image.getNumOfChannels(); ++channel2) {
+                    result.set(x, y, channel2, tempArr[(tempArr.length - 1) / 2]);
                 }
             });
 
@@ -181,46 +175,42 @@ public enum Blur {
                 final Image result = image.makeSame();
 
                 image.noneLinearFilter(result, kernelSize.getWidth(), kernelSize.getHeight(), kernelCenter, 1,
-                        extrapolation, new KernelOperation() {
+                        extrapolation, (aperture, result1) -> {
+                            final Image[] windows = new Image[4];
 
-                            @Override
-                            public void execute(final Image aperture, final Color result) {
-                                final Image[] windows = new Image[4];
+                            final Color[] mean = new Color[windows.length];
+                            final double[][] variance = new double[windows.length][aperture.getNumOfChannels()];
 
-                                final Color[] mean = new Color[windows.length];
-                                final double[][] variance = new double[windows.length][aperture.getNumOfChannels()];
+                            final Size windowSize = new Size(kernelCenter.getX(), kernelCenter.getY());
 
-                                final Size windowSize = new Size(kernelCenter.getX(), kernelCenter.getY());
+                            // Create sub-images.
+                            windows[0] = aperture.makeSubImage(0, 0, windowSize.getWidth(), windowSize.getHeight());
+                            windows[1] = aperture.makeSubImage(kernelCenter.getX() + 1, 0, windowSize.getWidth(),
+                                    windowSize.getHeight());
+                            windows[2] = aperture.makeSubImage(0, kernelCenter.getY() + 1, windowSize.getWidth(),
+                                    windowSize.getHeight());
+                            windows[3] = aperture.makeSubImage(kernelCenter.getX() + 1, kernelCenter.getY() + 1,
+                                    windowSize.getWidth(), windowSize.getHeight());
 
-                                // Create sub-images.
-                                windows[0] = aperture.makeSubImage(0, 0, windowSize.getWidth(), windowSize.getHeight());
-                                windows[1] = aperture.makeSubImage(kernelCenter.getX() + 1, 0, windowSize.getWidth(),
-                                        windowSize.getHeight());
-                                windows[2] = aperture.makeSubImage(0, kernelCenter.getY() + 1, windowSize.getWidth(),
-                                        windowSize.getHeight());
-                                windows[3] = aperture.makeSubImage(kernelCenter.getX() + 1, kernelCenter.getY() + 1,
-                                        windowSize.getWidth(), windowSize.getHeight());
+                            // Calculate average and variance.
+                            for (int i1 = 0; i1 < windows.length; ++i1) {
+                                mean[i1] = Misc.calculateMean(windows[i1]);
+                                variance[i1] = variance(windows[i1], mean[i1]);
+                            }
 
-                                // Calculate average and variance.
-                                for (int i = 0; i < windows.length; ++i) {
-                                    mean[i] = Misc.calculateMean(windows[i]);
-                                    variance[i] = variance(windows[i], mean[i]);
-                                }
-
-                                // Found min of variance.
-                                for (int channel = 0; channel < aperture.getNumOfChannels(); ++channel) {
-                                    int minPos = 0;
-                                    double minVal = variance[minPos][channel];
-                                    for (int i = 1; i < 4; ++i) {
-                                        if (variance[i][channel] < minVal) {
-                                            minVal = variance[i][channel];
-                                            minPos = i;
-                                        }
+                            // Found min of variance.
+                            for (int channel = 0; channel < aperture.getNumOfChannels(); ++channel) {
+                                int minPos = 0;
+                                double minVal = variance[minPos][channel];
+                                for (int i2 = 1; i2 < 4; ++i2) {
+                                    if (variance[i2][channel] < minVal) {
+                                        minVal = variance[i2][channel];
+                                        minPos = i2;
                                     }
-
-                                    // Different values for different channels.
-                                    result.set(channel, mean[minPos].get(channel));
                                 }
+
+                                // Different values for different channels.
+                                result1.set(channel, mean[minPos].get(channel));
                             }
                         });
 

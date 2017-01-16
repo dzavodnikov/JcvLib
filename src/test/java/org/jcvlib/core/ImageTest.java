@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -351,14 +351,8 @@ public class ImageTest extends TestSuite {
 
         final Image result = new Image(5, 5, 1);
         Parallel.setNumOfWorkers(1);
-        image.noneLinearFilter(result, 5, 4, anchor, 3, Extrapolation.ZERO, new KernelOperation() {
-
-            @Override
-            public void execute(final Image aperture, final Color result) {
-                // Nothing changing.
-                aperture.get(anchor, result);
-            }
-        });
+        image.noneLinearFilter(result, 5, 4, anchor, 3, Extrapolation.ZERO,
+                (aperture, result1) -> aperture.get(anchor, result1));
 
         ImageTest.printImage(result, "Image after nonlinear filter applying:");
 
@@ -405,23 +399,8 @@ public class ImageTest extends TestSuite {
         final Point anchor = new Point(3, 2);
 
         final Image result = new Image(5, 5, 1);
-        image.noneLinearFilter(result, 5, 4, anchor, 2, Extrapolation.ZERO, new KernelOperation() {
-
-            @Override
-            public void execute(final Image aperture, final Color result) {
-                /*
-                 *     0 1 2 3 4
-                 *   +-----------+
-                 * 0 | o o f o o |
-                 * 1 | o o o o o |
-                 * 2 | o o o t o |
-                 * 3 | o o o o o |
-                 *   +-----------+
-                 *      f --> t
-                 */
-                aperture.get(2, 0, result);
-            }
-        });
+        image.noneLinearFilter(result, 5, 4, anchor, 2, Extrapolation.ZERO,
+                (aperture, result1) -> aperture.get(2, 0, result1));
 
         // Check values.
         /*
@@ -454,13 +433,7 @@ public class ImageTest extends TestSuite {
      */
     @Test
     public void testNonlinearFilterException() {
-        final KernelOperation op = new KernelOperation() {
-
-            @Override
-            public void execute(final Image aperture, final Color result) {
-                result.fill(0);
-            }
-        };
+        final KernelOperation op = (aperture, result) -> result.fill(0);
 
         // Incorrect anchor X position.
         try {

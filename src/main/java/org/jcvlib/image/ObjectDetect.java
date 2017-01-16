@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import org.jcvlib.core.Extrapolation;
 import org.jcvlib.core.Histogram;
 import org.jcvlib.core.Image;
 import org.jcvlib.core.JCV;
-import org.jcvlib.core.KernelOperation;
 import org.jcvlib.core.Point;
 
 /**
@@ -61,24 +60,20 @@ public class ObjectDetect {
         final Image result = new Image(image.getWidth(), image.getHeight(), 1);
 
         image.noneLinearFilter(result, template.getWidth(), template.getHeight(), new Point(0, 0), 1,
-                Extrapolation.ZERO, new KernelOperation() {
-
-                    @Override
-                    public void execute(final Image aperture, final Color result) {
-                        double resultValue = 0.0;
-                        final Color apertureColor = new Color(aperture.getNumOfChannels());
-                        final Color templateColor = new Color(template.getNumOfChannels());
-                        for (int x = 0; x < aperture.getWidth(); ++x) {
-                            for (int y = 0; y < aperture.getHeight(); ++y) {
-                                aperture.get(x, y, apertureColor);
-                                template.get(x, y, templateColor);
-                                resultValue += apertureColor.euclidDist(templateColor);
-                            }
+                Extrapolation.ZERO, (aperture, result1) -> {
+                    double resultValue = 0.0;
+                    final Color apertureColor = new Color(aperture.getNumOfChannels());
+                    final Color templateColor = new Color(template.getNumOfChannels());
+                    for (int x = 0; x < aperture.getWidth(); ++x) {
+                        for (int y = 0; y < aperture.getHeight(); ++y) {
+                            aperture.get(x, y, apertureColor);
+                            template.get(x, y, templateColor);
+                            resultValue += apertureColor.euclidDist(templateColor);
                         }
-
-                        result.fill(JCV
-                                .round(Color.MAX_VALUE - resultValue / (aperture.getWidth() * aperture.getHeight())));
                     }
+
+                    result1.fill(
+                            JCV.round(Color.MAX_VALUE - resultValue / (aperture.getWidth() * aperture.getHeight())));
                 });
 
         return result;
@@ -147,14 +142,8 @@ public class ObjectDetect {
         final Image result = new Image(image.getWidth(), image.getHeight(), 1);
 
         image.noneLinearFilter(result, template.getWidth(), template.getHeight(), new Point(0, 0), 1,
-                Extrapolation.ZERO, new KernelOperation() {
-
-                    @Override
-                    public void execute(final Image aperture, final Color result) {
-                        result.fill(JCV.round(
-                                proxyScale * templateHist.compare(new Histogram(aperture), compareType) + proxyOffset));
-                    }
-                });
+                Extrapolation.ZERO, (aperture, result1) -> result1.fill(JCV
+                        .round(proxyScale * templateHist.compare(new Histogram(aperture), compareType) + proxyOffset)));
 
         return result;
     }

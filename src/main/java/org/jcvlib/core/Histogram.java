@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@
 package org.jcvlib.core;
 
 import org.jcvlib.parallel.Parallel;
-import org.jcvlib.parallel.PixelsLoop;
 
 /**
  * This class contains methods for manipulate image histograms.
@@ -223,8 +222,8 @@ public class Histogram {
 
     private void normalize() {
         double sum = 0.0;
-        for (int i = 0; i < this.histogram.length; ++i) {
-            sum += this.histogram[i];
+        for (final double element : this.histogram) {
+            sum += element;
         }
 
         for (int i = 0; i < this.histogram.length; ++i) {
@@ -377,19 +376,15 @@ public class Histogram {
          * Perform operation.
          */
         final Image result = new Image(image.getWidth(), image.getHeight(), 1);
-        Parallel.pixels(image, new PixelsLoop() {
-
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                final int val;
-                if (Histogram.this.histogram[calcPos(image, x, y)] > 0.0) {
-                    // TODO
-                    val = Color.MAX_VALUE;
-                } else {
-                    val = Color.MIN_VALUE;
-                }
-                result.set(x, y, 0, val);
+        Parallel.pixels(image, (x, y, worker) -> {
+            final int val;
+            if (Histogram.this.histogram[calcPos(image, x, y)] > 0.0) {
+                // TODO
+                val = Color.MAX_VALUE;
+            } else {
+                val = Color.MIN_VALUE;
             }
+            result.set(x, y, 0, val);
         });
         return result;
     }

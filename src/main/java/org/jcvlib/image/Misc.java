@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,9 +29,7 @@ import org.jcvlib.core.Point;
 import org.jcvlib.core.Size;
 import org.jcvlib.image.filters.Blur;
 import org.jcvlib.image.filters.Filters;
-import org.jcvlib.parallel.ChannelsLoop;
 import org.jcvlib.parallel.Parallel;
-import org.jcvlib.parallel.PixelsLoop;
 
 import Jama.Matrix;
 
@@ -164,29 +162,25 @@ public class Misc {
             result.add(new Matrix(image.getHeight(), image.getWidth()));
         }
 
-        Parallel.channels(image, new ChannelsLoop() {
-
-            @Override
-            public void execute(final int channel) {
-                for (int x = 0; x < image.getWidth(); ++x) {
-                    for (int y = 0; y < image.getHeight(); ++y) {
-                        double left = Color.MIN_VALUE;
-                        if (x > 0) {
-                            left = result.get(channel).get(y, x - 1);
-                        }
-
-                        double top = Color.MIN_VALUE;
-                        if (y > 0) {
-                            top = result.get(channel).get(y - 1, x);
-                        }
-
-                        double topLeft = Color.MIN_VALUE;
-                        if (x > 0 && y > 0) {
-                            topLeft = result.get(channel).get(y - 1, x - 1);
-                        }
-
-                        result.get(channel).set(y, x, left + top - topLeft + image.get(x, y, channel));
+        Parallel.channels(image, channel -> {
+            for (int x = 0; x < image.getWidth(); ++x) {
+                for (int y = 0; y < image.getHeight(); ++y) {
+                    double left = Color.MIN_VALUE;
+                    if (x > 0) {
+                        left = result.get(channel).get(y, x - 1);
                     }
+
+                    double top = Color.MIN_VALUE;
+                    if (y > 0) {
+                        top = result.get(channel).get(y - 1, x);
+                    }
+
+                    double topLeft = Color.MIN_VALUE;
+                    if (x > 0 && y > 0) {
+                        topLeft = result.get(channel).get(y - 1, x - 1);
+                    }
+
+                    result.get(channel).set(y, x, left + top - topLeft + image.get(x, y, channel));
                 }
             }
         });
@@ -216,16 +210,12 @@ public class Misc {
          */
         final Image result = new Image(2 * image.getWidth(), 2 * image.getHeight(), image.getNumOfChannels());
 
-        Parallel.pixels(Filters.blur(image, new Size(5, 5), Blur.GAUSSIAN), new PixelsLoop() {
-
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                for (int channel = 0; channel < image.getNumOfChannels(); ++channel) {
-                    result.set(2 * x, 2 * y, channel, image.get(x, y, channel));
-                    result.set(2 * x + 1, 2 * y, channel, image.get(x, y, channel));
-                    result.set(2 * x, 2 * y + 1, channel, image.get(x, y, channel));
-                    result.set(2 * x + 1, 2 * y + 1, channel, image.get(x, y, channel));
-                }
+        Parallel.pixels(Filters.blur(image, new Size(5, 5), Blur.GAUSSIAN), (x, y, worker) -> {
+            for (int channel = 0; channel < image.getNumOfChannels(); ++channel) {
+                result.set(2 * x, 2 * y, channel, image.get(x, y, channel));
+                result.set(2 * x + 1, 2 * y, channel, image.get(x, y, channel));
+                result.set(2 * x, 2 * y + 1, channel, image.get(x, y, channel));
+                result.set(2 * x + 1, 2 * y + 1, channel, image.get(x, y, channel));
             }
         });
 
@@ -259,13 +249,9 @@ public class Misc {
         final Image result = new Image(JCV.roundDown(image.getWidth() / 2.0), JCV.roundDown(image.getHeight() / 2.0),
                 image.getNumOfChannels());
 
-        Parallel.pixels(result, new PixelsLoop() {
-
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                for (int channel = 0; channel < blurImage.getNumOfChannels(); ++channel) {
-                    result.set(x, y, channel, blurImage.get(2 * x, 2 * y, channel));
-                }
+        Parallel.pixels(result, (x, y, worker) -> {
+            for (int channel = 0; channel < blurImage.getNumOfChannels(); ++channel) {
+                result.set(x, y, channel, blurImage.get(2 * x, 2 * y, channel));
             }
         });
 
@@ -407,33 +393,29 @@ public class Misc {
         final Image injectImageSub = injectImage.makeSubImage(0, 0, baseImageSub.getWidth(), baseImageSub.getHeight());
 
         // Inject images.
-        Parallel.pixels(baseImageSub, new PixelsLoop() {
-
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                for (int channel = 0; channel < 3; ++channel) {
-                    double alpha1;
-                    if (injectImageSub.getNumOfChannels() == 3) {
-                        alpha1 = 1.0;
-                    } else {
-                        alpha1 = injectImageSub.get(x, y, 3) / Color.MAX_VALUE;
-                    }
-
-                    double alpha2;
-                    if (baseImageSub.getNumOfChannels() == 3) {
-                        alpha2 = 1.0;
-                    } else {
-                        alpha2 = baseImageSub.get(x, y, 3) / Color.MAX_VALUE;
-                    }
-
-                    double value = alpha1 * injectImageSub.get(x, y, channel)
-                            + alpha2 * baseImageSub.get(x, y, channel) * (1.0 - alpha1);
-                    if (value > Color.MAX_VALUE) {
-                        value = Color.MAX_VALUE;
-                    }
-
-                    baseImageSub.set(x, y, channel, JCV.round(value));
+        Parallel.pixels(baseImageSub, (x, y, worker) -> {
+            for (int channel = 0; channel < 3; ++channel) {
+                double alpha1;
+                if (injectImageSub.getNumOfChannels() == 3) {
+                    alpha1 = 1.0;
+                } else {
+                    alpha1 = injectImageSub.get(x, y, 3) / Color.MAX_VALUE;
                 }
+
+                double alpha2;
+                if (baseImageSub.getNumOfChannels() == 3) {
+                    alpha2 = 1.0;
+                } else {
+                    alpha2 = baseImageSub.get(x, y, 3) / Color.MAX_VALUE;
+                }
+
+                double value = alpha1 * injectImageSub.get(x, y, channel)
+                        + alpha2 * baseImageSub.get(x, y, channel) * (1.0 - alpha1);
+                if (value > Color.MAX_VALUE) {
+                    value = Color.MAX_VALUE;
+                }
+
+                baseImageSub.set(x, y, channel, JCV.round(value));
             }
         });
 
@@ -465,13 +447,9 @@ public class Misc {
          */
         final Image result = image1.makeSame();
 
-        Parallel.pixels(result, new PixelsLoop() {
-
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                for (int channel = 0; channel < result.getNumOfChannels(); ++channel) {
-                    result.set(x, y, channel, image1.get(x, y, channel) + image2.get(x, y, channel));
-                }
+        Parallel.pixels(result, (x, y, worker) -> {
+            for (int channel = 0; channel < result.getNumOfChannels(); ++channel) {
+                result.set(x, y, channel, image1.get(x, y, channel) + image2.get(x, y, channel));
             }
         });
 
@@ -493,13 +471,9 @@ public class Misc {
          */
         final Image result = image1.makeSame();
 
-        Parallel.pixels(image1, new PixelsLoop() {
-
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                for (int channel = 0; channel < image1.getNumOfChannels(); ++channel) {
-                    result.set(x, y, channel, Math.abs(image1.get(x, y, channel) - image2.get(x, y, channel)));
-                }
+        Parallel.pixels(image1, (x, y, worker) -> {
+            for (int channel = 0; channel < image1.getNumOfChannels(); ++channel) {
+                result.set(x, y, channel, Math.abs(image1.get(x, y, channel) - image2.get(x, y, channel)));
             }
         });
 
@@ -531,13 +505,9 @@ public class Misc {
          */
         final Image result = image1.makeSame();
 
-        Parallel.pixels(result, new PixelsLoop() {
-
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                for (int channel = 0; channel < image1.getNumOfChannels(); ++channel) {
-                    result.set(x, y, channel, image1.get(x, y, channel) - image2.get(x, y, channel));
-                }
+        Parallel.pixels(result, (x, y, worker) -> {
+            for (int channel = 0; channel < image1.getNumOfChannels(); ++channel) {
+                result.set(x, y, channel, image1.get(x, y, channel) - image2.get(x, y, channel));
             }
         });
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,6 @@ import org.jcvlib.core.Extrapolation;
 import org.jcvlib.core.Histogram;
 import org.jcvlib.core.Image;
 import org.jcvlib.core.JCV;
-import org.jcvlib.core.KernelOperation;
-import org.jcvlib.core.ParallelValueOperation;
 import org.jcvlib.core.Point;
 import org.jcvlib.core.Size;
 
@@ -110,14 +108,10 @@ public class Filters {
 
         image.noneLinearFilter(result, kernel.getColumnDimension(), kernel.getRowDimension(),
                 JCV.calculateCenter(kernel.getColumnDimension(), kernel.getRowDimension()), 1, extrapolation,
-                new KernelOperation() {
-
-                    @Override
-                    public void execute(final Image aperture, final Color result) {
-                        final double[] sum = aperture.convolve(kernel);
-                        for (int channel = 0; channel < result.getNumOfChannels(); ++channel) {
-                            result.set(channel, JCV.round(sum[channel] / div + offset));
-                        }
+                (aperture, result1) -> {
+                    final double[] sum = aperture.convolve(kernel);
+                    for (int channel = 0; channel < result1.getNumOfChannels(); ++channel) {
+                        result1.set(channel, JCV.round(sum[channel] / div + offset));
                     }
                 });
 
@@ -196,13 +190,7 @@ public class Filters {
          */
         final Image result = image.makeSame();
 
-        result.foreach(new ParallelValueOperation() {
-
-            @Override
-            public int execute(final int value) {
-                return thresholdMethod.run(value, threshold, maxVal);
-            }
-        });
+        result.foreach(value -> thresholdMethod.run(value, threshold, maxVal));
 
         return result;
     }
@@ -255,37 +243,33 @@ public class Filters {
 
         final Point apertureCenter = JCV.calculateCenter(blockSize, blockSize);
         image.noneLinearFilter(result, blockSize, blockSize, apertureCenter, 1, Extrapolation.REPLICATE,
-                new KernelOperation() {
-
-                    @Override
-                    public void execute(final Image aperture, final Color result) {
-                        for (int channel = 0; channel < aperture.getNumOfChannels(); ++channel) {
-                            /*
-                             * Find threshold value.
-                             */
-                            int sum = 0;
-                            for (int x = 0; x < aperture.getWidth(); ++x) {
-                                for (int y = 0; y < aperture.getHeight(); ++y) {
-                                    sum += aperture.get(x, y, channel)
-                                            * thresholdMethod.getMatrixCoeff(blockSize).get(y, x);
-                                }
+                (aperture, result1) -> {
+                    for (int channel = 0; channel < aperture.getNumOfChannels(); ++channel) {
+                        /*
+                         * Find threshold value.
+                         */
+                        int sum = 0;
+                        for (int x = 0; x < aperture.getWidth(); ++x) {
+                            for (int y = 0; y < aperture.getHeight(); ++y) {
+                                sum += aperture.get(x, y, channel)
+                                        * thresholdMethod.getMatrixCoeff(blockSize).get(y, x);
                             }
-
-                            /*
-                             * Apply threshold.
-                             */
-                            int threshold = sum - C;
-                            if (threshold < Color.MIN_VALUE) {
-                                threshold = Color.MIN_VALUE;
-                            }
-                            if (threshold > Color.MAX_VALUE) {
-                                threshold = Color.MAX_VALUE;
-                            }
-
-                            final int val = aperture.get(apertureCenter.getX(), apertureCenter.getY(), channel);
-
-                            result.set(channel, thresholdMethod.getThresholdMethod().run(val, threshold, maxVal));
                         }
+
+                        /*
+                         * Apply threshold.
+                         */
+                        int threshold = sum - C;
+                        if (threshold < Color.MIN_VALUE) {
+                            threshold = Color.MIN_VALUE;
+                        }
+                        if (threshold > Color.MAX_VALUE) {
+                            threshold = Color.MAX_VALUE;
+                        }
+
+                        final int val = aperture.get(apertureCenter.getX(), apertureCenter.getY(), channel);
+
+                        result1.set(channel, thresholdMethod.getThresholdMethod().run(val, threshold, maxVal));
                     }
                 });
 
@@ -417,18 +401,14 @@ public class Filters {
 
         image.noneLinearFilter(result, derivativeX.getColumnDimension(), derivativeX.getRowDimension(),
                 JCV.calculateCenter(derivativeX.getColumnDimension(), derivativeX.getRowDimension()), 1, extrapolation,
-                new KernelOperation() {
+                (aperture, result1) -> {
+                    final double[] Gx = aperture.convolve(derivativeX);
+                    final double[] Gy = aperture.convolve(derivativeY);
 
-                    @Override
-                    public void execute(final Image aperture, final Color result) {
-                        final double[] Gx = aperture.convolve(derivativeX);
-                        final double[] Gy = aperture.convolve(derivativeY);
-
-                        for (int channel = 0; channel < result.getNumOfChannels(); ++channel) {
-                            // Calculate 'G' and multiply to scale parameter.
-                            result.set(channel, JCV
-                                    .round(scale * Math.sqrt(Gx[channel] * Gx[channel] + Gy[channel] * Gy[channel])));
-                        }
+                    for (int channel = 0; channel < result1.getNumOfChannels(); ++channel) {
+                        // Calculate 'G' and multiply to scale parameter.
+                        result1.set(channel,
+                                JCV.round(scale * Math.sqrt(Gx[channel] * Gx[channel] + Gy[channel] * Gy[channel])));
                     }
                 });
 

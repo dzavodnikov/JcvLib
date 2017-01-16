@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,5 +31,5 @@ public interface KernelOperation {
      * @param result
      *            Save result in this object.
      */
-    public void execute(Image aperture, Color result);
+    void execute(Image aperture, Color result);
 }

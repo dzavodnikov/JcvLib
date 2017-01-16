@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ import org.jcvlib.core.JCV;
  *
  * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
-class ImageComponent extends JComponent {
+public class ImageComponent extends JComponent {
 
     private static final long serialVersionUID = 1L;
 

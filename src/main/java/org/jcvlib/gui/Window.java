@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,6 @@ package org.jcvlib.gui;
 
 import java.awt.FileDialog;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -68,7 +66,7 @@ import org.jcvlib.io.ImageRW;
  * See:
  *      http://introcs.cs.princeton.edu/java/stdlib/Picture.java.html
  */
-public final class Window {
+public class Window {
 
     /**
      * Contain links to all windows.
@@ -306,47 +304,37 @@ public final class Window {
         final JMenuItem saveMenuItem = new JMenuItem(" Save...    ");
         fileMenu.add(saveMenuItem);
 
-        saveMenuItem.addActionListener(new ActionListener() {
+        saveMenuItem.addActionListener(action -> {
+            final FileDialog chooser = new FileDialog(Window.this.frame, "Select path and name to save file",
+                    FileDialog.SAVE);
 
-            /*
-             * Opens a save dialog box when the user selects "Save As..." from the menu.
-             */
-            @Override
-            public void actionPerformed(final ActionEvent action) {
-                final FileDialog chooser = new FileDialog(Window.this.frame, "Select path and name to save file",
-                        FileDialog.SAVE);
+            chooser.setVisible(true);
+            if (chooser.getFile() != null) {
+                try {
+                    // Verify file name: name should include file name and extension.
+                    String fileName;
+                    String fileFormat;
 
-                chooser.setVisible(true);
-                if (chooser.getFile() != null) {
-                    try {
-                        // Verify file name: name should include file name and extension.
-                        String fileName;
-                        String fileFormat;
-
-                        if (chooser.getFile().lastIndexOf('.') >= 0) {
-                            fileName = chooser.getFile().substring(
-                                    chooser.getFile().lastIndexOf(File.separatorChar) + 1,
-                                    chooser.getFile().lastIndexOf('.'));
-                            fileFormat = chooser.getFile().substring(chooser.getFile().lastIndexOf('.') + 1)
-                                    .toLowerCase();
-                        } else {
-                            fileName = chooser.getFile();
-                            // File format is not specified -- PNG is default.
-                            fileFormat = "png";
-                            System.out.println("You not specified file format. By default, will be use PNG format.");
-                        }
-
-                        // Set new name title of window according to file name to saving image.
-                        Window.this.frame.setTitle(fileName);
-
-                        // Write image to file.
-                        final String fullFilePath = chooser.getDirectory() + File.separator + fileName + "."
-                                + fileFormat;
-                        ImageRW.write(Window.this.image, fullFilePath);
-                    } catch (final Exception e) {
-                        e.printStackTrace();
-                        System.err.println("Can not save image: " + e.getMessage());
+                    if (chooser.getFile().lastIndexOf('.') >= 0) {
+                        fileName = chooser.getFile().substring(chooser.getFile().lastIndexOf(File.separatorChar) + 1,
+                                chooser.getFile().lastIndexOf('.'));
+                        fileFormat = chooser.getFile().substring(chooser.getFile().lastIndexOf('.') + 1).toLowerCase();
+                    } else {
+                        fileName = chooser.getFile();
+                        // File format is not specified -- PNG is default.
+                        fileFormat = "png";
+                        System.out.println("You not specified file format. By default, will be use PNG format.");
                     }
+
+                    // Set new name title of window according to file name to saving image.
+                    Window.this.frame.setTitle(fileName);
+
+                    // Write image to file.
+                    final String fullFilePath = chooser.getDirectory() + File.separator + fileName + "." + fileFormat;
+                    ImageRW.write(Window.this.image, fullFilePath);
+                } catch (final Exception e) {
+                    e.printStackTrace();
+                    System.err.println("Can not save image: " + e.getMessage());
                 }
             }
         });
@@ -360,17 +348,7 @@ public final class Window {
         final JMenuItem quitMenuItem = new JMenuItem(" Quit       ");
         fileMenu.add(quitMenuItem);
 
-        quitMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent action) {
-                /*
-                 * See:
-                 * * http://stackoverflow.com/questions/1234912/how-to-programmatically-close-a-jframe
-                 */
-                Window.this.frame.dispose();
-            }
-        });
+        quitMenuItem.addActionListener(action -> Window.this.frame.dispose());
         // Add hot-key <Ctrl>+<Q> to call 'File' -> 'Quite' menu item.
         quitMenuItem.setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_Q, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -387,13 +365,8 @@ public final class Window {
         final JMenuItem zoomPlusMenuItem = new JMenuItem(" Zoom +     ");
         resizeMenu.add(zoomPlusMenuItem);
 
-        zoomPlusMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent action) {
-                Window.this.imageComponent.setScale(Window.this.imageComponent.getScale() + 0.1f);
-            }
-        });
+        zoomPlusMenuItem.addActionListener(
+                action -> Window.this.imageComponent.setScale(Window.this.imageComponent.getScale() + 0.1f));
         // Add hot-key <Ctrl>+<+> to call 'Resize' -> 'Zoom +' menu item.
         zoomPlusMenuItem.setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_EQUALS, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -404,13 +377,8 @@ public final class Window {
         final JMenuItem zoomMinusMenuItem = new JMenuItem(" Zoom --    ");
         resizeMenu.add(zoomMinusMenuItem);
 
-        zoomMinusMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent action) {
-                Window.this.imageComponent.setScale(Window.this.imageComponent.getScale() - 0.1f);
-            }
-        });
+        zoomMinusMenuItem.addActionListener(
+                action -> Window.this.imageComponent.setScale(Window.this.imageComponent.getScale() - 0.1f));
         // Add hot-key <Ctrl>+<-> to call 'Resize' -> 'Zoom --' menu item.
         zoomMinusMenuItem.setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_MINUS, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
@@ -421,13 +389,7 @@ public final class Window {
         final JMenuItem zoomDefaultMenuItem = new JMenuItem(" Zoom 0      ");
         resizeMenu.add(zoomDefaultMenuItem);
 
-        zoomDefaultMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent action) {
-                Window.this.imageComponent.setDefaultScale();
-            }
-        });
+        zoomDefaultMenuItem.addActionListener(action -> Window.this.imageComponent.setDefaultScale());
         // Add hot-key <Ctrl>+<0> to call 'Resize' -> 'Zoom 0' menu item.
         zoomDefaultMenuItem.setAccelerator(
                 KeyStroke.getKeyStroke(KeyEvent.VK_0, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));

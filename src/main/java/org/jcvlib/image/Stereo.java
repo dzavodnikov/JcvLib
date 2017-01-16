@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ import org.jcvlib.core.Image;
 import org.jcvlib.core.JCV;
 import org.jcvlib.core.Size;
 import org.jcvlib.parallel.Parallel;
-import org.jcvlib.parallel.PixelsLoop;
 
 /**
  * This class contains algorithms for <a href="http://en.wikipedia.org/wiki/Computer_stereo_vision">stereo vision</a>.
@@ -66,33 +65,29 @@ public class Stereo {
         final Image result = new Image(left.getWidth() - windowSize.getWidth() + 1,
                 left.getHeight() - windowSize.getHeight() + 1, 1);
 
-        Parallel.pixels(result, new PixelsLoop() {
+        Parallel.pixels(result, (x, y, worker) -> {
+            double minColor = Double.MAX_VALUE;
+            double minDist = Double.MAX_VALUE;
 
-            @Override
-            public void execute(final int x, final int y, final int worker) {
-                double minColor = Double.MAX_VALUE;
-                double minDist = Double.MAX_VALUE;
+            final Color leftColor = new Color(left.getNumOfChannels());
+            left.get(x + widthShift, y + heightShift, leftColor);
+            for (int cx = 0; cx < windowSize.getWidth(); ++cx) {
+                for (int cy = 0; cy < windowSize.getHeight(); ++cy) {
+                    final int rx = x + cx;
+                    final int ry = y + cy;
 
-                final Color leftColor = new Color(left.getNumOfChannels());
-                left.get(x + widthShift, y + heightShift, leftColor);
-                for (int cx = 0; cx < windowSize.getWidth(); ++cx) {
-                    for (int cy = 0; cy < windowSize.getHeight(); ++cy) {
-                        final int rx = x + cx;
-                        final int ry = y + cy;
+                    final Color rightColor = new Color(right.getNumOfChannels());
+                    right.get(rx, ry, rightColor);
 
-                        final Color rightColor = new Color(right.getNumOfChannels());
-                        right.get(rx, ry, rightColor);
-
-                        final double distColor = leftColor.euclidDist(rightColor);
-                        if (distColor < minColor) {
-                            minColor = distColor;
-                            minDist = Math.sqrt((rx - x) * (rx - x) + (ry - y) * (ry - y));
-                        }
+                    final double distColor = leftColor.euclidDist(rightColor);
+                    if (distColor < minColor) {
+                        minColor = distColor;
+                        minDist = Math.sqrt((rx - x) * (rx - x) + (ry - y) * (ry - y));
                     }
                 }
-
-                result.set(x, y, 0, JCV.round((1.0 - minDist / maxDist) * Color.MAX_VALUE));
             }
+
+            result.set(x, y, 0, JCV.round((1.0 - minDist / maxDist) * Color.MAX_VALUE));
         });
 
         return result;

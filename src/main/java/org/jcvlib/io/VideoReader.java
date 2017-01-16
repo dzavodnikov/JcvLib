@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017 JcvLib Team
+ * Copyright (c) 2017 JcvLib Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,20 +32,20 @@ public interface VideoReader {
     /**
      * Open stream for reading video.
      */
-    public void open() throws IOException;
+    void open() throws IOException;
 
     /**
      * Check if current stream is opened.
      */
-    public boolean isOpen();
+    boolean isOpen();
 
     /**
      * Return image from video stream.
      */
-    public Image getImage() throws IOException;
+    Image getImage() throws IOException;
 
     /**
      * Close stream and stop reading data from it.
      */
-    public void close();
+    void close();
 }
