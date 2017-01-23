@@ -47,6 +47,7 @@ dependencies {
     compile     'org.slf4j:slf4j-api:1.+'
     compile     'org.slf4j:slf4j-simple:1.+'
     compile     'xuggle:xuggle-xuggler:5.5' // Not support '+' symbol!
+
     testCompile 'junit:junit:4.+'
 }
 
