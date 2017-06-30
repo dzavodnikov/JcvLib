@@ -51,7 +51,7 @@ public class Color {
          */
         if (numOfChannels <= 0) {
             throw new IllegalArgumentException(
-                    String.format("{0} value (= {1}) must be more than 0!", int.class.getName(), numOfChannels));
+                    String.format("\"%s\" value (= %d) must be more than 0!", "numOfChannels", numOfChannels));
         }
 
         /*
@@ -79,7 +79,7 @@ public class Color {
         JCV.verifyIsNotNull(colorValues);
         if (colorValues.length == 0) {
             throw new IllegalArgumentException(
-                    MessageFormat.format("{0} value have no elements!", int[].class.getName()));
+                    String.format("\"%s\" value have no elements!", "colorValues[]"));
         }
 
         /*
@@ -115,7 +115,7 @@ public class Color {
             return this.color[channel];
         } catch (final ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException(MessageFormat
-                    .format("Value of \"channel\" (= {0}) must in interval 0..{1}!", channel, getNumOfChannels() - 1));
+                    .format("Value of \"%s\" (= %d) must in interval 0..%d!", "channel", channel, getNumOfChannels() - 1));
         }
     }
 
@@ -132,8 +132,8 @@ public class Color {
         try {
             this.color[channel] = value;
         } catch (final ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException(String.format("Value of \"channel\" (= %s) must in interval 0..%s!",
-                    channel, getNumOfChannels() - 1));
+            throw new IllegalArgumentException(String.format("Value of \"%s\" (= %s) must in interval 0..%s!",
+                    "channel", channel, getNumOfChannels() - 1));
         }
     }
 

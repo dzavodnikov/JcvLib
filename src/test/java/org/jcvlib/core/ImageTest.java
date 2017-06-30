@@ -591,7 +591,7 @@ public class ImageTest extends TestSuite {
         Assert.assertFalse(image.equals(null));
         Assert.assertFalse(image.equals(image.makeSubImage(10, 10, 10, 10)));
         Assert.assertFalse(image.equals(image.makeLayer(1, 2)));
-        Assert.assertFalse(image.equals(0));
+        Assert.assertFalse(image.equals((Object) 0));
 
         final Image copy = image.makeCopy();
         copy.set(0, 0, 0, 5);

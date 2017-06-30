@@ -123,7 +123,7 @@ public class SizeTest {
         Assert.assertTrue(size1.equals(size1));
         Assert.assertTrue(size1.equals(new Size(1, 2)));
         Assert.assertFalse(size1.equals(null));
-        Assert.assertFalse(size1.equals(0));
+        Assert.assertFalse(size1.equals((Object) 0));
 
         final Size size2 = new Size(2, 2);
         Assert.assertFalse(size1.equals(size2));

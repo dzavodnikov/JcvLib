@@ -89,7 +89,7 @@ public class PointTest {
         Assert.assertTrue(point1.equals(point1));
         Assert.assertTrue(point1.equals(new Point(1, 2)));
         Assert.assertFalse(point1.equals(null));
-        Assert.assertFalse(point1.equals(0));
+        Assert.assertFalse(point1.equals((Object) 0));
 
         final Point point2 = new Point(2, 2);
         Assert.assertFalse(point1.equals(point2));

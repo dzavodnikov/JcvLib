@@ -149,7 +149,7 @@ public class ColorTest {
         final Color color1 = new Color(2, 32);
         Assert.assertTrue(color1.equals(color1));
         Assert.assertTrue(color1.equals(new Color(2, 32)));
-        Assert.assertFalse(color1.equals(1));
+        Assert.assertFalse(color1.equals((Object) 0));
         Assert.assertFalse(color1.equals(null));
 
         final Color color2 = color1.makeCopy();
