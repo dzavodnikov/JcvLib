@@ -1,17 +1,10 @@
 /*
- * Copyright (c) 2017 JcvLib Team
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright (c) 2017 JcvLib Team Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
+ * file except in compliance with the License. You may obtain a copy of the License at
+ * https://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 /*
  * This class is part of Java Computer Vision Library (JcvLib).
@@ -338,14 +331,9 @@ public class ImageTest extends TestSuite {
 
         ImageTest.printImage(image, "Image before any filter applying:");
 
-        /* Anchor in a kernel:
-         *     0 1 2 3 4
-         *   +-----------+
-         * 0 | o o o o o |
-         * 1 | o o o o o |
-         * 2 | o o o x o |
-         * 3 | o o o o o |
-         *   +-----------+
+        /*
+         * Anchor in a kernel: 0 1 2 3 4 +-----------+ 0 | o o o o o | 1 | o o o o o | 2 | o o o x o | 3 | o o o o o |
+         * +-----------+
          */
         final Point anchor = new Point(3, 2);
 
@@ -374,27 +362,14 @@ public class ImageTest extends TestSuite {
         final Image image = new Image(5, 5, 1);
         image.fill(new Color(1, Color.MIN_VALUE));
         /*
-         * A   0 1 2 3 4   B
-         *   +-----------+
-         * 0 | 0 1 0 0 0 |
-         * 1 | 0 0 0 0 0 |
-         * 2 | 0 0 0 0 0 |
-         * 3 | 0 0 0 0 0 |
-         * 4 | 0 0 0 0 0 |
-         *   +-----------+
-         * D               C
+         * A 0 1 2 3 4 B +-----------+ 0 | 0 1 0 0 0 | 1 | 0 0 0 0 0 | 2 | 0 0 0 0 0 | 3 | 0 0 0 0 0 | 4 | 0 0 0 0 0 |
+         * +-----------+ D C
          */
         image.set(1, 0, 0, 1);
         ImageTest.printImage(image, "Image before any filter applying:");
 
         /*
-         *     0 1 2 3 4
-         *   +-----------+
-         * 0 | o o o o o |
-         * 1 | o o o o o |
-         * 2 | o o o x o |
-         * 3 | o o o o o |
-         *   +-----------+
+         * 0 1 2 3 4 +-----------+ 0 | o o o o o | 1 | o o o o o | 2 | o o o x o | 3 | o o o o o | +-----------+
          */
         final Point anchor = new Point(3, 2);
 
@@ -404,15 +379,8 @@ public class ImageTest extends TestSuite {
 
         // Check values.
         /*
-         * A   0 1 2 3 4   B
-         *   +-----------+
-         * 0 | 0 0 0 0 0 |
-         * 1 | 0 0 0 0 0 |
-         * 2 | 0 0 0 0 0 |
-         * 3 | 0 0 0 0 0 |
-         * 4 | 0 0 0 1 0 |
-         *   +-----------+
-         * D               C
+         * A 0 1 2 3 4 B +-----------+ 0 | 0 0 0 0 0 | 1 | 0 0 0 0 0 | 2 | 0 0 0 0 0 | 3 | 0 0 0 0 0 | 4 | 0 0 0 1 0 |
+         * +-----------+ D C
          */
         ImageTest.printImage(result, "Image after nonlinear filter applying:");
 
@@ -591,7 +559,7 @@ public class ImageTest extends TestSuite {
         Assert.assertFalse(image.equals(null));
         Assert.assertFalse(image.equals(image.makeSubImage(10, 10, 10, 10)));
         Assert.assertFalse(image.equals(image.makeLayer(1, 2)));
-        Assert.assertFalse(image.equals((Object) 0));
+        Assert.assertFalse(image.equals(Object.class.cast(1)));
 
         final Image copy = image.makeCopy();
         copy.set(0, 0, 0, 5);

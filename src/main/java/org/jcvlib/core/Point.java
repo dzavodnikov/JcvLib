@@ -77,6 +77,15 @@ public class Point {
     public Point makeCopy() {
         return new Point(this);
     }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = (prime * result) + this.x;
+        result = (prime * result) + this.y;
+        return result;
+    }
 
     /**
      * Return <code>true</code> if current point equivalent to object from parameter and <code>false</code> otherwise.

@@ -82,6 +82,17 @@ public class PointQueue {
     public PointQueue makeCopy() {
         return new PointQueue(this.x, this.y);
     }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        for (int i = 0; i < this.x.length; ++i) {
+            result = (prime * result) + this.x[i];
+            result = (prime * result) + this.y[i];
+        }
+        return result;
+    }
 
     /**
      * Return <code>true</code> if current point equivalent to object from parameter and <code>false</code> otherwise.

@@ -664,6 +664,20 @@ public class Image {
     public Image makeChannel(final int numChannel) {
         return makeLayer(numChannel, 1);
     }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        for (int x = 0; x < getWidth(); ++x) {
+            for (int y = 0; y < getHeight(); ++y) {
+                for (int channel = 0; channel < getNumOfChannels(); ++channel) {
+                    result = (prime * result) + get(x, y, channel);
+                }
+            }
+        }
+        return result;
+    }
 
     /**
      * Return <code>true</code> if current image equivalent to object from parameter and <code>false</code> otherwise.

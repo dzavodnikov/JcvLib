@@ -169,6 +169,16 @@ public class Color {
 
         return Math.sqrt(result) / Math.sqrt(getNumOfChannels());
     }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        for (int c : color) {
+            result = (prime * result) + c;
+        }
+        return result;
+    }
 
     /**
      * Return <code>true</code> if current color equivalent to object from parameter and <code>false</code> otherwise.
