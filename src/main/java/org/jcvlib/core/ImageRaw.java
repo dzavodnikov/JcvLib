@@ -23,4 +23,37 @@ package org.jcvlib.core;
  */
 public class ImageRaw implements Image {
 
+    public ImageRaw(final int width, final int height, final int numOfChannels) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public int getNumOfChannels() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int getWidth() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int getHeight() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public double getUnsafe(final int x, final int y, final int channel) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public double get(final int x, final int y, final int channel) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

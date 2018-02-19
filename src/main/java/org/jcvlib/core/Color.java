@@ -23,4 +23,9 @@ package org.jcvlib.core;
  */
 public interface Color {
 
+    int getNumOfChannels();
+
+    double getUnsafe(int numOfChannel);
+
+    double get(int numOfChannel);
 }

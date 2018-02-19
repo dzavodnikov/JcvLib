@@ -21,15 +21,36 @@ package org.jcvlib.core;
 /**
  * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
-public interface Image {
+public class ColorProxyImage implements Color {
 
-    int getNumOfChannels();
+    private final Image image;
 
-    int getWidth();
+    private final int x;
 
-    int getHeight();
+    private final int y;
 
-    double getUnsafe(int x, int y, int channel);
+    public ColorProxyImage(final Image image, final int x, final int y) {
+        // TODO: Verify.
+        this.image = image;
+        // TODO: Verify.
+        this.x = x;
+        // TODO: Verify.
+        this.y = y;
+    }
 
-    double get(int x, int y, int channel);
+    @Override
+    public int getNumOfChannels() {
+        return this.image.getNumOfChannels();
+    }
+
+    @Override
+    public double getUnsafe(final int channel) {
+        return this.image.getUnsafe(this.x, this.y, channel);
+    }
+
+    @Override
+    public double get(final int channel) {
+        // TODO: Verify.
+        return getUnsafe(channel);
+    }
 }

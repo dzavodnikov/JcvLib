@@ -16,20 +16,10 @@
 /*
  * This class is part of Java Computer Vision Library (JcvLib).
  */
-package org.jcvlib.core;
+package org.jcvlib.core.utils;
 
 /**
  * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
-public interface Image {
-
-    int getNumOfChannels();
-
-    int getWidth();
-
-    int getHeight();
-
-    double getUnsafe(int x, int y, int channel);
-
-    double get(int x, int y, int channel);
+public class Checkers {
 }

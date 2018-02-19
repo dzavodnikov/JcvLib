@@ -21,28 +21,40 @@ package org.jcvlib.core;
 /**
  * @author Dmitry Zavodnikov (d.zavodnikov@gmail.com)
  */
-public class ColorRaw implements Color {
+public class ImageProxyImage implements Image {
 
-    private final double[] colors;
-
-    public ColorRaw(final int numOfChannels) {
-        // TODO: Verify.
-        this.colors = new double[numOfChannels];
+    public ImageProxyImage(final Image image, final int x, final int y, final int width, final int height,
+            final int channelStart, final int numOfChannels) {
+        // TODO Auto-generated constructor stub
     }
 
     @Override
     public int getNumOfChannels() {
-        return this.colors.length;
+        // TODO Auto-generated method stub
+        return 0;
     }
 
     @Override
-    public double getUnsafe(final int numOfChannel) {
-        return this.colors[numOfChannel];
+    public int getWidth() {
+        // TODO Auto-generated method stub
+        return 0;
     }
 
     @Override
-    public double get(final int numOfChannel) {
+    public int getHeight() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-        return getUnsafe(numOfChannel);
+    @Override
+    public double getUnsafe(final int x, final int y, final int channel) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public double get(final int x, final int y, final int channel) {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }

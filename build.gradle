@@ -1,7 +1,7 @@
 plugins {
     // See:
-    //      https://github.com/ajoberstar/gradle-git/
-    id 'org.ajoberstar.github-pages' version '1.7.2' // Not support '+' symbol!
+    //      https://github.com/ajoberstar/gradle-git-publish/
+    id 'org.ajoberstar.git-publish' version '0.3.2'
 }
 
 apply plugin: 'java'
@@ -24,7 +24,7 @@ tasks.withType(Javadoc) {
 }
 
 test {
-     maxHeapSize = '512m' // To be compatible with Travis-CI infrastructure.
+    maxHeapSize = '512m' // To be compatible with Travis-CI infrastructure.
 }
 
 repositories {
@@ -34,28 +34,36 @@ repositories {
         name    'JitPack'
         url     'https://jitpack.io/' 
     }
-    maven {
-        name    'Actual Xuggler repo'
-        url     'https://raw.github.com/olivierayache/xuggle-xuggler/repos/'
-    }
 }
 
 dependencies {
-    compile     'gov.nist.math:jama:1.+'
-    compile     'com.github.kerner1000:javapng:2.+'
-    compile     'org.slf4j:slf4j-api:1.+'
-    compile     'org.slf4j:slf4j-simple:1.+'
-    compile     'xuggle:xuggle-xuggler:5.5' // Not support '+' symbol!
-    compile     'com.github.dzavodnikov:JParFor:1.+'
+    // https://mvnrepository.com/artifact/gov.nist.math/jama
+    compile group: 'gov.nist.math', name: 'jama', version: '1.0.3'
 
-    testCompile 'junit:junit:4.+'
+    // https://jitpack.io/#depsypher/pngtastic/pngtastic-1.5
+    compile 'com.github.depsypher:pngtastic:pngtastic-1.5'
+
+    // https://jitpack.io/#dzavodnikov/JParFor/1.1.29
+    compile 'com.github.dzavodnikov:JParFor:1.1.29'
+
+    // https://mvnrepository.com/artifact/junit/junit
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 // See:
-//      https://github.com/ajoberstar/gradle-git/wiki/org.ajoberstar.github-pages/
-githubPages {
-    pages {
-        from javadoc
+//      https://github.com/ajoberstar/gradle-git-publish/
+gitPublish {
+    // Where to publish to (repo must exist).
+    repoUri = 'git@github.com/dzavodnikov/JcvLib.git'
+    // Branch will be created if it doesn't exist.
+    branch = 'gh-pages'
+
+    // What to publish, this is a standard CopySpec.
+    contents {
+        from 'src/pages'
+        from(javadoc) {
+            into 'api'
+        }
     }
 }
 
